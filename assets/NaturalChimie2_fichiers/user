@@ -1,0 +1,5 @@
+
+
+_tid.fillSidePanel("user")('\n<div class="events">\n\n	<div id="shadow"></div>\n	<div class="eventList" id="eventList">\n		\n	</div>\n</div>\n\n<script type="text/javascript">\n//<![CDATA[\n	_tid.updateEvents(0);\n	\n	var e = $("#tid_eventList");\n	var old = 0;\n	e.scrollTop(0);\n	e.scroll(function(event) {\n		var s = e.scrollTop();\n		if( s>0 && old<=0 )\n			$("#tid_shadow").css("box-shadow","0px 1px 0px #BAB7B1, 0px 4px 4px #A5A29A");\n		if( s<=0 )\n			$("#tid_shadow").css("box-shadow","none");\n		old = s;\n	});\n	e.scroll();\n//]]>\n</script>\n');
+
+

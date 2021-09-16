@@ -1,0 +1,786 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html style="" class=" tid_js tid_no-touch tid_draganddrop tid_websockets"><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		
+		<title>(5)  NaturalChimie</title>
+		
+		
+		<link rel="stylesheet" type="text/css" href="NaturalChimie2_fichiers/style.css">
+		<!--[if IE 6]>
+		<link rel="stylesheet" type="text/css" href="/css/ie6.css"/>
+		<![endif]-->
+		<script type="text/javascript" src="NaturalChimie2_fichiers/swfobject.js"></script>
+		<script type="text/javascript" src="NaturalChimie2_fichiers/app.js"></script>
+		<script type="text/javascript" src="NaturalChimie2_fichiers/frame.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="NaturalChimie2_fichiers/bar.css"></head>
+
+	<body class="play tid_ff tid_v92 tid_lang_fr"><div id="tooltip" style="top: -1000px; position: absolute; z-index: 10; left: 365px;" class="fixedLeftTooltip"><div id="tooltipContent"><div class="title">Etincelle</div><div class="tbody"> Le deuxième élément du feu. Valeur : 19683 points. </div></div></div><div id="tid_baseNotice" style="display:none" class=""> <div class="tid_black"></div> <div class="tid_wrapper"><div class="tid_box"> <div class="tid_close"></div> <div class="tid_content"></div> </div></div></div><div id="tid_noticeList" style="display:none" class=""><div class="tid_wrapper"></div></div><div id="tid_bar" class="tid_barWrapper" style="height: 32px; background-color: rgb(38, 42, 53); overflow: visible;">
+<div id="tid_cssCheck"></div>
+<div class="tid_shadow"></div>
+
+
+
+<div class="tid_topBar" style="background-color: black; color:white; height:53px">
+
+	<!-- BAR : LEFT PART -->
+	<span class="tid_left">
+		<a id="tid_openLeft" class="tid_block tid_logo" href="http://twinoid.com/" onclick="_tid.showSidePanel('twinoid'); return false;" title="Twinoid">
+			
+
+			
+				
+				<span class="tid_newsNotif" id="tid_newsNotif">
+					<span class="tid_blink" id="tid_newsBlink"></span>
+					<span class="tid_counter" id="tid_newsCount">5</span>
+					<span class="tid_text">  actualités </span>
+				</span>
+			
+		</a>
+
+		<span class="tid_block tid_separator"></span>
+
+		
+
+		
+	</span>
+	
+	<!-- BAR : RIGHT PART -->
+	<span class="tid_right">
+		
+			<span class="tid_block tid_search">
+				<form action="//twinoid.com/user/goto?host=www.naturalchimie.com" method="POST">
+					<input type="hidden" name="customUrl" value="">
+					
+					<div class="tid_userSearchContainer" style="width: 150.4px; height: 18.4px; float: none;"><img class="tid_loadingSearch" src="NaturalChimie2_fichiers/loading.gif"><div class="tid_search_popup" style="display:none"></div><input type="text" name="tidSearch_name" tid_icon="0" tid_friends="0" class="tid_userSearch tid_parsed tid_defParsed tid_default" tid_default="Chercher un joueur..." style="width: 150px; height: 18.4px; float: none; position: absolute; z-index: 1; padding-left: 0px;" autocomplete="off" value="Chercher un joueur..."><input type="hidden" name="tidSearch" id="undefined"></div>
+				</form>
+			</span>
+
+
+			<span class="tid_block tid_separator"></span>
+
+
+			<a id="tid_openRight" class="tid_block tid_name" href="http://twinoid.com/user/53205" onclick="_tid.showSidePanel('user'); return false;">
+				
+				<span class="tid_userNotif" id="tid_userNotif" style="display:none">
+					<span class="tid_blink" id="tid_notifBlink"></span>
+					<span class="tid_counter" id="tid_userNotifCount">0</span>
+					<span class="tid_text">  notification </span>
+					<img class="tid_mail" src="NaturalChimie2_fichiers/miniMail.png" alt="Mail" title="" style="display:none">
+				</span>
+				<span class="tid_name">Bluebird75</span>
+				<div class="tid_twinoidAvatar tid_default tid_small tid_color6" style="width:20px; height:20px; line-height:20px"><span>Bl</span></div>
+			</a>
+		
+	</span>
+
+	
+
+</div>
+
+
+<!-- EXTENSIONS -->
+<div id="tid_underBar">
+	<!-- Barre Muxxu -->
+	<div class="tid_extension tid_muxxu" id="tid_bar_custom" style="display:none"></div>
+
+	<!-- Language selection -->
+	
+	
+
+	<!-- Quick account creation -->
+	
+
+	<!-- Beta access -->
+	
+
+	<!-- Failsafe-->
+	
+
+	<!-- Mail bounce-->
+	
+
+	<!-- Account deletion -->
+	
+
+</div>
+
+
+
+
+<!-- LEFT SIDEPANEL -->
+<div class="tid_sidePanel" id="tid_sidePanel_twinoid" style="visibility:hidden">
+	<div class="tid_sideHeader">
+		<a class="tid_close" href="#" onclick="_tid.closeLeftPanel(event); return false;"></a>
+		<a class="tid_twinoid" href="http://twinoid.com/" onclick="return _tid.checkCornerClick('twinoid', event);"></a>
+		Twinoid
+	</div>
+
+	<div class="tid_sidePanelContent">...</div>
+</div>
+
+
+<!-- RIGHT SIDEPANEL -->
+<div class="tid_sidePanel" id="tid_sidePanel_user" style="visibility:hidden">
+	<div class="tid_sideHeader">
+		<a class="tid_close" href="#" onclick="_tid.closeRightPanel(event); return false;"></a>
+		<span>Bluebird75</span>
+	</div>
+	
+	<div class="tid_darkSection">
+		<div class="tid_actions">
+			<a href="http://twinoid.com/user/53205">
+				<div class="tid_twinoidAvatar tid_default tid_small tid_color6" style="width:32px; height:32px; line-height:32px"><span>Bl</span></div>
+				<span>Bluebird75</span>
+			</a>
+
+			<a href="http://twinoid.com/tid/nexus" class="tid_nexus">
+				<span class="tid_icon"></span>
+				<span>Nexus</span>
+			</a>
+
+			<a href="http://twinoid.com/user/account" class="tid_optional tid_account">
+				<span class="tid_icon"></span>
+				<span>Réglages</span>
+			</a>
+
+			<a href="#" onclick="_tid.disconnect(); return false" class="tid_optional tid_logout">
+				<span class="tid_icon"></span>
+				<span>Déconnexion</span>
+			</a>
+
+			
+			<a href="http://twinoid.com/discuss" target="_blank" onclick="if( event.which == 2 ) return true; _tid.askDiscuss(); return false" class="tid_mail">
+				<span class="tid_icon"></span>
+				<span>Messages</span>
+			</a>
+			
+
+			<a href="#" target="_blank" onclick="_tid.askContact(); return false" class="tid_optional tid_contacts">
+				<span class="tid_icon"></span>
+				<span>Contacts</span>
+			</a>
+
+			
+
+			<a href="http://twinoid.com/group" class="tid_optional tid_groups">
+				<span class="tid_icon"></span>
+				<span>Groupes</span>
+			</a>
+
+			<a href="http://twinoid.com/user/customizeBar" class="tid_optional tid_shortcuts">
+				<span class="tid_icon"></span>
+				<span>Raccourcis</span>
+			</a>
+
+			<a href="#" onclick="_tid.disconnect(); return false" class="tid_smallViewPort tid_logout">
+				<span class="tid_icon"></span>
+				<span>Déconnexion</span>
+			</a>
+		</div>
+
+		
+		
+
+		<div class="tid_smallActions">
+			<a href="http://twinoid.com/user" onclick="if( event.which == 2 ) return true; _tid.askTitleEdit(); return false">Titre communautaire</a> |
+			<a href="http://twinoid.com/user" onclick="if( event.which == 2 ) return true; _tid.askStatusEdit(); return false">Statut</a>
+
+			
+			
+			
+
+		</div>
+	</div>
+
+
+	<div class="tid_sectionTitle">
+		Notifications
+		<a href="#" onclick="_tid.markEventsRead(); return false;" class="tid_mini">Tout lu</a>
+		<a href="http://twinoid.com/user/events" class="tid_mini">Histo.</a>
+	</div>
+	<div class="tid_sidePanelContent tid_sidePanelScrollable tid_scrollInit" style="height: 483.4px;"></div>
+
+</div>
+
+
+</div>
+	
+	
+	<!--[if IE 6]>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+
+	    <style>
+		.chromeFrameOverlayContent {
+			position: absolute;
+			margin-left: 0px;
+			margin-top: 0px;
+			left: 300px;
+			top: 60px;
+			border: none ;
+			background-color: white;
+			z-index: 2001;
+		}
+			
+		.chromeFrameOverlayContent iframe {
+			width: 455px;
+			height: 275px;
+			border: none;
+		}
+
+		.chromeFrameOverlayCloseBar {
+			height: 1em;
+			padding-right:2px;
+			text-align: right;
+			background-color: #4d4236;
+		}
+
+		.chromeFrameOverlayUnderlay {
+			position: absolute;
+			width: 0%;
+			height: 0%;
+			z-index: 2000;
+		}
+	    </style>
+
+	    <div id="prompt"></div>
+ 
+	    <script>
+	     window.attachEvent("onload", function() {
+	       CFInstall.check({
+		 mode: "overlay",
+		 node: "prompt",
+		 url: "http://www.naturalchimie.com/chfr"
+		 
+	       });
+	     });
+	    </script>
+	<![endif]-->
+
+
+	
+			<div id="clientBox" class="">
+				
+
+
+<script type="text/javascript">
+	//<![CDATA[
+	function _pconf(a) { js.App.pConf() ; } ;	
+	function _majq(a) { js.App.majQ(a) ; } ;
+	function _majc(a, b) { js.App.majC(a, b) ; } ;
+	//]]>
+</script>
+
+
+<div id="beltPlay" class="genBox" style="display : none;">
+	<div class="gTop"></div>
+	<div class="gBody">
+	
+
+	
+
+
+<div class="selector" id="hscroll0" style="left:-2000px;top:-1000px;position:absolute;">
+	<div class="select_top"></div>
+	<div class="select_body" id="bodyScroll0">
+		<div id="chscroll0" class="container">
+			<div id="innerScroll0">
+			</div>
+		</div>
+	</div>
+	<div class="buttonLeft"><a id="asleft0" href="javascript:js.App.movehscroll('0', 0,112);"><span>left</span></a></div>
+	<div class="buttonRight"><a id="asright0" href="javascript:js.App.movehscroll('0', 1,112);"><span>right</span></a></div>
+	<div class="select_bottom"></div>
+</div>
+
+
+		<p>Vous pouvez utiliser les objets magiques de votre ceinture dans 
+cette partie. N'oubliez pas de prendre ceux que vous souhaitez avant de 
+commencer. </p>
+		
+		
+<div id="myBelt">
+
+		<div class="box0">
+		
+			
+				<a class="selectSlot" id="beltSlot0" href="javascript:js.App.updateBelt('beltSlot0', 'beltHide', '0');">
+	 <img src="NaturalChimie2_fichiers/unknown.png" onmouseover="js.Tip.showTip(this,'Cliquez pour ajouter un objet à votre ceinture.',null)" onmouseout="js.Tip.hide()"> 
+</a>
+			
+		
+ 	</div>	
+
+		<div class="box1">
+		
+			<a class="noslot" onmouseover="js.Tip.showTip(this,'Cet emplacement est fermé. Vous pouvez le débloquer en trouvant une nouvelle poche pour votre ceinture.',null)" onmouseout="js.Tip.hide()"></a>
+		
+ 	</div>	
+
+		<div class="box2">
+		
+			<a class="noslot" onmouseover="js.Tip.showTip(this,'Cet emplacement est fermé. Vous pouvez le débloquer en trouvant une nouvelle poche pour votre ceinture.',null)" onmouseout="js.Tip.hide()"></a>
+		
+ 	</div>	
+
+		<div class="box3">
+		
+			<a class="noslot" onmouseover="js.Tip.showTip(this,'Cet emplacement est fermé. Vous pouvez le débloquer en trouvant une nouvelle poche pour votre ceinture.',null)" onmouseout="js.Tip.hide()"></a>
+		
+ 	</div>	
+
+</div>
+
+
+
+<div id="beltHide" style="left:-2000px;top:-1000px;position:absolute;width: 285px;height: 112px;">
+
+	
+	<span><a href="javascript:js.App.putInBelt('delorean0');">
+
+	
+
+	<span class="obj ">
+		
+			
+				<img class="objImg" src="NaturalChimie2_fichiers/delorean0.png" alt="Réglisse de Delorean" onmouseover="js.Tip.showTitledTip(this,'Réglisse de Delorean',' La chaîne de transmutation est inversée pour les 4 prochains coups.',event);" onmouseout="js.Tip.hide();">
+			
+		
+		
+		<span class="objQte"><img alt="1" src="NaturalChimie2_fichiers/1.gif"></span>
+	</span>
+	
+
+	
+	
+	
+
+</a></span>
+
+	
+	<span><a href="javascript:js.App.putInBelt('detartrage');">
+
+	
+
+	<span class="obj ">
+		
+			
+				<img class="objImg" src="NaturalChimie2_fichiers/detartrage.png" alt="Balai de détartrage" onmouseover="js.Tip.showTitledTip(this,'Balai de détartrage',' Détruit les 2 colonnes à gauche et à droite du plateau.',event);" onmouseout="js.Tip.hide();">
+			
+		
+		
+		<span class="objQte"><img alt="4" src="NaturalChimie2_fichiers/4.gif"></span>
+	</span>
+	
+
+	
+	
+	
+
+</a></span>
+
+	
+	<span><a href="javascript:js.App.putInBelt('grenade0');">
+
+	
+
+	<span class="obj ">
+		
+			
+				<img class="objImg" src="NaturalChimie2_fichiers/grenade0.png" alt="Charcleur" onmouseover="js.Tip.showTitledTip(this,'Charcleur',' Détruit l\'élément en dessous de lui.',event);" onmouseout="js.Tip.hide();">
+			
+		
+		
+		<span class="objQte"><img alt="2" src="NaturalChimie2_fichiers/2.gif"></span>
+	</span>
+	
+
+	
+	
+	
+
+</a></span>
+
+	
+	<span><a href="javascript:js.App.putInBelt('protoplop1');">
+
+	
+
+	<span class="obj ">
+		
+			
+				<img class="objImg" src="NaturalChimie2_fichiers/protoplop1.png" alt="Protoplop v2 (tm)" onmouseover="js.Tip.showTitledTip(this,'Protoplop v2 (tm)',' Ajoute une ligne d\'éléments, en évitant les colonnes déjà pleines.',event);" onmouseout="js.Tip.hide();">
+			
+		
+		
+		<span class="objQte"><img alt="1" src="NaturalChimie2_fichiers/1.gif"></span>
+	</span>
+	
+
+	
+	
+	
+
+</a></span>
+
+	
+	<span><a href="javascript:js.App.putInBelt('destroyer3');">
+
+	
+
+	<span class="obj ">
+		
+			
+				<img class="objImg" src="NaturalChimie2_fichiers/destroyer3.png" alt="Crux à vide : Potion violette" onmouseover="js.Tip.showTitledTip(this,'Crux à vide : Potion violette',' L\'élément Potion violette en jeu est détruit en totalité.',event);" onmouseout="js.Tip.hide();">
+			
+		
+		
+		<span class="objQte"><img alt="1" src="NaturalChimie2_fichiers/1.gif"></span>
+	</span>
+	
+
+	
+	
+	
+
+</a></span>
+
+</div>
+
+<div class="clearMe"></div>
+
+		<a class="actionActive" href="javascript:js.App.hideTool() ; js.App.switchDiv('beltPlay', false) ; js.App.switchDiv('play', true) ; js.App.switchDiv('chain', true) ; js.App.switchDiv('quest', true) ;">Je suis prêt pour jouer !</a>
+		
+		
+
+	</div>
+	<div class="gBottom"></div>
+</div>
+
+
+<div id="firstHelp" class="genBox" style="display : none;">
+	<div class="gTop"></div>
+	<div class="gBody">
+		<div style="margin-left:80px;">
+		<h2>C'est votre première partie ? </h2>
+
+		<div class="Helpcontent">
+		
+		
+			<h3>But du jeu</h3>
+			<div class="Hchap">
+				<img class="screen" src="NaturalChimie2_fichiers/help_02.jpg" alt="Transmutation en cours">
+				<div class="Htxt"> 
+				Le but du jeu est de créer les <strong>éléments alchimiques les plus rares</strong> pour faire le meilleur score possible !<br>
+				Pour cela, <strong>assemblez 3 éléments identiques</strong> pour qu'ils se transforment  en un élément de <strong>niveau supérieur.</strong> 
+				</div>
+			</div>
+
+			<div class="clearMe"></div>
+ 		
+			<h3>Apparition des éléments</h3>
+			<div class="Hchap">
+				<img class="screen" src="NaturalChimie2_fichiers/help_03.jpg" alt="Chaîne alchimique">
+				<div class="Htxt"> 
+				La <strong>chaîne alchimique</strong> visible à gauche du jeu montre les 12 éléments, du plus simple au plus rare. <br>
+				Essayez de faire apparaître le 12e élément, la pépite d'or, dans votre partie !
+				</div>
+			</div>
+
+			<div class="clearMe"></div>
+ 		
+			
+ 		
+			<h3>Fin du jeu</h3>
+			<div class="Hchap">
+				<img class="screen" src="NaturalChimie2_fichiers/help_05.jpg" alt="Partie perdue ! :/">
+				<div class="Htxt"> 
+				La partie se termine si vous posez des éléments <strong>au delà de la ligne blanche.</strong>
+				</div>
+			</div>
+			<div class="clearMe"></div>
+
+	
+		</div>
+		</div>
+
+		
+	<a class="actionActive" href="javascript:js.App.switchDiv('firstHelp', false) ; js.App.switchDiv('play', true) ; js.App.switchDiv('chain', true) ; js.App.switchDiv('quest', true) ;">Je suis prêt pour jouer !</a>
+
+	</div>
+	<div class="gBottom"></div>
+</div>
+
+
+
+
+
+
+
+
+<div id="play" class="playBody" style="display : block;">
+	
+	<div class="playClient">
+		<div class="swfClientPlayArea">
+			
+
+	<div id="swf_game" class="swf"><ruffle-embed type="application/x-shockwave-flash" src="http://data.naturalchimie.com/swf/game.swf?v=25" id="game" name="game" bgcolor="#1a1612" quality="high" allowscriptaccess="always" swliveconnect="true" flashvars="d=%5E%3DDU%26u%1D6%28%7BQjJw%0B%5E%0EeR%7B%28%10%0Ap%15%07te%146%0A%3D%1B%2CR%40%5DF%7Bbv%1EaN06Sx%06Wi%1D%0Af%22%0D%24%3DqzOWA.f%0Fa2hnIN%05TBV%08%0D%3A%16Z%7Dhfp%2Aj%25d.%23RlO%7FJQ%3D%20%1F%03gQ%26GD%22NG%5C%40VxUW%1D%0BP%11z%1Bw%3A.Q%26Z6%08Cx%011Ig%27pn%0A%3B3%3B%15%21%5BF%3CwkSH%7D%2F%0E9Zxu5%1Fi%2Bv%27%24%0C%40hDzi_%3CD%0F%05%5B%142%10%0DD%26%13La3%17%3EjUXM%09drv%14C%5EvKFeuMe%09%24%7F%1C1%7C%16%7C6Wn%05%5BWF%3Ay%28%1By%40%3B%03%2C%1C.jh-%1E%22kn%06%0F%12_%070%0FN%22%1F5%3DP%1B%3D%04%04tB%3DH%26%1F%05p%2F%01%3A%01%2F%08%0E%03%15%1A%3D%7FL%5Bt%0E%1C%296%159ivA%141KWHp%3A%3D%13%5C-3oXy%3DT3%25im%28%03%2Fe%2B%21z%09%29%275%0F8T3%0C%12%26%04TA%05%0Dg%07uY%24%60eK-Z%1D%07%25%29Pg%16%2FHz9%20p%5E%24Qs%1BWEE%22%01%15%03t%1DWM%1D%04M%2BT%2A%27fX%7D2XQ%1B%23Y6%138%20%7E1S0%5D2Oz%7Dv%3CwkC_5%27%0EW%0B.OpO%28%0C%3C%25g%09%03%01%0FHqD0%06K%5B%12%150%1A%2B%02o%29%5Ci%28Lc3%10%1C%16Un%09%04R%1C%09%29nxa%7EBoQm%7Cy%0Fm%0AN5_j%19%5CW%40rt%7Bu%27%5BoJ%2C%19%233ifD%20%5D0%0BP%29ZT0%5CM1E%22m%05%16k%0F%5B%21%11%1B%10%3BD.w%2FomF5S%07%28%17%1A%7C%26D%12%25%5B%11x%3AH%7CH%26%1E%07V%402%14%2Fg7%0D%07F0%23Y%08%2B%40%40%7C%1E%1D%2BCg%21%2Bd8TKk2%5B-42P%11%13%5B%0BV%0D%0D%04%07J%10%21w%14%2A9%2BO%21q%3DMmg%1A%113fH%1E%03b%02%26%0FI%1F-OY%03S%29%5EEG%18%25%0E%09%12c%12%26%1D%3E%7DnFVp0-%163j%3BoYnl%24%17.G%20a2dR%036%27W%0EAtuoO%2B%0F%5D%27.VkoD%11%22%1B0%06%1C%04p%175Sc%03gL%1B%3E%10%3B%3A%60U%0E%11%409%21Z%13M%5E%7BF%7Fxt%06.%08%60%2A6%23%2BP%29%3CS%7ET%1A%06%0CC%7F7%05%26%5E%7B1v%0DZc51ClG%22PU%29%0AXoA%15%3AX%3E%29%1A%7B4HrwW.I3Gg%22p%5CuZc%08T%22QR%2A%7FF%07v%10%3Bu3%01%3E%0B%22%1D%12%06__L%2B%7F3%11A%0DcrGl_%24Q%7E%0B6%40%06%2Ffx%20z%09%29%2CiG961%06%5DDt%2AV%7C%0EB%29%1E%14%3F%27%3Em9XG1q%60Mo%16mc0%29%5B%16Us%7B%24PoI%12%18%02%0E%14%3FARG%0D%0E%5E%29I%23v-Y%29%7BwS%10%27%15jH%26%20%7C-%1F3%5C%28%11%2FKv%3Ap%20%15%16wxZC%1C-l3%18r8%2AU-%19xg%1B%0B%3D%1A%18eJ%5BHw1%10j%0Be%11Vw%60LaVNII%15%3E%3Cv%16%5E%40c%19%3E0yWhH1v%02u%3C%24%3Cbpi%10%5CW%07--f1mS2%11-Av3%3DzNwY%22P%233%19%5B%24%07%3A%24O1%3F%5C%3DI%0E%1F7%05%09%5C%253%21d%26t2%03%3F%0D%5E%0EWPf%3F%1F%1Fi%18v%2A_TbQ%18%04%0C%0F%03%5BNpc3tCZ9GL%7B%29%401%09_%3DfV%3B%3A%23dh%14%1Ar%3FVakkYV%17Z%03V%0D%7B%14%1FAE%7F%14%27wv5%28%7Bgd%0Ex%15%0EV%26%3F%5E%1E%08%2F%0C-%2AC%1F%1B%1B%0Bi2Ko&amp;sid=null&amp;n=563&amp;k=wEpUkJ7K&amp;l=null&amp;u=http://www.naturalchimie.com&amp;ud=http://data.naturalchimie.com&amp;ui=1103&amp;sv=1" width="300" height="356"></ruffle-embed></div>
+	<script type="text/javascript">
+	var so = new SWFObject("http://data.naturalchimie.com/swf/game.swf?v=25","game",300,356,8,"#1a1612");
+	so.addParam("AllowScriptAccess","always");
+	so.addParam("swLiveConnect", "true");
+
+	
+		so.addParam("FlashVars","d=%5E%3DDU%26u%1D6%28%7BQjJw%0B%5E%0EeR%7B%28%10%0Ap%15%07te%146%0A%3D%1B%2CR%40%5DF%7Bbv%1EaN06Sx%06Wi%1D%0Af%22%0D%24%3DqzOWA.f%0Fa2hnIN%05TBV%08%0D%3A%16Z%7Dhfp%2Aj%25d.%23RlO%7FJQ%3D%20%1F%03gQ%26GD%22NG%5C%40VxUW%1D%0BP%11z%1Bw%3A.Q%26Z6%08Cx%011Ig%27pn%0A%3B3%3B%15%21%5BF%3CwkSH%7D%2F%0E9Zxu5%1Fi%2Bv%27%24%0C%40hDzi_%3CD%0F%05%5B%142%10%0DD%26%13La3%17%3EjUXM%09drv%14C%5EvKFeuMe%09%24%7F%1C1%7C%16%7C6Wn%05%5BWF%3Ay%28%1By%40%3B%03%2C%1C.jh-%1E%22kn%06%0F%12_%070%0FN%22%1F5%3DP%1B%3D%04%04tB%3DH%26%1F%05p%2F%01%3A%01%2F%08%0E%03%15%1A%3D%7FL%5Bt%0E%1C%296%159ivA%141KWHp%3A%3D%13%5C-3oXy%3DT3%25im%28%03%2Fe%2B%21z%09%29%275%0F8T3%0C%12%26%04TA%05%0Dg%07uY%24%60eK-Z%1D%07%25%29Pg%16%2FHz9%20p%5E%24Qs%1BWEE%22%01%15%03t%1DWM%1D%04M%2BT%2A%27fX%7D2XQ%1B%23Y6%138%20%7E1S0%5D2Oz%7Dv%3CwkC_5%27%0EW%0B.OpO%28%0C%3C%25g%09%03%01%0FHqD0%06K%5B%12%150%1A%2B%02o%29%5Ci%28Lc3%10%1C%16Un%09%04R%1C%09%29nxa%7EBoQm%7Cy%0Fm%0AN5_j%19%5CW%40rt%7Bu%27%5BoJ%2C%19%233ifD%20%5D0%0BP%29ZT0%5CM1E%22m%05%16k%0F%5B%21%11%1B%10%3BD.w%2FomF5S%07%28%17%1A%7C%26D%12%25%5B%11x%3AH%7CH%26%1E%07V%402%14%2Fg7%0D%07F0%23Y%08%2B%40%40%7C%1E%1D%2BCg%21%2Bd8TKk2%5B-42P%11%13%5B%0BV%0D%0D%04%07J%10%21w%14%2A9%2BO%21q%3DMmg%1A%113fH%1E%03b%02%26%0FI%1F-OY%03S%29%5EEG%18%25%0E%09%12c%12%26%1D%3E%7DnFVp0-%163j%3BoYnl%24%17.G%20a2dR%036%27W%0EAtuoO%2B%0F%5D%27.VkoD%11%22%1B0%06%1C%04p%175Sc%03gL%1B%3E%10%3B%3A%60U%0E%11%409%21Z%13M%5E%7BF%7Fxt%06.%08%60%2A6%23%2BP%29%3CS%7ET%1A%06%0CC%7F7%05%26%5E%7B1v%0DZc51ClG%22PU%29%0AXoA%15%3AX%3E%29%1A%7B4HrwW.I3Gg%22p%5CuZc%08T%22QR%2A%7FF%07v%10%3Bu3%01%3E%0B%22%1D%12%06__L%2B%7F3%11A%0DcrGl_%24Q%7E%0B6%40%06%2Ffx%20z%09%29%2CiG961%06%5DDt%2AV%7C%0EB%29%1E%14%3F%27%3Em9XG1q%60Mo%16mc0%29%5B%16Us%7B%24PoI%12%18%02%0E%14%3FARG%0D%0E%5E%29I%23v-Y%29%7BwS%10%27%15jH%26%20%7C-%1F3%5C%28%11%2FKv%3Ap%20%15%16wxZC%1C-l3%18r8%2AU-%19xg%1B%0B%3D%1A%18eJ%5BHw1%10j%0Be%11Vw%60LaVNII%15%3E%3Cv%16%5E%40c%19%3E0yWhH1v%02u%3C%24%3Cbpi%10%5CW%07--f1mS2%11-Av3%3DzNwY%22P%233%19%5B%24%07%3A%24O1%3F%5C%3DI%0E%1F7%05%09%5C%253%21d%26t2%03%3F%0D%5E%0EWPf%3F%1F%1Fi%18v%2A_TbQ%18%04%0C%0F%03%5BNpc3tCZ9GL%7B%29%401%09_%3DfV%3B%3A%23dh%14%1Ar%3FVakkYV%17Z%03V%0D%7B%14%1FAE%7F%14%27wv5%28%7Bgd%0Ex%15%0EV%26%3F%5E%1E%08%2F%0C-%2AC%1F%1B%1B%0Bi2Ko&amp;sid=null&amp;n=563&amp;k=wEpUkJ7K&amp;l=null&amp;u=http://www.naturalchimie.com&amp;ud=http://data.naturalchimie.com&amp;ui=1103&amp;sv=1");
+	
+	so.write("swf_game");
+	</script>
+</div>
+		<div id="quickHelp">
+			<a href="javascript:js.App.switchQuickHelp();" class="clientButton"> <img src="NaturalChimie2_fichiers/help.gif" alt="un peux d'aide ?'"> Aide</a>
+			
+			<a href="javascript:js.App.gameBack('Si vous quittez une partie en cours, elle sera perdue. \nRetourner quand m%C3%AAme sur la carte ?');" class="clientButton"><img src="NaturalChimie2_fichiers/icon_map.gif" alt="un peux d'aide ?'"> Quitter la partie </a>
+	
+		</div>
+	</div>
+	
+	<div class="playNfo">
+
+	
+
+		
+		
+	<div id="shelp" style="display : none ;">
+
+	<p><strong>But du jeu</strong></p>
+	<p class="small">Dans chaque partie, vous avez 12 éléments différents. 
+Assemblez 3 éléments identiques pour les transformer en l'élément 
+suivant (voir la chaîne d'éléments à gauche).</p>
+	<p class="small">Chaque élément vaut plus de points que le précédent. Essayez de créer les éléments les plus rares pour faire des gros scores !</p>
+	
+	<p><strong>Fin de partie</strong></p>
+	<p class="small">La partie se termine si vous posez des éléments au delà de la ligne blanche.</p>
+	
+	<p><strong>Réglage du son</strong></p>
+	<p class="small">Appuyez sur la touche <strong>"P"</strong> pour mettre le jeu en pause et régler les bruitages comme vous le souhaitez. </p>
+	
+	<p><strong>Et qu'est-ce que je gagne ?</strong></p>
+	<p class="small">A la fin de la partie, vous gagnez certains des éléments que vous avez réussi à créer. </p>
+	<p class="small">Plus votre niveau est élevé, plus vous gagnez d'éléments à la fin de vos parties !</p>
+
+		
+		<p class="small"><a href="javascript:js.App.switchQuickHelp();">Fermer</a>&nbsp;<a target="blank" href="http://www.naturalchimie.com/help">Voir l'aide complète</a>
+		</p>
+	</div>
+		
+		
+		
+	</div>
+
+	<div class="playBottom">&nbsp; </div>
+	
+</div>
+
+
+<div id="chain" class="gameChain" style="display: block;">
+	
+	<ul>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_0" src="NaturalChimie2_fichiers/elt0.png" alt="Potion verte" onmouseover="js.Tip.showTitledTip(this,'Potion verte',' Un élément alchimique des plus courants. Valeur : 1 point. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_1" src="NaturalChimie2_fichiers/elt1.png" alt="Potion jaune" onmouseover="js.Tip.showTitledTip(this,'Potion jaune',' Un élément alchimique des plus courants. Valeur : 3 points. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_2" src="NaturalChimie2_fichiers/elt2.png" alt="Potion orange" onmouseover="js.Tip.showTitledTip(this,'Potion orange',' Un élément alchimique des plus courants. Valeur : 9 points. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_3" src="NaturalChimie2_fichiers/elt3.png" alt="Potion violette" onmouseover="js.Tip.showTitledTip(this,'Potion violette',' Un élément alchimique des plus courants. Valeur : 27 points. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_4" src="NaturalChimie2_fichiers/elt4.png" alt="Feuille menthol" onmouseover="js.Tip.showTitledTip(this,'Feuille menthol',' Premier élément alchimique complexe, la Feuille menthol n\'est pas comestible en salade. Valeur : 81 points. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_5" src="NaturalChimie2_fichiers/elt5.png" alt="Foloeil" onmouseover="js.Tip.showTitledTip(this,'Foloeil',' Nos ancêtres pensaient que croiser le regard d\'un Foloeil portait malheur à leur alchimie. On a prouvé depuis que c\'était n\'importe quoi. Valeur : 243 points. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_6" src="NaturalChimie2_fichiers/elt6.png" alt="Cranos" onmouseover="js.Tip.showTitledTip(this,'Cranos',' Elément alchimique le plus macabre, le Cranos peut faire tourner de l\'oeil les alchimistes les plus sensibles quand il apparaît. Valeur : 729 points. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_7" src="NaturalChimie2_fichiers/elt7.png" alt="Flaum" onmouseover="js.Tip.showTitledTip(this,'Flaum',' Dernier élément standard, il est indispensable pour les recettes 100% bio. Valeur : 2187 points. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_8" src="NaturalChimie2_fichiers/elt12.png" alt="Rosée" onmouseover="js.Tip.showTitledTip(this,'Rosée',' Premier élément de l\'eau. Valeur : 6561 points. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_9" src="NaturalChimie2_fichiers/elt17.png" alt="Etincelle" onmouseover="js.Tip.showTitledTip(this,'Etincelle',' Le deuxième élément du feu. Valeur : 19683 points. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					
+					<img class="objImg" id="ch_10" src="NaturalChimie2_fichiers/elt18.png" alt="Pyropâte" onmouseover="js.Tip.showTitledTip(this,'Pyropâte',' Le 3e élément du feu. Valeur : 59049 points. ','fixedLeftTooltip', true);" onmouseout="js.Tip.hide();">					
+				
+				</li>
+		
+				<li>
+				
+					<img src="NaturalChimie2_fichiers/unknown.png" id="ch_11" alt="???" onmouseover="js.Tip.showTip(this,'Vous n\'avez pas encore découvert cet élément.','fixedLeftTooltip', true)" onmouseout="js.Tip.hide()" border="0">
+				
+				</li>
+		
+		
+	</ul>
+
+</div>
+
+	
+
+
+
+
+
+
+
+				<div class="clearMe"></div>
+		</div>
+	
+	<div id="ttool" style="top:-1000px; position:absolute; zIndex: 100;padding:5px;background-color:#675949;" class="">
+	</div>
+	
+	
+	<div id="footer" class="">
+		<div class="footer_container">
+		
+		</div>
+	</div>
+
+
+
+
+
+		
+
+	
+
+
+
+<script type="text/javascript" class="">__tid = {lang:'fr',chk:'45f7ef2aa6940c4f3b6eb892f1daff1a',ver:'397',infos:'oy6:realIdi1103y5:tokeny32:5ce18d8b4874d75ea5dbaa82c050b7f0y6:twinIdi53205g'};</script><script type="text/javascript" src="NaturalChimie2_fichiers/boot.js" class=""></script><div id="tid_bar_down" class="tid_safe_bar_down">
+	
+
+<div class="tid_footer">
+
+	<style type="text/css">
+		#tid_bar_down {
+			font-size		: 9pt;
+		}
+		#tid_bar_down th {
+			text-align		: left;
+		}
+	</style>
+
+	<a class="tid_bigLogo" style="display:none" href="http://twinoid.com/"><img src="NaturalChimie2_fichiers/logo_large.png" alt="Twinoid" title="Twinoid"></a>
+
+	<div class="tid_left">
+		
+
+		<div class="tid_block tid_desc tid_mt">
+			
+			<div class="tid_title"><a href="http://motion-twin.fr/" target="_blank"><img src="NaturalChimie2_fichiers/mtlogo.png" alt="Motion Twin" title="Motion Twin"></a></div>
+			<a href="http://motion-twin.fr/" target="_blank">Motion Twin</a> est un studio indépendant dans lequel on met du café pour que des jeux vidéo en sortent.
+			Notre but dans la vie&nbsp;? Faire des jeux de qualité avec des outils open source&nbsp;!
+
+			<div class="tid_social">
+				<a href="http://facebook.com/motiontwin" target="_blank"> <img src="NaturalChimie2_fichiers/facebook-32.png"> </a>
+				<a href="http://twitter.com/motiontwin" target="_blank"> <img src="NaturalChimie2_fichiers/twitter-32.png"> </a>
+				<a href="https://plus.google.com/116708514657804722871/posts" target="_blank"> <img src="NaturalChimie2_fichiers/gplus-32.png"> </a>
+				<a href="http://motion-twin.fr/press" target="_blank"> <img src="NaturalChimie2_fichiers/contact-32.png"> </a>
+			</div>
+		</div>
+
+		<div class="tid_block tid_desc tid_twinoid">
+			<div class="tid_title"><img src="NaturalChimie2_fichiers/logo_small.png" alt="Twinoid" title="Twinoid"></div>
+			Twinoid est le réseau asocial de Motion Twin. Il vous permet, avec un seul compte, de jouer à tous nos jeux.
+
+			<div class="tid_links">
+				<a href="http://twinoid.com/support/twinoid" target="_blank">Support</a> |
+				<a href="http://twinoid.com/support/cgu" target="_blank">Règlement</a>
+				
+				| <a href="http://twinoid.com/tid/history">Développeurs</a>
+			</div>
+			<div class="tid_server" title="Heure et nom du serveur">11:46 (sur <strong>web1</strong>)</div>
+		</div>
+
+		
+
+
+	</div>
+
+	<div class="tid_right">
+		
+			
+
+			<div class="tid_block tid_links">
+				<div class="tid_title">Autres jeux</div>
+				
+				<ul>
+					<li><a href="https://www.alphabounce.com/?utm_source=twinoid&amp;utm_campaign=passive&amp;utm_medium=internalAd&amp;utm_content=footerOtherGames">AlphaBounce</a></li><li><a href="https://arkadeo.com/?utm_source=twinoid&amp;utm_campaign=passive&amp;utm_medium=internalAd&amp;utm_content=footerOtherGames">Arkadeo</a></li><li><a href="http://hotel.muxxu.com/?utm_source=twinoid&amp;utm_campaign=passive&amp;utm_medium=internalAd&amp;utm_content=footerOtherGames">CroqueMotel</a></li><li><a href="http://mb2.muxxu.com/?utm_source=twinoid&amp;utm_campaign=passive&amp;utm_medium=internalAd&amp;utm_content=footerOtherGames">MotionBall 2</a></li>
+					<li class="tid_all"><a href="http://twinoid.com/fr/jeux">Tous les jeux...</a></li>
+				</ul>
+				
+			</div>
+		
+	</div>
+
+	<div class="tid_clear"></div>
+
+	
+
+</div>
+
+
+</div>
+
+
+<script async="" src="NaturalChimie2_fichiers/view_002" class=""></script><script async="" src="NaturalChimie2_fichiers/view" class=""></script><script async="" src="NaturalChimie2_fichiers/user" class=""></script><form target="tid_discuss" method="post" action="https://twinoid.com/discuss" style="display:none"><input type="hidden" name="host" value="www.naturalchimie.com"><input type="hidden" name="proto" value="http:"><input type="hidden" name="sid" value="2xZxlEOJZXOELuqFmgwIZZzoJPD1KH3c"></form></body></html>

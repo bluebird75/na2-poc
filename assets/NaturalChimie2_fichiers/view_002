@@ -1,0 +1,55 @@
+(function(){
+if( window.location.hostname != 'www.naturalchimie.com' ) return;
+
+
+
+
+
+
+_tid.initBar('\r\n<div id="cssCheck"></div>\r\n<div class="shadow"></div>\r\n\r\n\r\n\r\n<div class="topBar" style="background-color: black; color:white; height:53px">\r\n\r\n	<!-- BAR : LEFT PART -->\r\n	<span class="left">\r\n		<a id="openLeft" class="block logo" href="//twinoid.com" onclick="_tid.showSidePanel(\'twinoid\'); return false;" title="Twinoid">\r\n			\r\n\r\n			\r\n				\r\n				<span class="newsNotif" id="newsNotif">\r\n					<span class="blink" id="newsBlink"></span>\r\n					<span class="counter" id="newsCount">5</span>\r\n					<span class="text">  actualités </span>\r\n				</span>\r\n			\r\n		</a>\r\n\r\n		<span class="block separator"></span>\r\n\r\n		\r\n\r\n		\r\n	</span>\r\n	\r\n	<!-- BAR : RIGHT PART -->\r\n	<span class="right">\r\n		\r\n			<span class="block search">\r\n				<form action="//twinoid.com/user/goto?host=www.naturalchimie.com" method="POST">\r\n					<input type="hidden" name="customUrl" value=""/>\r\n					\r\n					<input type="text" name="tidSearch" tid_icon="0" tid_friends="0" class="userSearch" tid_default="Chercher un joueur..."/>\r\n				</form>\r\n			</span>\r\n\r\n\r\n			<span class="block separator"></span>\r\n\r\n\r\n			<a id="openRight" class="block name" href="//twinoid.com/user/53205" onclick="_tid.showSidePanel(\'user\'); return false;">\r\n				\r\n				<span class="userNotif" id="userNotif" style="display:none">\r\n					<span class="blink" id="notifBlink"></span>\r\n					<span class="counter" id="userNotifCount">0</span>\r\n					<span class="text">  notification </span>\r\n					<img class="mail" src="//data.twinoid.com/img/icons/miniMail.png" alt="Mail" title="" style="display:none"/>\r\n				</span>\r\n				<span class="name">Bluebird75</span>\r\n				<div class="twinoidAvatar default small color6" style="width:20px; height:20px; line-height:20px"><span>Bl</span></div>\r\n			</a>\r\n		\r\n	</span>\r\n\r\n	\r\n\r\n</div>\r\n\r\n\r\n<!-- EXTENSIONS -->\r\n<div id="underBar">\r\n	<!-- Barre Muxxu -->\r\n	<div class="extension muxxu" id="bar_custom" style="display:none"></div>\r\n\r\n	<!-- Language selection -->\r\n	\r\n	\r\n\r\n	<!-- Quick account creation -->\r\n	\r\n\r\n	<!-- Beta access -->\r\n	\r\n\r\n	<!-- Failsafe-->\r\n	\r\n\r\n	<!-- Mail bounce-->\r\n	\r\n\r\n	<!-- Account deletion -->\r\n	\r\n\r\n</div>\r\n\r\n\r\n\r\n\r\n<!-- LEFT SIDEPANEL -->\r\n<div class="sidePanel" id="sidePanel_twinoid" style="visibility:hidden">\r\n	<div class="sideHeader">\r\n		<a class="close" href="#" onclick="_tid.closeLeftPanel(event); return false;"></a>\r\n		<a class="twinoid" href="//twinoid.com" onclick="return _tid.checkCornerClick(\'twinoid\', event);"></a>\r\n		Twinoid\r\n	</div>\r\n\r\n	<div class="sidePanelContent">...</div>\r\n</div>\r\n\r\n\r\n<!-- RIGHT SIDEPANEL -->\r\n<div class="sidePanel" id="sidePanel_user" style="visibility:hidden">\r\n	<div class="sideHeader">\r\n		<a class="close" href="#" onclick="_tid.closeRightPanel(event); return false;"></a>\r\n		<span>Bluebird75</span>\r\n	</div>\r\n	\r\n	<div class="darkSection">\r\n		<div class="actions">\r\n			<a href="//twinoid.com/user/53205">\r\n				<div class="twinoidAvatar default small color6" style="width:32px; height:32px; line-height:32px"><span>Bl</span></div>\r\n				<span>Bluebird75</span>\r\n			</a>\r\n\r\n			<a href="//twinoid.com/tid/nexus" class="nexus">\r\n				<span class="icon"></span>\r\n				<span>Nexus</span>\r\n			</a>\r\n\r\n			<a href="//twinoid.com/user/account" class="optional account">\r\n				<span class="icon"></span>\r\n				<span>Réglages</span>\r\n			</a>\r\n\r\n			<a href="#" onclick="_tid.disconnect(); return false" class="optional logout">\r\n				<span class="icon"></span>\r\n				<span>Déconnexion</span>\r\n			</a>\r\n\r\n			\r\n			<a href="//twinoid.com/discuss" target="_blank" onclick="if( event.which == 2 ) return true; _tid.askDiscuss(); return false" class="mail">\r\n				<span class="icon"></span>\r\n				<span>Messages</span>\r\n			</a>\r\n			\r\n\r\n			<a href="#" target="_blank" onclick="_tid.askContact(); return false" class="optional contacts">\r\n				<span class="icon"></span>\r\n				<span>Contacts</span>\r\n			</a>\r\n\r\n			\r\n\r\n			<a href="//twinoid.com/group" class="optional groups">\r\n				<span class="icon"></span>\r\n				<span>Groupes</span>\r\n			</a>\r\n\r\n			<a href="//twinoid.com/user/customizeBar" class="optional shortcuts">\r\n				<span class="icon"></span>\r\n				<span>Raccourcis</span>\r\n			</a>\r\n\r\n			<a href="#" onclick="_tid.disconnect(); return false" class="smallViewPort logout">\r\n				<span class="icon"></span>\r\n				<span>Déconnexion</span>\r\n			</a>\r\n		</div>\r\n\r\n		\r\n		\r\n\r\n		<div class="smallActions">\r\n			<a href="//twinoid.com/user" onclick="if( event.which == 2 ) return true; _tid.askTitleEdit(); return false">Titre communautaire</a> |\r\n			<a href="//twinoid.com/user" onclick="if( event.which == 2 ) return true; _tid.askStatusEdit(); return false">Statut</a>\r\n\r\n			\r\n			\r\n			\r\n\r\n		</div>\r\n	</div>\r\n\r\n\r\n	<div class="sectionTitle">\r\n		Notifications\r\n		<a href="#" onclick="_tid.markEventsRead(); return false;" class="mini">Tout lu</a>\r\n		<a href="//twinoid.com/user/events" class="mini">Histo.</a>\r\n	</div>\r\n	<div class="sidePanelContent sidePanelScrollable">...</div>\r\n\r\n</div>\r\n\r\n\r\n');
+
+
+
+
+
+
+
+
+
+_tid.initBarDown('\r\n	\r\n\r\n<div class="footer">\r\n\r\n	<style type="text/css">\r\n		#tid_bar_down {\r\n			font-size		: 9pt;\r\n		}\r\n		#tid_bar_down th {\r\n			text-align		: left;\r\n		}\r\n	</style>\r\n\r\n	<a class="bigLogo" style="display:none" href="//twinoid.com"><img src="//data.twinoid.com/img/design/logo_large.png" alt="Twinoid" title="Twinoid"/></a>\r\n\r\n	<div class="left">\r\n		\r\n\r\n		<div class="block desc mt">\r\n			\r\n			<div class="title"><a href="http://motion-twin.fr" target="_blank"><img src="//data.twinoid.com/img/mtlogo.png" alt="Motion Twin" title="Motion Twin"/></a></div>\r\n			<a href="http://motion-twin.fr" target="_blank">Motion Twin</a> est un studio indépendant dans lequel on met du café pour que des jeux vidéo en sortent.\r\n			Notre but dans la vie&nbsp;? Faire des jeux de qualité avec des outils open source&nbsp;!\r\n\r\n			<div class="social">\r\n				<a href="http://facebook.com/motiontwin" target="_blank"> <img src="//data.twinoid.com/img/social/facebook-32.png"/> </a>\r\n				<a href="http://twitter.com/motiontwin" target="_blank"> <img src="//data.twinoid.com/img/social/twitter-32.png"/> </a>\r\n				<a href="https://plus.google.com/116708514657804722871/posts" target="_blank"> <img src="//data.twinoid.com/img/social/gplus-32.png"/> </a>\r\n				<a href="http://motion-twin.fr/press" target="_blank"> <img src="//data.twinoid.com/img/social/contact-32.png"/> </a>\r\n			</div>\r\n		</div>\r\n\r\n		<div class="block desc twinoid">\r\n			<div class="title"><img src="//data.twinoid.com/img/design/logo_small.png" alt="Twinoid" title="Twinoid"/></div>\r\n			Twinoid est le réseau asocial de Motion Twin. Il vous permet, avec un seul compte, de jouer à tous nos jeux.\r\n\r\n			<div class="links">\r\n				<a href="//twinoid.com/support/twinoid" target="_blank">Support</a> |\r\n				<a href="//twinoid.com/support/cgu" target="_blank">Règlement</a>\r\n				\r\n				| <a href="//twinoid.com/tid/history">Développeurs</a>\r\n			</div>\r\n			<div class="server" title="Heure et nom du serveur">11:46 (sur <strong>web1</strong>)</div>\r\n		</div>\r\n\r\n		\r\n\r\n\r\n	</div>\r\n\r\n	<div class="right">\r\n		\r\n			\r\n\r\n			<div class="block links">\r\n				<div class="title">Autres jeux</div>\r\n				\r\n				<ul>\r\n					<li><a href="https://www.alphabounce.com/?utm_source=twinoid&amp;utm_campaign=passive&amp;utm_medium=internalAd&amp;utm_content=footerOtherGames">AlphaBounce</a></li><li><a href="https://arkadeo.com/?utm_source=twinoid&amp;utm_campaign=passive&amp;utm_medium=internalAd&amp;utm_content=footerOtherGames">Arkadeo</a></li><li><a href="http://hotel.muxxu.com/?utm_source=twinoid&amp;utm_campaign=passive&amp;utm_medium=internalAd&amp;utm_content=footerOtherGames">CroqueMotel</a></li><li><a href="http://mb2.muxxu.com/?utm_source=twinoid&amp;utm_campaign=passive&amp;utm_medium=internalAd&amp;utm_content=footerOtherGames">MotionBall 2</a></li>\r\n					<li class="all"><a href="//twinoid.com/fr/jeux">Tous les jeux...</a></li>\r\n				</ul>\r\n				\r\n			</div>\r\n		\r\n	</div>\r\n\r\n	<div class="clear"></div>\r\n\r\n	<script type="text/javascript">\r\n		var tips = $(\'#tid_bar .tid_barTip\');\r\n		tips.each(function() {\r\n			var e = $(\'<span class="barTipBox" style="display:none">?</span>\');\r\n			var t = $(this).attr(\'title\');\r\n			$(this).removeAttr(\'title\');\r\n			e.html(t);\r\n			$(this).prepend(e);\r\n		});\r\n		tips.mouseout(function() {\r\n			$(this).find(\'.tid_barTipBox\').stop(true,true).hide();\r\n		})\r\n		tips.mouseover(function() {\r\n			$(this).find(".tid_barTipBox").stop(true,true).fadeIn(250);\r\n		})\r\n	</script>\r\n\r\n</div>\r\n\r\n\r\n');
+
+
+
+
+	 _tid.setAnalytics('UA-114594-37'); 
+	_tid.setSession('2xZxlEOJZXOELuqFmgwIZZzoJPD1KH3c',53205,true,null,false,false);
+
+
+
+	_tid.setXSTags( [] );
+
+
+
+
+
+
+_tid.onLoad();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+})();
