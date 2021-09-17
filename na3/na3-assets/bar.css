@@ -64,14 +64,12 @@ body .tid_button.tid_off {
 	cursor : no-drop;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
 }
 body .tid_button.tid_off:focus, body .tid_button.tid_off:hover {
 	outline : none;
 }
 body .tid_button.tid_mini {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	padding : 5px;
 	padding-top : 2px;
@@ -132,11 +130,9 @@ body input.tid_button {
 }
 #tid_popup .tid_loadingWrapper .tid_loading {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
 	color : #3b4151;
 	border : none;
 }
@@ -261,7 +257,6 @@ body input.tid_button {
 	background-image : url("/img/design/mask.png");
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
 	z-index : 1007;
 }
 #tid_popup.tid_miniBottom {
@@ -389,7 +384,6 @@ body input.tid_button {
 }
 #tid_simpleViewer .tid_wrapper .tid_container {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	text-align : left;
 }
@@ -428,7 +422,6 @@ body input.tid_button {
 	background-image : url("/img/design/mask.png");
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
 	z-index : 20;
 }
 #tid_bar .tid_adminSubBar {
@@ -460,7 +453,6 @@ body input.tid_button {
 	text-shadow : 0px 1px 2px black;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
 }
 #tid_bar .tid_adminSubBar a, #tid_bar .tid_adminSubBar p, #tid_bar .tid_adminSubBar ul, #tid_bar .tid_adminSubBar li, #tid_bar .tid_adminSubBar dl, #tid_bar .tid_adminSubBar dt, #tid_bar .tid_adminSubBar dd, #tid_bar .tid_adminSubBar img, #tid_bar .tid_adminSubBar input, #tid_bar .tid_adminSubBar textarea, #tid_bar .tid_adminSubBar form, #tid_bar .tid_adminSubBar canvas {
 	max-width : none;
@@ -655,7 +647,6 @@ body input.tid_button {
 #tid_bar .tid_adminSubBar:hover {
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
 }
 #tid_bar .tid_container.tid_v1 {
 	display : none !important;
@@ -911,7 +902,6 @@ body input.tid_button {
 	outline : none;
 	text-shadow : none;
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	vertical-align : middle;
 	height : 32px;
@@ -1163,7 +1153,6 @@ body input.tid_button {
 }
 #tid_bar .tid_topBar .tid_newsNotif, #tid_bar .tid_topBar .tid_userNotif {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	margin-right : 10px;
 	height : auto;
@@ -1217,7 +1206,6 @@ body input.tid_button {
 	padding-left : 40px;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
 }
 #tid_bar .tid_topBar .tid_block.tid_shortcuts .tid_wrapper {
 	font-size : 0pt;
@@ -1227,7 +1215,6 @@ body input.tid_button {
 	font-size : 0pt;
 	line-height : 0pt;
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	height : 20px;
 	vertical-align : middle;
@@ -1237,14 +1224,12 @@ body input.tid_button {
 }
 #tid_bar .tid_topBar .tid_block.tid_shortcuts a {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	vertical-align : middle;
 	padding : 3px 3px;
 	font-size : 10pt;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
 	border-radius : 3px;
 	-moz-border-radius : 3px;
 	-webkit-border-radius : 3px;
@@ -1266,19 +1251,16 @@ body input.tid_button {
 #tid_bar .tid_topBar .tid_block.tid_shortcuts a:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
 	background : #fe7d00;
 }
 #tid_bar .tid_topBar .tid_block.tid_shortcuts:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
 }
 #tid_bar .tid_topBar .tid_block.tid_search form {
 	font-size : 0pt;
 	line-height : 0pt;
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	vertical-align : -3px;
 }
@@ -1317,14 +1299,12 @@ body input.tid_button {
 }
 #tid_bar .tid_topBar .tid_block.tid_name .tid_twinoidAvatar {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	vertical-align : middle;
 	margin-left : 8px;
 }
 #tid_bar .tid_topBar .tid_block.tid_name .tid_name {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	vertical-align : middle;
 	white-space : nowrap;
@@ -1360,14 +1340,12 @@ body input.tid_button {
 #tid_bar .tid_topBar .tid_block.tid_newGame img.tid_siteIcon {
 	width : 30px;
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	vertical-align : top;
 	padding-top : 1px;
 }
 #tid_bar .tid_topBar .tid_block.tid_newGame span.tid_siteName {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	line-height : 32px;
 	color : white;
@@ -1443,7 +1421,6 @@ body input.tid_button {
 }
 #tid_bar .tid_topBar .tid_block.tid_newGame:hover .tid_appLink, #tid_bar .tid_topBar .tid_block.tid_newGame.tid_active .tid_appLink {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 }
 #tid_bar .tid_topBar .tid_newGameMask {
@@ -1478,7 +1455,6 @@ body input.tid_button {
 	box-shadow : 0px 0px 8px #111317;
 	opacity : 0.95;
 	filter : alpha(opacity=95);
-	zoom : 1;
 	border-bottom-left-radius : 2px;
 	-moz-border-radius-bottomleft : 2px;
 	-webkit-border-bottom-left-radius : 2px;
@@ -1488,7 +1464,6 @@ body input.tid_button {
 }
 #tid_bar #tid_underBar .tid_extension .tid_left, #tid_bar #tid_underBar .tid_extension .tid_right {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	vertical-align : middle;
 	text-align : left;
@@ -1532,7 +1507,6 @@ body input.tid_button {
 }
 #tid_bar #tid_underBar .tid_extension.tid_muxxu a.tid_barButton {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	margin : 0px 4px;
 	text-decoration : none;
@@ -1820,7 +1794,6 @@ html.tid_touch #tid_bar .tid_sidePanel .tid_sideHeader a {
 }
 #tid_bar .tid_sidePanel .tid_sideHeader span {
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	max-width : 230px;
 	overflow : hidden;
@@ -1838,7 +1811,6 @@ html.tid_touch #tid_bar .tid_sidePanel .tid_sideHeader a {
 	font-family : Arial, sans-serif !important;
 	float : right;
 	display : inline-block;
-	zoom : 1;
 	*display : inline;
 	margin-left : 3px;
 	margin-top : 12px;
@@ -1852,14 +1824,14 @@ html.tid_touch #tid_bar .tid_sidePanel .tid_sideHeader a {
 	-webkit-border-radius : 3px;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 	color : #fe7d00;
 }
 #tid_bar .tid_sidePanel .tid_sectionTitle a.tid_mini:hover {
 	background-color : #fe7d00;
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 	color : white;
 }
 #tid_bar .tid_sidePanel .tid_sectionTitle .tid_new {
@@ -1894,7 +1866,7 @@ html.tid_no-touch #tid_bar .tid_sidePanel .tid_sideHeader a:hover {
 	background-color : #FFE193 !important;
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 html.tid_no-touch #tid_bar #tid_sidePanel_twinoid {
 	-moz-box-shadow : 8px 0px 16px #111317;
@@ -1939,7 +1911,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	font-style : italic;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_bar #tid_sidePanel_twinoid .tid_quoteOnly {
 	padding : 10px 20px;
@@ -1970,7 +1942,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 }
 #tid_bar #tid_sidePanel_twinoid .tid_games .tid_g {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	position : relative;
 	vertical-align : top;
@@ -1987,7 +1959,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	background-repeat : no-repeat;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 #tid_bar #tid_sidePanel_twinoid .tid_games .tid_g a.tid_forum:hover {
 	background-image : url("/img/icons/forumOver.png");
@@ -2034,7 +2006,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 #tid_bar #tid_sidePanel_twinoid .tid_games .tid_g:hover a.tid_forum {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_bar #tid_sidePanel_twinoid .tid_games .tid_g a.tid_cover:hover img.tid_cover {
 	border-color : #fe7d00;
@@ -2135,7 +2107,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 }
 #tid_bar #tid_sidePanel_user .tid_userInfos .tid_avatar {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 }
@@ -2144,7 +2116,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 }
 #tid_bar #tid_sidePanel_user .tid_userInfos .tid_details {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	width : 195px;
@@ -2174,7 +2146,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 }
 #tid_bar #tid_sidePanel_user .tid_actions a {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : top;
 	width : 64px;
@@ -2209,7 +2181,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 #tid_bar #tid_sidePanel_user .tid_actions a span.tid_icon {
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 #tid_bar #tid_sidePanel_user .tid_actions a.tid_smallViewPort {
 	display : none;
@@ -2230,7 +2202,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 #tid_bar #tid_sidePanel_user .tid_actions a:hover span.tid_icon {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_bar #tid_sidePanel_user .tid_actions a.tid_nexus span.tid_icon {
 	background-image : url("/img/icons/sideBar_nexus.png");
@@ -2319,7 +2291,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 }
 #tid_bar #tid_sidePanel_user .tid_events a.tid_eventItem .tid_eventContent {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	padding-left : 37px;
 	vertical-align : top;
@@ -2352,7 +2324,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	width : 50px;
 	visibility : hidden;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	font-size : 7pt;
 	padding : 1px 6px;
@@ -2370,7 +2342,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 #tid_bar #tid_sidePanel_user .tid_events a.tid_eventItem.tid_read_true {
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 #tid_bar #tid_sidePanel_user .tid_events a.tid_eventItem.tid_read_false {
 	color : white;
@@ -2451,7 +2423,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	}
 	#tid_bar #tid_sidePanel_user .tid_actions a.tid_smallViewPort {
 		display : inline-block;
-		zoom : 1;
+	
 		*display : inline;
 	}
 }
@@ -2472,7 +2444,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 }
 #tid_bar_down .tid_block {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : top;
 	padding : 10px;
@@ -2483,7 +2455,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	background-color : rgba(0,0,0,0.33);
 	background-color : transparent\9;
 	filter : progid:DXImageTransform.Microsoft.gradient(startColorstr=#54000000, endColorstr=#54000000);
-	zoom : 1;
+
 	border-radius : 4px;
 	-moz-border-radius : 4px;
 	-webkit-border-radius : 4px;
@@ -2516,7 +2488,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	font-size : 8pt;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 #tid_bar_down .tid_block.tid_desc.tid_mt .tid_title, #tid_bar_down .tid_block.tid_desc.tid_twinoid .tid_title {
 	padding : 4px 0px;
@@ -2524,7 +2496,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	background-color : rgba(0,0,0,0.5);
 	background-color : transparent\9;
 	filter : progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000, endColorstr=#7F000000);
-	zoom : 1;
+
 	margin-left : -10px;
 	margin-top : -10px;
 	margin-right : -10px;
@@ -2553,7 +2525,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 }
 #tid_bar_down .tid_block.tid_desc.tid_moreMobileGames ul li {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : top;
 	width : 72px;
@@ -2578,7 +2550,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 #tid_bar_down .tid_block.tid_links .tid_title {
 	opacity : 0.4;
 	filter : alpha(opacity=40);
-	zoom : 1;
+
 }
 #tid_bar_down .tid_block.tid_links li.tid_all {
 	margin-top : 10px;
@@ -2722,7 +2694,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	background-color : rgba(220,220,220,0.88);
 	background-color : transparent\9;
 	filter : progid:DXImageTransform.Microsoft.gradient(startColorstr=#E0DCDCDC, endColorstr=#E0DCDCDC);
-	zoom : 1;
+
 	-moz-box-shadow : 0px 0px 4px rgba(0,0,0,0.8);
 	-webkit-box-shadow : 0px 0px 4px rgba(0,0,0,0.8);
 	box-shadow : 0px 0px 4px rgba(0,0,0,0.8);
@@ -2770,7 +2742,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	margin-right : 0px;
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 	z-index : 10;
 	font-family : Arial, sans-serif !important;
 	font-size : 10pt;
@@ -3007,7 +2979,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	outline : none;
 	text-shadow : none;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	padding : 2px;
 	vertical-align : top;
@@ -3024,7 +2996,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 }
 .tid_sharer .tid_url .tid_copy {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : top;
 }
@@ -3036,7 +3008,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 }
 .tid_sharer .tid_services a {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	padding : 4px;
@@ -3071,7 +3043,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 }
 .tid_userSearchContainer {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 .tid_userSearchContainer a.tid_friendsButton {
@@ -3090,7 +3062,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 	border-right : 1px dashed rgba(0,0,0, 0.35);
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 .tid_userSearchContainer a.tid_friendsButton img.tid_down {
 	position : absolute;
@@ -3101,7 +3073,7 @@ html.tid_no-touch #tid_bar #tid_sidePanel_user.tid_open {
 .tid_userSearchContainer a.tid_friendsButton:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 .tid_userSearchContainer a.tid_friendsButton:hover img.tid_down {
 	margin-top : 10px;
@@ -3734,7 +3706,7 @@ table.tid_likeButton tr, table.tid_likeButton td {
 }
 .tid_module .tid_likeButtonCompact .tid_likeSharerWrapper {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 .tid_module .tid_likeButtonCompact .tid_likeSharerWrapper .tid_sharer {
@@ -3742,7 +3714,7 @@ table.tid_likeButton tr, table.tid_likeButton td {
 	z-index : 2;
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 table.tid_likeButton {
 	max-width : none;
@@ -3897,7 +3869,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	margin : 0px;
 	margin-right : 3px;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	width : 24px;
 	height : 24px;
@@ -3912,7 +3884,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_user span.tid_ulaContainer img.tid_ula {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	max-width : 24px;
 	max-height : 24px;
@@ -3983,7 +3955,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_user.tid_userButton {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	padding : 0px !important;
 }
@@ -4534,7 +4506,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	margin : 0px;
 	padding : 0px;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : top;
 	margin-right : 1px;
@@ -4560,7 +4532,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 #tid_userMenu .tid_links .tid_majorLinks span.tid_placeHolder {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-right : 1px;
 	margin-bottom : 1px;
@@ -4582,7 +4554,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	margin : 0px;
 	padding : 0px;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : -3px;
 }
@@ -4598,7 +4570,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 #tid_userMenu .tid_links .tid_tinyLinks a {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	line-height : 8pt;
 	color : #4e5162;
@@ -4749,7 +4721,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	-webkit-border-radius : 3px;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 	border : 1px dashed black;
 	border : 1px dashed rgba(0,0,0, 0.5);
 	border-left : 0px;
@@ -5127,7 +5099,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_userSheet .tid_module {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-left : 5px;
 }
@@ -5196,12 +5168,12 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_userSheet .tid_isContact img.tid_isContactIcon {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 .tid_userSheet .tid_isUnknown img.tid_isUnknownIcon {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 .tid_userSheet .tid_isUnknown .tid_userName {
@@ -5212,7 +5184,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 .tid_userSheet .tid_tiny {
 	border : 1px solid #1d2028;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	padding-bottom : 0px;
@@ -5227,14 +5199,14 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_userSheet .tid_tiny .tid_twinoidAvatar {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	float : none;
 }
 .tid_userSheet .tid_tiny .tid_userName {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	font-size : 10pt;
@@ -5266,7 +5238,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_userSheet .tid_compact div.tid_avatar, .tid_userSheet .tid_compact div.tid_details {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 }
@@ -5321,7 +5293,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	margin-left : 2px;
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 .tid_userSheet .tid_compact .tid_userStatus .tid_arrow.tid_left {
 	margin-top : 4px;
@@ -5349,7 +5321,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 .tid_userSheet .tid_compact:hover table.tid_actions {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 .tid_userSheet .tid_compact:hover .tid_out {
 	display : none;
@@ -5394,7 +5366,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_userSheet .tid_horizontal .tid_asv .tid_age, .tid_userSheet .tid_horizontal .tid_asv .tid_city, .tid_userSheet .tid_horizontal .tid_asv .tid_country {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 .tid_userSheet .tid_horizontal .tid_asv .tid_city, .tid_userSheet .tid_horizontal .tid_asv .tid_country {
@@ -5487,7 +5459,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_userStatus {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 .tid_userStatus .tid_arrow {
@@ -5510,7 +5482,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_userStatus .tid_bubble {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	max-width : 300px;
 	max-height : 120px;
@@ -5607,7 +5579,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_publicContactList a.tid_more {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-top : 5px;
 	margin-bottom : 5px;
@@ -5660,7 +5632,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	margin-top : 2px;
 	opacity : 0.2;
 	filter : alpha(opacity=20);
-	zoom : 1;
+
 	background-image : url("/img/icons/down.png");
 	background-position : top left;
 	border-radius : 10px;
@@ -5672,12 +5644,12 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	background-color : #9f9d9b;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 .tid_twinoidWall .tid_subMenu a.tid_open:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 .tid_twinoidWall .tid_subMenu .tid_content {
 	display : none;
@@ -5696,7 +5668,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_twinoidWall .tid_subMenu .tid_content span {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	color : #868483;
 	font-size : 7pt;
@@ -5708,7 +5680,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 .tid_twinoidWall .tid_subMenu .tid_content a {
 	font-size : 8pt;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 .tid_twinoidWall .tid_subMenu .tid_content a img {
@@ -5779,7 +5751,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 .tid_twinoidWall .tid_wallEvent table tr:hover .tid_subMenu a.tid_open {
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 .tid_twinoidWall .tid_wallEvent table td.tid_avatar {
 	width : 52px;
@@ -5817,7 +5789,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_twinoidWall .tid_wallEvent table td.tid_content .tid_user {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	font-size : 8pt;
 }
@@ -5875,11 +5847,11 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	font-size : 8pt;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 .tid_twinoidWall .tid_wallEvent table td.tid_content .tid_footer .tid_module {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 .tid_twinoidWall .tid_wallEvent table td.tid_content .tid_footer img {
@@ -5891,13 +5863,13 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	padding-right : 6px;
 	opacity : 0.35;
 	filter : alpha(opacity=35);
-	zoom : 1;
+
 }
 .tid_twinoidWall .tid_wallEvent table td.tid_content .tid_footer .tid_commentDisabled {
 	text-decoration : line-through;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 .tid_twinoidWall .tid_wallEvent table td.tid_content .tid_footer .tid_commentCount {
 	font-weight : bold;
@@ -5907,7 +5879,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	font-size : 7pt;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 	margin : 3px 0px;
 	padding : 3px 0px;
 	border-top : 1px solid #C7C5C0;
@@ -5918,7 +5890,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_twinoidWall .tid_wallEvent table td.tid_content .tid_likes a.tid_liker {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-right : 2px;
 	vertical-align : middle;
@@ -5928,7 +5900,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_twinoidWall .tid_wallEvent table td.tid_more a {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	width : 24px;
 	margin-left : 4px;
@@ -5971,7 +5943,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_twinoidWall .tid_wallEvent table.tid_comments a.tid_commentLink {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-top : 10px;
 	font-size : 9pt;
@@ -5998,12 +5970,12 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	visibility : hidden;
 	opacity : 0.4;
 	filter : alpha(opacity=40);
-	zoom : 1;
+
 }
 .tid_twinoidWall .tid_wallEvent table.tid_comments td.tid_content .tid_post a.tid_remove:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 .tid_twinoidWall .tid_wallEvent table.tid_comments td.tid_content .tid_post .tid_user {
 	font-size : 8pt;
@@ -6016,7 +5988,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	margin-bottom : 0px;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 .tid_twinoidWall .tid_wallEvent table.tid_comments td.tid_content .tid_moduleTitle {
 	font-weight : bold;
@@ -6043,7 +6015,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	border : 1px dashed #9f9d9b;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 	padding : 5px;
 	min-height : 30px;
 	margin-bottom : 10px;
@@ -6108,14 +6080,14 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 .tid_twinoidWall .tid_form .tid_options label {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	font-size : 8pt;
 	margin-right : 10px;
 }
 .tid_twinoidWall .tid_form .tid_options label input {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : -2px;
 }
@@ -6153,7 +6125,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 }
 #tid_noticeList .tid_wrapper {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	width : 450px;
 	max-height : 500px;
@@ -6178,7 +6150,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 #tid_noticeList .tid_wrapper .tid_notice .tid_close {
 	visibility : hidden;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	position : absolute;
 	z-index : 1;
@@ -6189,7 +6161,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	background : black;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 	border-radius : 2px;
 	-moz-border-radius : 2px;
 	-webkit-border-radius : 2px;
@@ -6206,7 +6178,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	border-right : 2px solid #feb500;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_noticeList .tid_wrapper .tid_notice .tid_content img {
 	vertical-align : -2px;
@@ -6236,7 +6208,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 #tid_noticeList .tid_wrapper .tid_notice:first-child .tid_content {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_noticeList .tid_wrapper .tid_notice:hover .tid_close {
 	visibility : visible;
@@ -6245,7 +6217,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	background-color : #fe7d00;
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 @media only screen and (max-width:450px)  {
 	#tid_noticeList .tid_wrapper {
@@ -6272,7 +6244,7 @@ table.tid_likeButton:hover td.tid_likeRemove a {
 	background-image : url("/img/design/mask.png");
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 	z-index : 1;
 }
 #tid_baseNotice .tid_wrapper {
@@ -6384,7 +6356,7 @@ input.tid_field {
 	padding : 1px 0px;
 	margin : 0px;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 input.tid_field:focus {
@@ -6704,7 +6676,7 @@ input.tid_field:focus {
 .tid_twinoidAvatar.tid_default span {
 	opacity : 0.3;
 	filter : alpha(opacity=30);
-	zoom : 1;
+
 }
 .tid_twinoidAvatar.tid_default.tid_color0 {
 	background-color : #fe7d00;
@@ -6767,7 +6739,7 @@ input.tid_field:focus {
 }
 .tid_buttonBar {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	padding : 2px;
 	padding-right : 2px;
@@ -6783,7 +6755,7 @@ input.tid_field:focus {
 }
 .tid_buttonBar a {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : bottom;
 	margin-right : -1px;
@@ -6819,7 +6791,7 @@ input.tid_field:focus {
 .tid_buttonBar a.tid_off img {
 	opacity : 0.3;
 	filter : alpha(opacity=30);
-	zoom : 1;
+
 }
 .tid_editorButtons a {
 	padding-left : 4px;
@@ -6945,7 +6917,7 @@ input.tid_field:focus {
 }
 .tid_smileyPanel .tid_smileyPopUp a.tid_fun, .tid_smileyPanel .tid_smileyPopUp a.tid_smiley {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	position : relative;
 	vertical-align : top;
@@ -7103,7 +7075,7 @@ input.tid_field:focus {
 	font-weight : bold;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 .tid_editorContent h2, .tid_editorContent .tid_h2 {
 	text-align : left;
@@ -7112,7 +7084,7 @@ input.tid_field:focus {
 	font-weight : bold;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 .tid_editorContent h3, .tid_editorContent .tid_h3 {
 	text-align : left !important;
@@ -7120,7 +7092,7 @@ input.tid_field:focus {
 	font-size : 14pt;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 .tid_editorContent .tid_module {
 	max-width : none;
@@ -7212,7 +7184,7 @@ input.tid_field:focus {
 }
 .tid_editorContent .tid_grid>div, .tid_editorContent .tid_grid>span {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	box-sizing : border-box;
 	vertical-align : top;
@@ -7286,12 +7258,12 @@ input.tid_field:focus {
 .tid_editorContent em {
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 .tid_editorContent strong {
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 .tid_editorContent span.tid_embedContent {
 	display : block;
@@ -7380,7 +7352,7 @@ input.tid_field:focus {
 	font-size : 90%;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 	border-left : 1px dashed black;
 	border-bottom : 1px dashed black;
 	border-left : 1px dashed rgba(0,0,0, 0.6);
@@ -7555,12 +7527,12 @@ input.tid_field:focus {
 	text-decoration : line-through;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 .tid_editorContent .tid_funTag {
 	height : 16px;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-bottom : 1px;
 	margin-right : 2px;
@@ -7698,7 +7670,7 @@ input.tid_default {
 .tid_pagination div.tid_cur .tid_pageTotal {
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 .tid_pagination div.tid_cur input {
 	width : 30px;
@@ -7772,7 +7744,7 @@ input.tid_default {
 	border : none;
 	opacity : 0.9;
 	filter : alpha(opacity=90);
-	zoom : 1;
+
 	border-radius : 4px;
 	-moz-border-radius : 4px;
 	-webkit-border-radius : 4px;
@@ -7785,7 +7757,7 @@ input.tid_default {
 }
 #tid_forum .tid_forumTag {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	padding-left : 1px;
@@ -7807,7 +7779,7 @@ input.tid_default {
 #tid_forum .tid_forumTag.tid_minor {
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 	background-color : transparent;
 	border-left : 1px solid #1d2028;
 	border-right : 1px solid #1d2028;
@@ -8158,7 +8130,7 @@ input.tid_default {
 #tid_forum .tid_forums .tid_group.tid_twinoid .tid_name {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 	font-size : 13pt;
 }
 #tid_forum .tid_forums .tid_group.tid_twinoidExternal {
@@ -8203,7 +8175,7 @@ input.tid_default {
 }
 #tid_forum .tid_forums a .tid_largeIcon {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-right : 10px;
 	vertical-align : middle;
@@ -8220,7 +8192,7 @@ input.tid_default {
 }
 #tid_forum .tid_forums a .tid_smallIcon {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	padding : 5px 10px;
 	width : 16px;
@@ -8231,7 +8203,7 @@ input.tid_default {
 }
 #tid_forum .tid_forums a .tid_name {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	text-align : left;
@@ -8239,7 +8211,7 @@ input.tid_default {
 	line-height : 11pt;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 	text-shadow : 0px 1px 1px rgba(0,0,0, 0.5);
 }
 #tid_forum .tid_forums a .tid_desc {
@@ -8247,7 +8219,7 @@ input.tid_default {
 	font-size : 7pt;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum .tid_forums a:hover {
 	text-decoration : none;
@@ -8259,7 +8231,7 @@ input.tid_default {
 #tid_forum .tid_forums a:hover .tid_name {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_forum .tid_gameForums {
 	margin-bottom : 15px;
@@ -8282,7 +8254,7 @@ input.tid_default {
 }
 #tid_forum .tid_gameForums .tid_game {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : top;
 	margin-right : 10px;
@@ -8290,7 +8262,7 @@ input.tid_default {
 }
 #tid_forum .tid_gameForums .tid_game a.tid_cover {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	color : #B7B9C6;
@@ -8321,7 +8293,7 @@ input.tid_default {
 }
 #tid_forum .tid_gameForums .tid_game .tid_linksWrapper {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : top;
 }
@@ -8377,7 +8349,7 @@ input.tid_default {
 	text-align : left;
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 	font-variant : small-caps;
 	border-bottom : 1px solid white;
 	border-bottom : 1px solid rgba(255,255,255, 0.3);
@@ -8420,7 +8392,7 @@ input.tid_default {
 	font-weight : bold;
 	opacity : 0.75;
 	filter : alpha(opacity=75);
-	zoom : 1;
+
 }
 #tid_forum .tid_forumList .tid_general .tid_group.tid_global a.tid_forum .tid_name, #tid_forum .tid_forumList .tid_games .tid_group.tid_global a.tid_forum .tid_name {
 	font-weight : normal;
@@ -8434,7 +8406,7 @@ input.tid_default {
 #tid_forum .tid_forumList .tid_general a.tid_forum:hover .tid_name, #tid_forum .tid_forumList .tid_games a.tid_forum:hover .tid_name {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_forum .tid_forumList .tid_general .tid_cover, #tid_forum .tid_forumList .tid_games .tid_cover {
 	font-size : 0pt;
@@ -8463,7 +8435,7 @@ input.tid_default {
 	font-size : 8pt;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum .tid_forumList .tid_general .tid_links a.tid_subForum, #tid_forum .tid_forumList .tid_games .tid_links a.tid_subForum {
 	display : block;
@@ -8474,7 +8446,7 @@ input.tid_default {
 }
 #tid_forum .tid_forumList .tid_general a.tid_more, #tid_forum .tid_forumList .tid_games a.tid_more {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-top : 10px;
 	font-size : 9pt;
@@ -8537,7 +8509,7 @@ input.tid_default {
 	border : 1px dashed black;
 	opacity : 0.3;
 	filter : alpha(opacity=30);
-	zoom : 1;
+
 	border-radius : 8px;
 	-moz-border-radius : 8px;
 	-webkit-border-radius : 8px;
@@ -8555,7 +8527,7 @@ input.tid_default {
 	padding : 0px;
 	opacity : 0.65;
 	filter : alpha(opacity=65);
-	zoom : 1;
+
 	margin-top : 10px;
 	margin-bottom : 15px;
 	padding-left : 25px;
@@ -8600,7 +8572,7 @@ input.tid_default {
 #tid_forum .tid_dashboard .tid_title:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_forum .tid_dashboard .tid_title.tid_collapsed {
 	background-image : url("/img/icons/down_collapsed.png");
@@ -8651,7 +8623,7 @@ input.tid_default {
 #tid_forum .tid_dashboard table.tid_quickThreads tr.tid_read {
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum .tid_dashboard table.tid_quickThreads tr.tid_read td.tid_subject a {
 	font-style : italic;
@@ -8662,7 +8634,7 @@ input.tid_default {
 #tid_forum .tid_dashboard table.tid_quickThreads tr:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_forum .tid_dashboard .tid_help {
 	padding : 10px;
@@ -8671,7 +8643,7 @@ input.tid_default {
 	margin : 20px;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 	font-size : 9pt;
 	text-align : center;
 	border : 1px dashed black;
@@ -8796,7 +8768,7 @@ input.tid_default {
 }
 #tid_forum .tid_siblingForums a {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	text-decoration : underline;
 	font-size : 8pt;
@@ -8832,7 +8804,7 @@ input.tid_default {
 	position : absolute;
 	opacity : 0.3;
 	filter : alpha(opacity=30);
-	zoom : 1;
+
 }
 #tid_forum .tid_forumDesc .tid_quote.tid_start {
 	margin-left : -18px;
@@ -8931,7 +8903,7 @@ input.tid_default {
 	padding-right : 1px;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_thread td.tid_title {
 	vertical-align : middle;
@@ -8961,7 +8933,7 @@ input.tid_default {
 	text-align : right;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_thread td.tid_details .tid_count {
 	font-size : 12pt;
@@ -8973,7 +8945,7 @@ input.tid_default {
 	line-height : 7pt;
 	opacity : 0.9;
 	filter : alpha(opacity=90);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_thread td.tid_author, #tid_forum table.tid_threads tr.tid_thread td.tid_last {
 	vertical-align : middle;
@@ -8981,7 +8953,7 @@ input.tid_default {
 	width : 80px;
 	opacity : 0.65;
 	filter : alpha(opacity=65);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_thread td.tid_count {
 	width : 35px;
@@ -8991,7 +8963,7 @@ input.tid_default {
 	text-align : center;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_thread td.tid_like {
 	text-align : center;
@@ -9001,12 +8973,12 @@ input.tid_default {
 	white-space : nowrap;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_thread td.tid_like span {
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_thread td.tid_like.tid_high {
 	background-color : #fe7d00;
@@ -9017,7 +8989,7 @@ input.tid_default {
 	font-size : 9pt;
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_thread:hover {
 	-moz-box-shadow : inset 0px 0px 2px black;
@@ -9030,7 +9002,7 @@ input.tid_default {
 #tid_forum table.tid_threads tr.tid_unread {
 	opacity : 0.9;
 	filter : alpha(opacity=90);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_unread td {
 	font-weight : bold;
@@ -9041,7 +9013,7 @@ input.tid_default {
 #tid_forum table.tid_threads tr.tid_read {
 	opacity : 0.75;
 	filter : alpha(opacity=75);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_read .tid_newIcon {
 	display : none;
@@ -9055,7 +9027,7 @@ input.tid_default {
 #tid_forum table.tid_threads tr.tid_read td.tid_icon img {
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_read td.tid_title a.tid_subject {
 	font-weight : normal;
@@ -9064,7 +9036,7 @@ input.tid_default {
 #tid_forum table.tid_threads tr.tid_read td.tid_title .tid_tag {
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_read .tid_count {
 	font-style : italic;
@@ -9072,7 +9044,7 @@ input.tid_default {
 #tid_forum table.tid_threads tr.tid_selected {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_selected td.tid_title {
 	-moz-box-shadow : inset 0px 0px 2px black !important;
@@ -9096,7 +9068,7 @@ input.tid_default {
 	background-repeat : repeat;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum table.tid_threads tr.tid_hidden td.tid_details *, #tid_forum table.tid_threads tr.tid_userHidden td.tid_details * {
 	display : none;
@@ -9186,7 +9158,7 @@ input.tid_default {
 }
 #tid_forum .tid_smallLink {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	font-size : 8pt;
 }
@@ -9212,7 +9184,7 @@ input.tid_default {
 }
 #tid_forum .tid_mainBar .tid_stack a, #tid_forum .tid_mainBar .tid_stack .tid_title {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	height : 20px;
 	line-height : 20px;
@@ -9240,7 +9212,7 @@ input.tid_default {
 	font-size : 8pt;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 	text-decoration : underline;
 	background-image : url("/img/design/stackArrow.png");
 	background-repeat : no-repeat;
@@ -9437,7 +9409,7 @@ input.tid_default {
 #tid_forum .tid_mainBar .tid_actionBar {
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 #tid_forum .tid_actionBar {
 	padding : 4px;
@@ -9482,7 +9454,7 @@ input.tid_default {
 #tid_forum .tid_forumThread .tid_headerActions .tid_module {
 	float : left;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : top;
 }
@@ -9630,7 +9602,7 @@ input.tid_default {
 	padding-top : 5px;
 	opacity : 0.4;
 	filter : alpha(opacity=40);
-	zoom : 1;
+
 }
 #tid_forum .tid_post .tid_header .tid_floatBox .tid_tools a {
 	display : block;
@@ -9639,14 +9611,14 @@ input.tid_default {
 #tid_forum .tid_post .tid_header .tid_floatBox .tid_tools:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_forum .tid_post .tid_header .tid_floatBox.tid_extraAvatar {
 	max-width : none;
 }
 #tid_forum .tid_post .tid_header .tid_name {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	font-weight : bold;
 	font-variant : normal;
@@ -9671,7 +9643,7 @@ input.tid_default {
 #tid_forum .tid_post .tid_header .tid_title span {
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum .tid_post .tid_header .tid_title img {
 	vertical-align : -20%;
@@ -9683,7 +9655,7 @@ input.tid_default {
 	font-size : 8pt;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 #tid_forum .tid_post .tid_header .tid_siteExtra {
 	float : right;
@@ -9735,7 +9707,7 @@ input.tid_default {
 	font-size : 8pt;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum .tid_post .tid_body .tid_editNotice img {
 	vertical-align : -4px;
@@ -9751,12 +9723,12 @@ input.tid_default {
 	font-size : 8pt;
 	opacity : 0.3;
 	filter : alpha(opacity=30);
-	zoom : 1;
+
 	text-align : right;
 }
 #tid_forum .tid_post .tid_tools a {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	border-left : 1px solid rgba(0,0,0,0.2);
 	padding-left : 5px;
@@ -9768,7 +9740,7 @@ input.tid_default {
 #tid_forum .tid_post .tid_tools:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_forum .tid_post.tid_focus {
 	margin-bottom : 15px;
@@ -9789,7 +9761,7 @@ input.tid_default {
 #tid_forum .tid_post.tid_emphasize {
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum .tid_post.tid_unread .tid_body {
 	border-left : 2px solid #feb500;
@@ -9799,7 +9771,7 @@ input.tid_default {
 	font-style : italic;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 #tid_forum .tid_modReplacedNotice img {
 	vertical-align : -3px;
@@ -9837,7 +9809,7 @@ input.tid_default {
 	display : none;
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 #tid_forum .tid_post.tid_niceHidden .tid_bg1, #tid_forum .tid_post.tid_userHidden .tid_bg1 {
 	background-color : #bd3d00;
@@ -9861,7 +9833,7 @@ input.tid_default {
 }
 #tid_forum .tid_postForm a.tid_action {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	padding-left : 5px;
 	padding-right : 5px;
@@ -9887,7 +9859,7 @@ input.tid_default {
 #tid_forum .tid_postForm .tid_row label {
 	vertical-align : middle;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	width : 116px;
 	padding-left : 4px;
@@ -9914,7 +9886,7 @@ input.tid_default {
 	font-size : 8pt;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 #tid_forum .tid_postForm .tid_options {
 	padding : 3px 10px;
@@ -9930,7 +9902,7 @@ input.tid_default {
 	font-size : 10pt;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 #tid_forum .tid_postForm .tid_preview .tid_body {
 	min-height : 100px;
@@ -9968,7 +9940,7 @@ input.tid_default {
 	margin : 0px;
 	padding : 0px;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-right : 10px;
 	float : none;
@@ -9982,7 +9954,7 @@ input.tid_default {
 }
 #tid_forum .tid_searchResults form a.tid_cancel {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	font-size : 9pt;
 	margin-left : 10px;
@@ -9998,7 +9970,7 @@ input.tid_default {
 	margin-top : 10px;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 	font-size : 8pt;
 }
 #tid_forum .tid_searchResults form .tid_help a.tid_title {
@@ -10084,21 +10056,21 @@ input.tid_default {
 	box-shadow : 0px -2px 2px black;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 #tid_forum .tid_searchResults .tid_result .tid_extra {
 	margin-top : 5px;
 	font-size : 8pt;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #tid_forum .tid_searchResults .tid_result .tid_extra img {
 	vertical-align : -3px;
 }
 #tid_forum .tid_searchResults .tid_result .tid_jaugeWrapper {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	float : right;
 	font-size : 0pt;
@@ -10592,7 +10564,7 @@ textarea.tid_fileOver {
 	background-color : rgba(200,200,200,0.5);
 	background-color : transparent\9;
 	filter : progid:DXImageTransform.Microsoft.gradient(startColorstr=#7FC8C8C8, endColorstr=#7FC8C8C8);
-	zoom : 1;
+
 	text-align : center;
 	z-index : 1009;
 }
@@ -10622,7 +10594,7 @@ textarea.tid_fileOver {
 .tid_questionModule .tid_questionLine {
 	opacity : 0.85;
 	filter : alpha(opacity=85);
-	zoom : 1;
+
 	padding : 15px;
 	border-bottom : 1px dashed rgba(0,0,0,0.15);
 	color : black;
@@ -10655,7 +10627,7 @@ textarea.tid_fileOver {
 }
 .tid_questionModule .tid_questionLine .tid_questionResults .tid_barBG {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	width : 150px;
@@ -10677,7 +10649,7 @@ textarea.tid_fileOver {
 }
 .tid_questionModule .tid_questionLine .tid_questionResults .tid_value {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	margin-left : 1px;
@@ -10687,7 +10659,7 @@ textarea.tid_fileOver {
 	font-weight : bold;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 .tid_questionModule .tid_questionLine a.tid_bVote {
 	float : right;
@@ -10698,7 +10670,7 @@ textarea.tid_fileOver {
 .tid_questionModule .tid_questionLine:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 .tid_questionModule .tid_questionLine.tid_voted {
 	cursor : default;
@@ -10711,7 +10683,7 @@ textarea.tid_fileOver {
 	padding : 15px 15px;
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 	font-weight : bold;
 	border-top : 1px solid rgba(255,255,255,0.2);
 	-moz-box-shadow : 0px -4px 4px rgba(0,0,0,0.15);
@@ -10982,7 +10954,7 @@ textarea.tid_fileOver {
 }
 .tid_userGoals .tid_userGoals_headerLeft .tid_bgRight a {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : 2px;
 	color : #feb500;
@@ -11044,7 +11016,7 @@ textarea.tid_fileOver {
 }
 .tid_userGoals .tid_allSites a.tid_site {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-right : 3px;
 	margin-bottom : 5px;
@@ -11074,7 +11046,7 @@ textarea.tid_fileOver {
 	font-weight : bold;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 	white-space : nowrap;
 }
 .tid_userGoals .tid_allSites a.tid_site .tid_name {
@@ -11084,7 +11056,7 @@ textarea.tid_fileOver {
 	white-space : nowrap;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 .tid_userGoals .tid_allSites a.tid_site .tid_name img.tid_favicon {
 	vertical-align : -3px;
@@ -11101,12 +11073,12 @@ textarea.tid_fileOver {
 	font-weight : normal;
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 .tid_userGoals .tid_allSites a.tid_site.tid_zero {
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 .tid_userGoals .tid_allSites a.tid_site:hover {
 	text-decoration : none;
@@ -11118,17 +11090,17 @@ textarea.tid_fileOver {
 .tid_userGoals .tid_allSites a.tid_site:hover .tid_name {
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 .tid_userGoals .tid_allSites a.tid_site:hover .tid_score {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 .tid_userGoals .tid_allSites a.tid_site:hover img.tid_favicon {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 .tid_userGoals .tid_goalHelp {
 	padding-top : 0px;
@@ -11138,12 +11110,12 @@ textarea.tid_fileOver {
 }
 .tid_userGoals .tid_goalHelp span.tid_help {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	font-size : 7.5pt;
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 	text-decoration : underline;
 	cursor : help;
 }
@@ -11171,7 +11143,7 @@ textarea.tid_fileOver {
 }
 .tid_userGoals .tid_tabs a {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	padding : 2px 4px;
 	margin-left : 2px;
@@ -11199,7 +11171,7 @@ textarea.tid_fileOver {
 }
 .tid_userGoals .tid_goals .tid_links a {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	padding-left : 5px;
 	margin-left : 5px;
@@ -11225,7 +11197,7 @@ textarea.tid_fileOver {
 }
 .tid_userGoals .tid_goals .tid_top .tid_goal {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 	font-size : 0pt;
@@ -11267,7 +11239,7 @@ textarea.tid_fileOver {
 }
 .tid_userGoals .tid_goals .tid_top .tid_goal .tid_countWrapper .tid_count {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	padding : 2px 4px;
 	font-size : 0pt;
@@ -11302,7 +11274,7 @@ textarea.tid_fileOver {
 	margin-bottom : 5px;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 .tid_userGoals .tid_goals .tid_note {
 	max-width : 250px;
@@ -11310,7 +11282,7 @@ textarea.tid_fileOver {
 	margin-bottom : 5px;
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 	font-size : 9pt;
 	font-style : italic;
 	text-align : left;
@@ -11348,7 +11320,7 @@ textarea.tid_fileOver {
 	font-size : 7pt;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 	font-style : normal;
 }
 .tid_userGoals .tid_goals .tid_reachList table td.tid_kind {
@@ -11358,7 +11330,7 @@ textarea.tid_fileOver {
 	white-space : nowrap;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 .tid_userGoals .tid_goals .tid_reachList table td.tid_value {
 	width : 40px;
@@ -11385,7 +11357,7 @@ textarea.tid_fileOver {
 }
 .tid_userGoals .tid_goals .tid_mode_icons .tid_goal {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	position : relative;
 	width : 32px;
@@ -11453,7 +11425,7 @@ textarea.tid_fileOver {
 	font-size : 8pt;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 	font-weight : normal;
 	font-style : normal;
 	font-family : "Trebuchet ms", arial, sans-serif;
@@ -11461,7 +11433,7 @@ textarea.tid_fileOver {
 .tid_userGoals .tid_goals .tid_block.tid_conso span.tid_count {
 	font-size : 13pt;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	min-width : 30px;
 	text-align : center;
@@ -11471,7 +11443,7 @@ textarea.tid_fileOver {
 	font-style : normal;
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 .tid_userGoals .tid_scrollTrack {
 	position : absolute;
@@ -11528,7 +11500,7 @@ textarea.tid_fileOver {
 	margin : 0px;
 	padding : 0px;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	background-image : url("/img/design/fontBitmap.png");
 	background-repeat : no-repeat;
@@ -11613,7 +11585,7 @@ textarea.tid_fileOver {
 	text-decoration : none;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 	margin : 0px;
 	padding : 12px;
 	font-size : 10pt;
@@ -11623,12 +11595,12 @@ textarea.tid_fileOver {
 #tid_group div.tid_nav .tid_menus ul a:hover {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #tid_group div.tid_nav .tid_menus ul li.tid_active a {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 	font-weight : bold;
 }
 #tid_group div.tid_nav .tid_menus ul li .tid_move {
@@ -11644,13 +11616,13 @@ textarea.tid_fileOver {
 }
 #tid_group div.tid_nav.tid_horizontal .tid_menus ul {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 }
 #tid_group div.tid_nav.tid_horizontal .tid_menus ul li {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 }
@@ -11660,7 +11632,7 @@ textarea.tid_fileOver {
 }
 #tid_group div.tid_nav.tid_horizontal .tid_menus .tid_pubMenu, #tid_group div.tid_nav.tid_horizontal .tid_menus .tid_privMenu {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	vertical-align : middle;
 }
@@ -11678,7 +11650,7 @@ textarea.tid_fileOver {
 	font-size : 8pt;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 	border-top : 1px solid black;
 	border-top : 1px solid rgba(0,0,0, 0.4);
 }
@@ -11784,7 +11756,7 @@ textarea.tid_fileOver {
 	font-weight : bold;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 .tid_story .tid_header .tid_title a {
 	text-decoration : none;
@@ -11794,7 +11766,7 @@ textarea.tid_fileOver {
 	margin-bottom : 6px;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 .tid_story .tid_header .tid_details span.tid_siteName {
 	font-size : 10pt;
@@ -11855,7 +11827,7 @@ textarea.tid_fileOver {
 }
 .tid_story .tid_header .tid_marker {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 .tid_story .tid_header .tid_marker .tid_wrapper {
@@ -11892,7 +11864,7 @@ textarea.tid_fileOver {
 }
 .tid_story .tid_header .tid_marker .tid_wrapper .tid_like {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	margin-left : 5px;
 }
@@ -12118,7 +12090,7 @@ textarea.tid_fileOver {
 	font-weight : bold;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 	background-image : url("/img/icons/down.png") !important;
 	background-position : center center !important;
 	background-repeat : no-repeat !important;
@@ -12179,7 +12151,7 @@ textarea.tid_fileOver {
 	padding-left : 40px;
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 .tid_story .tid_itemMenu .tid_itemMenuContent .tid_followStories.tid_lock {
 	font-size : 8pt;
@@ -12200,17 +12172,17 @@ textarea.tid_fileOver {
 	font-size : 8pt;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 .tid_story .tid_socialLinks .tid_module {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 .tid_story .tid_socialLinks .tid_sep {
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 	font-size : 9pt;
 	padding-left : 4px;
 	padding-right : 4px;
@@ -12260,7 +12232,7 @@ textarea.tid_fileOver {
 .tid_story.tid_mode_nexus.tid_old, .tid_story.tid_mode_compact.tid_old {
 	opacity : 0.65;
 	filter : alpha(opacity=65);
-	zoom : 1;
+
 }
 .tid_story.tid_mode_nexus .tid_header table.tid_tableHeader td.tid_logo, .tid_story.tid_mode_compact .tid_header table.tid_tableHeader td.tid_logo {
 	padding-right : 10px !important;
@@ -12268,7 +12240,7 @@ textarea.tid_fileOver {
 .tid_story.tid_mode_nexus .tid_header .tid_details, .tid_story.tid_mode_compact .tid_header .tid_details {
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 .tid_story.tid_mode_full .tid_storyContent, .tid_story.tid_mode_firstFull .tid_storyContent {
 	margin-top : 30px;

@@ -364,7 +364,7 @@ div.logout a:hover {
 	left : 70px;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 	background : url("/img/skin/sub_menu_fo2.gif") no-repeat top left;
 }
 #sub_menu a:hover {
@@ -392,7 +392,7 @@ div.logout a:hover {
 	left : 40px;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 	background : url("/img/skin/sub_menu_fo2.gif") no-repeat top left;
 }
 #sub_menu.s2 a.forum {
@@ -559,7 +559,7 @@ div.logout a:hover {
 }
 #body #rightPlayMenu ul.schoolAction li a span.iconn {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	text-align : center;
 	padding-right : 5px;
@@ -606,7 +606,7 @@ div.logout a:hover {
 #body #rightPlayMenu ul.mapAction li a.actionInactive div.menuIcon, #body #rightPlayMenu ul.mapAction li a.actionInactive:hover div.menuIcon {
 	opacity : 0.4;
 	filter : alpha(opacity=40);
-	zoom : 1;
+
 }
 #body #rightPlayMenu ul.mapAction li a:hover {
 	color : #E6CFB8;
@@ -680,7 +680,7 @@ div.logout a:hover {
 #body #rightPlayMenu ul.mapAction li.play_off a.actionInactive div.menuIcon, #body #rightPlayMenu ul.mapAction li.play_off a.actionInactive:hover div.menuIcon, #body #rightPlayMenu ul.mapAction li.ice_off a.actionInactive div.menuIcon, #body #rightPlayMenu ul.mapAction li.ice_off a.actionInactive:hover div.menuIcon, #body #rightPlayMenu ul.mapAction li.creuse_off a.actionInactive div.menuIcon, #body #rightPlayMenu ul.mapAction li.creuse_off a.actionInactive:hover div.menuIcon, #body #rightPlayMenu ul.mapAction li.mission_off a.actionInactive div.menuIcon, #body #rightPlayMenu ul.mapAction li.mission_off a.actionInactive:hover div.menuIcon, #body #rightPlayMenu ul.mapAction li.vent_off a.actionInactive div.menuIcon, #body #rightPlayMenu ul.mapAction li.vent_off a.actionInactive:hover div.menuIcon, #body #rightPlayMenu ul.mapAction li.schoolCup_off a.actionInactive div.menuIcon, #body #rightPlayMenu ul.mapAction li.schoolCup_off a.actionInactive:hover div.menuIcon {
 	opacity : 0.4;
 	filter : alpha(opacity=40);
-	zoom : 1;
+
 }
 #body #rightPlayMenu ul.mapAction li.play div.menuIcon, #body #rightPlayMenu ul.mapAction li.play_off div.menuIcon {
 	background : url("/img/skin/icon_play.png") no-repeat top left;
@@ -1428,7 +1428,7 @@ div.ibody span.iObj {
 	width : 60px;
 	height : 60px;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 div.ibody span.iObj a.useIt {
@@ -1632,7 +1632,7 @@ div.selector div.select_body ul.productList li.soldOut {
 div.selector div.select_body ul.productList li.soldOut div.pCOST {
 	opacity : 0.3;
 	filter : alpha(opacity=30);
-	zoom : 1;
+
 }
 div.selector div.buttonLeft, div.selector div.buttonRight {
 	position : absolute;
@@ -1809,7 +1809,7 @@ div.selector div.buttonRight a.off {
 	background-color : #423d35;
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 #body #guildianExpress div.gBody div.article div.nfo span.adate, #body #guildianEdit div.gBody div.article div.nfo span.adate, #body #guildianEditAd div.gBody div.article div.nfo span.adate {
 	position : relative;
@@ -1855,7 +1855,7 @@ div.selector div.buttonRight a.off {
 	background-color : #423d35;
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 #body #guildianExpress div.gCol div.aText, #body #guildianEdit div.gCol div.aText, #body #guildianEditAd div.gCol div.aText {
 	font-size : 11px;
@@ -2673,7 +2673,7 @@ a.blockbutton:hover {
 }
 a.inlinebutton {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 button.small {
@@ -4669,7 +4669,7 @@ a.actionInactiveInline {
 	color : #a9b4c7;
 	border : 1px solid #4d4236;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	line-height : 19px;
 	background : url("/img/skin/boutton_bg2.gif") repeat-x 0px 0px;
@@ -4842,7 +4842,7 @@ a.noslot {
 	background-color : #1a1612;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 .rewardBox div.sitePopup, #validationBox div.sitePopup, #creationBox div.sitePopup, #applyBox div.sitePopup, #jokerBox div.sitePopup, #guGiveBox div.sitePopup, #scGiveBox div.sitePopup, #cancelBox div.sitePopup {
 	position : absolute;
@@ -4948,7 +4948,7 @@ a.noslot {
 	background-color : #1a1612;
 	opacity : 0.7;
 	filter : alpha(opacity=70);
-	zoom : 1;
+
 }
 #notBox div.sitePopup {
 	position : absolute;
@@ -6042,7 +6042,7 @@ div.chestCollector div.chestForm {
 }
 div.chestCollector div.chestForm span.formdesc {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	text-align : right;
 	width : 120px;
@@ -6298,7 +6298,7 @@ div.gimmeThoseThings {
 #body div.classObjectif div.needBar span.objLevel {
 	position : absolute;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	width : 50px;
 	top : 4px;
@@ -6340,7 +6340,7 @@ div.listmeObjective div.thisisaquest {
 	margin-right : 10px;
 	text-align : center;
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 }
 div.listmeObjective div.thisisaquest img.raceCheck {
@@ -6480,7 +6480,7 @@ div.raceSchoolScore {
 }
 div.raceSchoolScore div.raceCol {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	width : 68px;
 	margin : 0px;
@@ -6488,7 +6488,7 @@ div.raceSchoolScore div.raceCol {
 }
 div.raceSchoolScore div.raceCol span.score, div.raceSchoolScore div.raceCol span.scName {
 	display : inline-block;
-	zoom : 1;
+
 	*display : inline;
 	width : 65px;
 	text-align : center;
@@ -6569,13 +6569,13 @@ div.raceSchoolScore .raceRank_4 {
 	background : url("/img/skin/engre_off.png") no-repeat top left;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine div.rslotOff {
 	background : url("/img/skin/engre_step_off.png") no-repeat top left;
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine div.rslotOn {
 	background : url("/img/skin/engre_step_on.png") no-repeat top left;
@@ -6614,70 +6614,70 @@ div.raceSchoolScore .raceRank_4 {
 	background : url("/img/skin/engre_off_0.png") no-repeat top left;
 	opacity : 0.2;
 	filter : alpha(opacity=20);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine td.step1 div.rslotEmptyOffLocked {
 	background : url("/img/skin/engre_off_1.png") no-repeat top left;
 	opacity : 0.2;
 	filter : alpha(opacity=20);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine td.step2 div.rslotEmptyOffLocked {
 	background : url("/img/skin/engre_off_2.png") no-repeat top left;
 	opacity : 0.2;
 	filter : alpha(opacity=20);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine td.step3 div.rslotEmptyOffLocked {
 	background : url("/img/skin/engre_off_3.png") no-repeat top left;
 	opacity : 0.2;
 	filter : alpha(opacity=20);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine td.step0 div.rslotOffLocked {
 	background : url("/img/skin/engre_step_off0.png") no-repeat top left;
 	opacity : 0.2;
 	filter : alpha(opacity=20);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine td.step1 div.rslotOffLocked {
 	background : url("/img/skin/engre_step_off1.png") no-repeat top left;
 	opacity : 0.2;
 	filter : alpha(opacity=20);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine td.step2 div.rslotOffLocked {
 	background : url("/img/skin/engre_step_off2.png") no-repeat top left;
 	opacity : 0.2;
 	filter : alpha(opacity=20);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine td.step3 div.rslotOffLocked {
 	background : url("/img/skin/engre_step_off3.png") no-repeat top left;
 	opacity : 0.2;
 	filter : alpha(opacity=20);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine div.slotlocked {
 	opacity : 0.2;
 	filter : alpha(opacity=20);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine div.slotlocked div {
 	opacity : 0.6;
 	filter : alpha(opacity=60);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine td.step0 div.rslotOff:hover, #RewardTab tr.rLine td.step1 div.rslotOff:hover, #RewardTab tr.rLine td.step2 div.rslotOff:hover, #RewardTab tr.rLine td.step3 div.rslotOff:hover {
 	background : url("/img/skin/engre_step_on.png") no-repeat top left;
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconsa, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconpya, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrepota, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconchra, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconchrb, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconchrc, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrepotb, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconpyb, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrobja, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconpyc, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrobjb, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrec, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconsb, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrepsc1, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrepsc2, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrepsc3, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrepsc4, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrecota, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrava, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconrecotb, #RewardTab tr.rLine td.step0 div.rslotOff:hover div.iconravb, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconsa, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconpya, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrepota, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconchra, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconchrb, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconchrc, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrepotb, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconpyb, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrobja, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconpyc, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrobjb, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrec, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconsb, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrepsc1, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrepsc2, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrepsc3, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrepsc4, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrecota, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrava, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconrecotb, #RewardTab tr.rLine td.step1 div.rslotOff:hover div.iconravb, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconsa, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconpya, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrepota, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconchra, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconchrb, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconchrc, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrepotb, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconpyb, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrobja, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconpyc, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrobjb, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrec, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconsb, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrepsc1, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrepsc2, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrepsc3, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrepsc4, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrecota, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrava, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconrecotb, #RewardTab tr.rLine td.step2 div.rslotOff:hover div.iconravb, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconsa, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconpya, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrepota, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconchra, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconchrb, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconchrc, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrepotb, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconpyb, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrobja, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconpyc, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrobjb, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrec, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconsb, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrepsc1, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrepsc2, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrepsc3, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrepsc4, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrecota, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrava, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconrecotb, #RewardTab tr.rLine td.step3 div.rslotOff:hover div.iconravb {
 	opacity : 1;
 	filter : alpha(opacity=100);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine div.rslotOn div.engre_info, #RewardTab tr.rLine div.rslotOff div.engre_info, #RewardTab tr.rLine div.rslotOffLocked div.engre_info, #RewardTab tr.rLine div.rslotEmptyOffLocked div.engre_info {
 	position : relative;
@@ -6758,7 +6758,7 @@ div.raceSchoolScore .raceRank_4 {
 #RewardTab tr.rLine div.rslotOff div.iconsa, #RewardTab tr.rLine div.rslotOff div.iconpya, #RewardTab tr.rLine div.rslotOff div.iconrepota, #RewardTab tr.rLine div.rslotOff div.iconchra, #RewardTab tr.rLine div.rslotOff div.iconchrb, #RewardTab tr.rLine div.rslotOff div.iconchrc, #RewardTab tr.rLine div.rslotOff div.iconrepotb, #RewardTab tr.rLine div.rslotOff div.iconpyb, #RewardTab tr.rLine div.rslotOff div.iconrobja, #RewardTab tr.rLine div.rslotOff div.iconpyc, #RewardTab tr.rLine div.rslotOff div.iconrobjb, #RewardTab tr.rLine div.rslotOff div.iconrec, #RewardTab tr.rLine div.rslotOff div.iconsb, #RewardTab tr.rLine div.rslotOff div.iconrepsc1, #RewardTab tr.rLine div.rslotOff div.iconrepsc2, #RewardTab tr.rLine div.rslotOff div.iconrepsc3, #RewardTab tr.rLine div.rslotOff div.iconrepsc4, #RewardTab tr.rLine div.rslotOff div.iconrecota, #RewardTab tr.rLine div.rslotOff div.iconrava, #RewardTab tr.rLine div.rslotOff div.iconrecotb, #RewardTab tr.rLine div.rslotOff div.iconravb {
 	opacity : 0.8;
 	filter : alpha(opacity=80);
-	zoom : 1;
+
 }
 #RewardTab tr.rLine div.buttonLess {
 	width : 45px;
@@ -6808,7 +6808,7 @@ div.raceSchoolScore .raceRank_4 {
 .objopacity {
 	opacity : 0.5;
 	filter : alpha(opacity=50);
-	zoom : 1;
+
 }
 .textLeft {
 	text-align : left;
