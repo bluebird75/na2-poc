@@ -9054,7 +9054,6 @@ input.tid_default {
 #tid_forum table.tid_threads tr.tid_selected td * {
 	opacity : 1 !important;
 	filter : alpha(opacity=100) !important;
-	zoom : 1 !important;
 }
 #tid_forum table.tid_threads tr.tid_selected img.tid_selectedIcon {
 	display : block;
@@ -12102,13 +12101,11 @@ textarea.tid_fileOver {
 	box-shadow : 0px 0px 1px black;
 	opacity : 1 !important;
 	filter : alpha(opacity=100) !important;
-	zoom : 1 !important;
 }
 .tid_story .tid_itemMenu a.tid_open.tid_active {
 	display : block !important;
 	opacity : 1 !important;
 	filter : alpha(opacity=100) !important;
-	zoom : 1 !important;
 	background-color : #bd3d00;
 	background-image : url("/img/icons/down_on.png") !important;
 	-moz-box-shadow : 0px 0px 2px black;
