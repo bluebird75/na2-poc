@@ -5,6 +5,8 @@ const SPT_WIDTH = 30
 const SPT_HEIGHT = 30
 const TOP_ROW_Y = 120 - 2.5*SPT_HEIGHT
 const STACK_Y   = 118
+const NB_ROWS = 7
+const NB_COLS = 6
 
 const ALL_ELT_NAMES = [
     'na3-assets/elt0.png',
@@ -21,7 +23,7 @@ const ALL_ELT_NAMES = [
 ]
 
 function na3_run() {
-    console.log("Let's rock baby!") 
+    console.log("Attention, on alchimise ici!!") 
 
     // our main drawing area
     let app = new PIXI.Application({ width: PLAY_WIDTH, height: PLAY_HEIGHT });
@@ -42,7 +44,7 @@ function na3_run() {
     })
 
     // top row
-    for (let x = 0; x < 6; x++) {
+    for (let x = 0; x < NB_COLS; x++) {
         let sp = new PIXI.Sprite(textures[Math.floor(Math.random()*textures.length)]);
         sp.x = x*SPT_WIDTH
         sp.y = TOP_ROW_Y
@@ -50,8 +52,8 @@ function na3_run() {
     }
 
     // content
-    for (let x = 0; x < 6; x++) {
-        for (let y = 0; y < 7; y++) {
+    for (let x = 0; x < NB_COLS; x++) {
+        for (let y = 0; y < NB_ROWS; y++) {
             let sp = new PIXI.Sprite(textures[Math.floor(Math.random()*textures.length)]);
             sp.x = x*SPT_WIDTH
             sp.y = STACK_Y + y*SPT_HEIGHT
