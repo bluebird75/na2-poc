@@ -1,0 +1,6 @@
+{
+	"jshintConfig" : {
+		"browser" : true,
+		"devel" : true
+	}
+}
