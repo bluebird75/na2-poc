@@ -30,6 +30,31 @@ const ALL_ELT_NAMES = [
 const STATE_MOVING = 'STATE_MOVING';
 const STATE_IDLE = 'STATE_IDLE';
 
+let game = { 
+    // current position of our sprite
+    row: 0, 
+    col: 0, 
+
+    // our sprite
+    sp: null, 
+
+    // duration elapsed since the pause start
+    elapsed: 0, 
+
+    // current state of the game: MOVING, PAUSING
+    state: '',
+
+    keypressed: '',
+
+    // target sprite position
+    sp_dest_x: 0,
+    sp_dest_y: 0,
+
+    // our current direction (remomber y <==> row, x <==> col)
+    dir_row: 0,
+    dir_col: 0,
+};
+
 function random_nb(top_limit)
 {
     // return a random number r: 0 <= r < max
@@ -63,13 +88,17 @@ function na3_onkeydown(e)
     }
     e.stopPropagation();
     e.preventDefault();
-    
+
     if (e.repeat) {
         // we are not interested in repeated events
         return;
     }
 
-    console.log('key down: ' + k);
+    if (game.keypressed === '' && game.state === STATE_IDLE) {
+        // we handle events only when game is idle, one by one
+        game.keypressed = k;
+        console.log('key: ' + k);
+    }
 }
 
 export function na3_run() {
@@ -111,66 +140,53 @@ export function na3_run() {
 }
 
 
-let game = { 
-    // current position of our sprite
-    row: 0, 
-    col: 0, 
+// inform the game to move the sprit in the good direction
+function handle_game_key()
+{
+    let dir_dict = {    // row, col
+        'down':    [ 1, 0],
+        'up':      [-1, 0],
+        'left':    [ 0,-1],
+        'right':   [ 0, 1],
+    };
 
-    // our sprite
-    sp: null, 
+    let dir = dir_dict[game.keypressed];
+    let dir_row = dir[0];
+    let dir_col = dir[1];
 
-    // duration elapsed since the pause start
-    elapsed: 0, 
+    // move is handled now
+    game.keypressed = '';
 
-    // current state of the game: MOVING, PAUSING
-    state: '',
+    // check if move is possible
+    if ( ((game.row + dir_row) >= NB_ROWS) ||  
+         ((game.row + dir_row) < 0) ||  
+         ((game.col + dir_col) >= NB_COLS) ||  
+         ((game.col + dir_col) < 0) 
+         ) {
+        // cancel the move
+        return;
+    }
 
-    sp_dest_x: 0,
-    sp_dest_y: 0,
+    game.dir_row = dir_row;
+    game.dir_col = dir_col;
+    game.row += dir_row;
+    game.col += dir_col;
+    game.sp_dest_x = game.sp.x + game.dir_col*SPT_WIDTH;
+    game.sp_dest_y = game.sp.y + game.dir_row*SPT_HEIGHT;
+    game.state = STATE_MOVING;
+}
 
-    dir_row: 0,
-    dir_col: 0,
-};
-
-function game_loop(delta)
+function game_loop()
 {
 
     switch (game.state)
     {
         case STATE_IDLE:
-            game.elapsed += 1/60 * delta;
-            if (game.elapsed < PAUSE_DURATION) {
-                // nothing to do, pause is still running
+            if (game.keypressed === '') {
+                // nothing to do if nothing happens
                 return;
             }
-
-            // pause expired
-            // choose a new direction, horizontal or vertical
-            game.dir_col = random_nb(3) - 1; // generates -1, 0 or 1
-            if (game.dir_col === 0) {
-                // no column move, choose a row move
-                game.dir_row = 1 - random_nb(2)*2; // generates -1 or 1
-            }
-
-            // normalize
-            if (game.row + game.dir_row < 0) {
-                game.dir_row = 1;
-            }
-            if (game.row + game.dir_row >= NB_ROWS) {
-                game.dir_row = -1;
-            }
-            if (game.col + game.dir_col < 0) {
-                game.dir_col = 1;
-            }
-            if (game.col + game.dir_col >= NB_COLS) {
-                game.dir_col = -1;
-            }
-
-            game.row += game.dir_row;
-            game.col += game.dir_col;
-            game.sp_dest_x = game.sp.x + game.dir_col*SPT_WIDTH;
-            game.sp_dest_y = game.sp.y + game.dir_row*SPT_HEIGHT;
-            game.state = STATE_MOVING;
+            handle_game_key();
             break;
 
         case STATE_MOVING:
@@ -194,7 +210,6 @@ function game_loop(delta)
             }
 
             // we have reached our destination, pause a little bit
-            game.elapsed = 0;
             game.state = STATE_IDLE;
 
             // cancel our direction
