@@ -28,12 +28,48 @@ const ALL_ELT_NAMES = [
 ];
 
 const STATE_MOVING = 'STATE_MOVING';
-const STATE_PAUSING = 'STATE_PAUSING';
+const STATE_IDLE = 'STATE_IDLE';
 
 function random_nb(top_limit)
 {
     // return a random number r: 0 <= r < max
     return Math.floor(Math.random()*top_limit);
+}
+
+function na3_onkeydown(e)
+{
+    let k = '';
+    switch (e.key)
+    {
+        case 'ArrowDown':
+        case 'Down':
+            k = 'down';
+            break;
+        case 'ArrowUp':
+        case 'Up':
+            k = 'up';
+            break;
+        case 'ArrowLeft':
+        case 'Left':
+            k = 'left';
+            break;
+        case 'ArrowRight':
+        case 'Right':
+            k = 'right';
+            break;
+        default:
+            // do nothing, let the keyboard event propagate
+            return;
+    }
+    e.stopPropagation();
+    e.preventDefault();
+    
+    if (e.repeat) {
+        // we are not interested in repeated events
+        return;
+    }
+
+    console.log('key down: ' + k);
 }
 
 export function na3_run() {
@@ -43,6 +79,9 @@ export function na3_run() {
     let app = new PIXI.Application({ width: PLAY_WIDTH, height: PLAY_HEIGHT });
     let placeholder = document.getElementById("na3-implem-host");
     placeholder.appendChild(app.view);
+    placeholder.setAttribute('tabindex', '0');
+    placeholder.onkeydown = na3_onkeydown;
+    placeholder.focus();
 
 
     // our background
@@ -61,7 +100,7 @@ export function na3_run() {
     app.stage.addChild(game.sp);
     game.row = random_nb(NB_ROWS);
     game.col = random_nb(NB_COLS);
-    game.state = STATE_PAUSING;
+    game.state = STATE_IDLE;
     game.elapsed = 0;
 
     // init sprite position
@@ -98,8 +137,7 @@ function game_loop(delta)
 
     switch (game.state)
     {
-        case STATE_PAUSING:
-            console.log('pause');
+        case STATE_IDLE:
             game.elapsed += 1/60 * delta;
             if (game.elapsed < PAUSE_DURATION) {
                 // nothing to do, pause is still running
@@ -136,7 +174,6 @@ function game_loop(delta)
             break;
 
         case STATE_MOVING:
-            console.log('moving ' + game.dir_row.toString() + ' ' + game.dir_col.toString());
             game.sp.x += game.dir_col * DELTA_MOVE;
             game.sp.y += game.dir_row * DELTA_MOVE;
             let goal_reached = false;
@@ -158,7 +195,7 @@ function game_loop(delta)
 
             // we have reached our destination, pause a little bit
             game.elapsed = 0;
-            game.state = STATE_PAUSING;
+            game.state = STATE_IDLE;
 
             // cancel our direction
             game.dir_row = 0;
