@@ -142,6 +142,10 @@ export function na3_start() {
         assets.textures.push( PIXI.Texture.from(e) );
     });
 
+    for (let i=0; i<NB_ROWS; i++) {
+        game.board.push( [-1, -1, -1, -1, -1, -1] );
+    }
+
     enter_state(STATE_NEW_ELEM);
 
     assets.app.ticker.add(game_loop);
@@ -222,6 +226,31 @@ function gen_new_element()
 
 /*********************************************************************
  * 
+ *                  Board logic
+ * 
+ *********************************************************************/
+
+/** return the next row available to put an element
+ * 
+ * Uses game.board and game.col for the calculation.
+ * 
+ * -1 means no more rows in the board
+ */
+function column_next_row()
+{
+    let next_row = -1;
+    for (let row=NB_ROWS-1; row>=0; row--) {
+        if (game.board[row][game.col] === -1) {
+            next_row = row;
+            break;
+        }
+    }
+    return next_row;
+}
+
+
+/*********************************************************************
+ * 
  *                  Movement
  * 
  *********************************************************************/
@@ -272,6 +301,9 @@ function handle_moving()
             return;
         }
 
+        if (move.done !== null) {
+            move.done();
+        }
         // we have reached our destination, register this move for deletion
         move_to_remove.push(i);
     }
@@ -400,10 +432,24 @@ function handle_arrow_left_right()
 function handle_arrow_down()
 {
     game.keypressed = '';
+    let done = null;
+    let target_row = column_next_row();
+    if (target_row == -1) {
+        // we have lost !
+        done = () => {
+            alert('you lose!');
+            na3_end();
+        };
+    } else {
+        game.board[target_row][game.col] = game.elt;
+    }
+
+
     game.move_in_progress.push( new Move(
         game.sp, 
         0, NB_ROWS-1, // dir_col, dir_row
-        game.sp.x, BOARD_Y + SPT_WIDTH * (NB_ROWS-1), 0
+        game.sp.x, BOARD_Y + SPT_WIDTH * target_row,
+        done
         )
     );
     
