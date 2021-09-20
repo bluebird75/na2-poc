@@ -1,6 +1,10 @@
 {
 	"jshintConfig" : {
 		"browser" : true,
-		"devel" : true
+		"devel" : true,
+		"latedef": "nofunc",
+		"globals": {
+			"PIXI": true
+		}
 	}
 }

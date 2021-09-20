@@ -4,7 +4,7 @@
     <script defer src="na3-implem.js" type="module"></script>
 	<script type="module">
 		import * as na3 from './na3-implem.js';
-		window.onload = na3.na3_run;
+		window.onload = na3.na3_start;
 	</script>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -82,9 +82,10 @@ commencer. </p>
 		<div id="quickHelp">
 			<a href="javascript:js.App.switchQuickHelp();" class="clientButton"> <img src="na3-assets
 	/help.gif" alt="un peux d'aide ?'"> Aide</a>
+		
 			
-			<a href="javascript:js.App.gameBack('Si vous quittez une partie en cours, elle sera perdue. \nRetourner quand m%C3%AAme sur la carte ?');" class="clientButton"><img src="na3-assets
-	/icon_map.gif" alt="un peux d'aide ?'"> Quitter la partie </a>
+			<a href="javascript:na3.na3_end();" class="clientButton"><img src="na3-assets
+	/icon_map.gif" alt="un peux d'aide ?'"> Stopper la partie </a>
 	
 		</div>
 	</div>
