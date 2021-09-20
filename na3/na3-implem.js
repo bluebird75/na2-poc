@@ -8,7 +8,9 @@ const TOP_ROW_Y = 120 - 2.5*SPT_HEIGHT;
 const BOARD_Y   = 118;
 const NB_ROWS = 7;
 const NB_COLS = 6;
-const DELTA_MOVE = 1;
+const DELTA_MOVE_X = 3;
+const DELTA_MOVE_Y = 5;
+const DEFAULT_COL = 2;
 
 
 const ALL_ELT_NAMES = [
@@ -105,11 +107,29 @@ let assets = {
     textures: [],
 };
 
+/*********************************************************
+ * 
+ *                Utilities
+ * 
+ *********************************************************/
+
 
 /** return a random number r: 0 <= r < top_limit */
 function random_nb(top_limit)
 {
     return Math.floor(Math.random()*top_limit);
+}
+
+function na3_max(v1, v2)
+{
+    if (v1 >= v2) return v1;
+    return v2;
+}
+
+function na3_min(v1, v2)
+{
+    if (v1 <= v2) return v1;
+    return v2;
 }
 
 /*********************************************************
@@ -215,7 +235,7 @@ function gen_new_element()
     game.sp = new PIXI.Sprite(assets.textures[game.elt]);
     assets.app.stage.addChild(game.sp);
 
-    game.col = random_nb(NB_COLS);
+    game.col = DEFAULT_COL;
 
     // init sprite position
     game.sp.x = game.col*SPT_WIDTH;
@@ -255,10 +275,15 @@ function column_next_row()
  * 
  *********************************************************************/
 
-function Move(sprite, dir_col, dir_row, dest_x, dest_y, done = null) {
+/** Create a new move:
+ * sprite: the sprite object to move
+ * dir: 'down', 'left', 'right'
+ * dest_x, dest_y: coordinates of the destination
+ * done: function to call when the move is finished
+ */
+function Move(sprite, dir, dest_x, dest_y, done = null) {
     this.sp = sprite;
-    this.dir_col = dir_col;
-    this.dir_row = dir_row;
+    this.dir = dir;
     this.dest_x = dest_x;
     this.dest_y = dest_y;
     this.done = done;
@@ -272,28 +297,41 @@ function handle_moving()
     for (let i=0; i<game.move_in_progress.length; i++) {
         let move = game.move_in_progress[i];
 
-        move.sp.x += move.dir_col * DELTA_MOVE;
-        move.sp.y += move.dir_row * DELTA_MOVE;
-
         let goal_reached = false;
 
-        // hidden assumption: a sprite can only move on one of dir_row or dir_col
-        // it is not possible here to move on both axis at the same time
+        switch (move.dir) {
+            case 'down':
+                if ((move.dest_y - move.sp.y) > 0) {
+                    move.sp.y = na3_min(move.sp.y + DELTA_MOVE_Y, move.dest_y);
+                    if ((move.dest_y - move.sp.y) === 0) {
+                        // we have reach our goal on the x axis
+                        goal_reached = true;
+                    }
+                }
+                break;
 
-        if (move.dir_col) {
-            if ((move.dest_x - move.sp.x) * move.dir_col <= 0) {
-                // we have reach our goal on the x axis
-                move.sp.x = move.dest_x;
-                goal_reached = true;
-            }
-        }
+            case 'left':
+                if ((move.dest_x - move.sp.x) < 0) {
+                    move.sp.x = na3_max(move.sp.x - DELTA_MOVE_X, move.dest_x);
+                    if ((move.dest_x - move.sp.x) === 0) {
+                        // we have reach our goal on the x axis
+                        goal_reached = true;
+                    }
+                }
+                break;
 
-        else if (move.dir_row) { 
-            if ((move.dest_y - move.sp.y) * move.dir_row <= 0) {
-            // we have reach our goal on the y axis
-            move.sp.y = move.dest_y;
-                goal_reached = true;
-            }
+            case 'right':
+                if ((move.dest_x - move.sp.x) > 0) {
+                    move.sp.x = na3_min(move.sp.x + DELTA_MOVE_X, move.dest_x);
+                    if ((move.dest_x - move.sp.x) === 0) {
+                        // we have reach our goal on the x axis
+                        goal_reached = true;
+                    }
+                }
+                break;
+
+            default:
+                console.error('Unexpected state: ', move.dir);
         }
 
         if (goal_reached === false) {
@@ -304,6 +342,7 @@ function handle_moving()
         if (move.done !== null) {
             move.done();
         }
+
         // we have reached our destination, register this move for deletion
         move_to_remove.push(i);
     }
@@ -401,6 +440,7 @@ function handle_arrow_left_right()
         'right':    1,
     };
 
+    let dir = game.keypressed;
     let dir_col = dir_dict[game.keypressed];
     if (dir_col === undefined) {
         console.error('Unknown key pressed: ', game.keypressed);
@@ -420,7 +460,7 @@ function handle_arrow_left_right()
 
     game.move_in_progress.push( new Move(
         game.sp, 
-        dir_col, 0, // dir_col, dir_row
+        dir,
         game.sp.x + dir_col*SPT_WIDTH, game.sp.y // dest_x, dest_y
         )
     );
@@ -428,6 +468,7 @@ function handle_arrow_left_right()
     game.col += dir_col;
     enter_state(STATE_MOVING_LR);
 }
+
 
 function handle_arrow_down()
 {
@@ -447,7 +488,7 @@ function handle_arrow_down()
 
     game.move_in_progress.push( new Move(
         game.sp, 
-        0, NB_ROWS-1, // dir_col, dir_row
+        'down',
         game.sp.x, BOARD_Y + SPT_WIDTH * target_row,
         done
         )
