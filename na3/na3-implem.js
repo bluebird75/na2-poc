@@ -27,10 +27,11 @@ const ALL_ELT_NAMES = [
     'na3-assets/elt18.png',
 ];
 
+const STATE_LANDING     = 'STATE_LANDING';
+const STATE_NEW_ELEM    = 'STATE_NEW_ELEM';
 const STATE_IDLE        = 'STATE_IDLE';
 const STATE_MOVING_LR   = 'STATE_MOVING_LR';
 const STATE_MOVING_DOWN = 'STATE_MOVING_DOWN';
-const STATE_NEW_ELEM    = 'STATE_NEW_ELEM';
 
 /***********************************
  *                                 *
@@ -41,7 +42,9 @@ state:
     * generate random element
     * generate new sprite
     * place it on screen
-    * allow movement
+     
+- landing:
+    * move element until it reaches the top row
 
 - idle
     * catch keyboard events
@@ -219,6 +222,7 @@ function game_loop()
 
         case STATE_MOVING_LR:
         case STATE_MOVING_DOWN:
+        case STATE_LANDING:
             handle_moving();
             return;
 
@@ -239,9 +243,17 @@ function gen_new_element()
 
     // init sprite position
     game.sp.x = game.col*SPT_WIDTH;
-    game.sp.y = TOP_ROW_Y;
+    game.sp.y = -SPT_HEIGHT;
 
-    enter_state(STATE_IDLE);
+    // Move(sprite, dir, dest_x, dest_y, done = null) {
+    game.move_in_progress.push( new Move(
+        game.sp,
+        'down',
+        game.sp.x, TOP_ROW_Y
+        )
+    );
+
+    enter_state(STATE_LANDING);
 }
 
 /*********************************************************************
@@ -355,10 +367,17 @@ function handle_moving()
 
     // if all moves are completed, we can begin our next step
     if (game.move_in_progress.length === 0) {
-        if (game.state == STATE_MOVING_DOWN) {
-            enter_state(STATE_NEW_ELEM);
-        } else {
-            enter_state(STATE_IDLE);
+        switch (game.state) {
+            case STATE_MOVING_DOWN:
+                enter_state(STATE_NEW_ELEM);
+                break;
+            case STATE_MOVING_LR:
+            case STATE_LANDING:
+                enter_state(STATE_IDLE);
+                break;
+            default:
+                console.error('Should not be reached...');
+
         }
     }
 
