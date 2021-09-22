@@ -1,10 +1,16 @@
 {
-	"jshintConfig" : {
-		"browser" : true,
-		"devel" : true,
+	"jshintConfig": {
+		"browser": true,
+		"devel": true,
 		"latedef": "nofunc",
 		"globals": {
 			"PIXI": true
 		}
+	},
+	"scripts": {
+		"test": "jest"
+	},
+	"devDependencies": {
+		"jest": "^27.2.1"
 	}
 }

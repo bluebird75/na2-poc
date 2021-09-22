@@ -27,11 +27,16 @@ const ALL_ELT_NAMES = [
     'na3-assets/elt18.png',
 ];
 
+const NB_ELT = ALL_ELT_NAMES.length; // 11 elemnts
+
 const STATE_LANDING     = 'STATE_LANDING';
 const STATE_NEW_ELEM    = 'STATE_NEW_ELEM';
 const STATE_IDLE        = 'STATE_IDLE';
 const STATE_MOVING_LR   = 'STATE_MOVING_LR';
 const STATE_MOVING_DOWN = 'STATE_MOVING_DOWN';
+const STATE_ALCHEMY     = 'STATE_ALCHEMY';
+const STATE_ALCHEMY_MAGIC = 'STATE_ALCHEMY_MAGIC';
+const STATE_ALCHEMY_FALL  = 'STATE_ALCHEMY_FALL';
 
 /***********************************
  *                                 *
@@ -42,20 +47,41 @@ state:
     * generate random element
     * generate new sprite
     * place it on screen
+        -> landing
      
 - landing:
     * move element until it reaches the top row
+        -> idle
 
 - idle
     * catch keyboard events
-    * move element right, left or down
+    * move element right, left 
+        -> moving_lr
+    * move element down
+        -> moving_down
 
 - moving left/right
     * move element left/right
-    * return to idle
+        -> idle
 
 - moving down
     * move element to the bottom of the screen
+        -> alchemy
+
+- alchemy
+    * calculate elements to remove and to add
+    * if new elements
+        -> alchemy magic
+    * no changes
+        -> new element
+
+- alchemy magic
+    * fade out and fade in elements
+        -> alchemy fall
+
+- alchemy fall
+    * move elements falling
+        -> alchemy
 
 Game structures:
 ----------------
@@ -96,6 +122,9 @@ let game = {
 
     // list of all movements in progress
     move_in_progress: [],
+
+    // list of all alchemic operations in progress
+    alchemy_in_progress: [],
 
     // board[row][col] for the elements
     board: [],
@@ -225,6 +254,18 @@ function game_loop()
         case STATE_LANDING:
             handle_moving();
             return;
+
+        case STATE_ALCHEMY:
+            perform_alchemy();
+            break;
+
+        case STATE_ALCHEMY_MAGIC:
+            perform_alchemy_magic();
+            break;
+
+        case STATE_ALCHEMY_FALL:
+            perform_alchemy_fall();
+            break;
 
         default:
             console.error('default clause reached, unexpected!');
@@ -369,12 +410,18 @@ function handle_moving()
     if (game.move_in_progress.length === 0) {
         switch (game.state) {
             case STATE_MOVING_DOWN:
-                enter_state(STATE_NEW_ELEM);
+                enter_state(STATE_ALCHEMY);
                 break;
+
             case STATE_MOVING_LR:
             case STATE_LANDING:
                 enter_state(STATE_IDLE);
                 break;
+
+            case STATE_ALCHEMY_FALL:
+                enter_state(STATE_ALCHEMY);
+                break;
+
             default:
                 console.error('Should not be reached...');
 
@@ -383,11 +430,99 @@ function handle_moving()
 
 }
 
+/*********************************************************************
+ * 
+ *                  Alchemy
+ * 
+ *********************************************************************/
+
+/** An alchemic operation
+ * - new_elem_row: row of the new element generated
+ * - new_elem_col: column of the new element generated
+ * - new_elem_val: value of the new element generated
+ * - old_elem_pos: list of (row,col) of old elements
+ */
+function AlchemicOperation(new_elem_row, new_elem_col, new_elem_val, old_elem_pos)
+{
+    this.new_elem_row = new_elem_row;
+    this.new_elem_col = new_elem_col;
+    this.new_elem_val = new_elem_val;
+    this.old_elem_pos = old_elem_pos;
+}
+
+/** Calculates all alchmic operations to perform on the board
+ * - board: in the form b[row][col]
+ * - nb_elt: highest value of element. After that, no new generations
+ * 
+ * Returns: a list of alchemic operations to perform on the board
+ */
+function find_alchemic_operations(board, nb_elt)
+{
+    let operations = [];
+
+    for (let row=NB_ROWS; row>=0; row--) {
+        let last_elt = null;
+        let nb_elt = 0;
+        for (let col=0; col<NB_COLS; col++) {
+            if (board[row][col] === last_elt) {
+                // same element again, interesting
+                nb_elt++;
+            } else {
+                // new element, maybe there is alchemy pending
+                if (nb_elt > 2) {
+                    operations.push( new AlchemicOperation(
+
+                    ));
+                }
+                // one new element
+                nb_elt = 1;
+            }
+            last_elt = board[row][col];
+        }
+    }
+
+    return operations;
+}
+
+
+function perform_alchemy()
+{
+    // analyse board for alchemic operations
+    let operations = find_alchemic_operations(game.board, NB_ELT);
+
+    // if no operations, generate new element
+    if (operations.length === 0) {
+        enter_state(STATE_NEW_ELEM);
+        return;
+    }
+
+    // register all operations
+    game.alchemy_in_progress = operations;
+
+    enter_state(STATE_ALCHEMY_MAGIC);
+}
+
+function perform_alchemy_magic()
+{
+    // for alchemic operations in progress
+    // fade out elements gone
+    // fade in new elements
+    // if process completed
+    // -> STATE_ALCHEMY_FALL
+}
+
+function perform_alchemy_fall()
+{
+    // identify holes in the map
+    // deduce falling pieces
+    // register movement of falling pieces
+    // at the end of the fall, code returns to state_ALcHEMy
+}
 
 
 /*********************************************************************
  * 
- *                  Key Management
+ *                  Keyboard Events
  * 
  *********************************************************************/
 
@@ -436,6 +571,7 @@ function na3_onkeydown(e)
     }
 }
 
+
 /** Called during state idle to handle the key pressed by the user: left, right, down */
 function handle_game_key()
 {
@@ -451,6 +587,7 @@ function handle_game_key()
 
     handle_arrow_left_right();
 }
+
 
 function handle_arrow_left_right()
 {
