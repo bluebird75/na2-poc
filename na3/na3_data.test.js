@@ -14,10 +14,9 @@ function extract_input_output_boards(string_board)
     let idx = 0;
     while (idx < string_board.length) {
         let title = string_board[idx++];
-        let two_board_desc = string_board[idx++];
-        console.log(title);
-        console.log(two_board_desc);
-        boards_to_test.push([title, extract_two_boards_from_string(two_board_desc)]);
+        let two_boards_desc = string_board[idx++];
+        let two_boards = extract_two_boards_from_string(two_boards_desc);
+        boards_to_test.push([title, two_boards[0], two_boards[1]]);
     }
 
     return boards_to_test;
@@ -53,11 +52,11 @@ Example:
     ],
 ]
 */
-function extract_two_boards_from_string(two_board_desc)
+function extract_two_boards_from_string(two_boards_desc)
 {
     let board1 = [], board2 = [];
-    console.log(two_board_desc);
-    let lines = two_board_desc.split('\n');
+    console.log(two_boards_desc);
+    let lines = two_boards_desc.split('\n');
     console.log(lines);
     for (let i=0; i<lines.length; i++) {
         let l = lines[i].replace(' ', '');
@@ -86,7 +85,7 @@ function extract_two_boards_from_string(two_board_desc)
     
 test('Can read input board', () => {
   expect(extract_input_output_boards(na3_data.slice(0,2))).toStrictEqual([
-        ['1 combination - 1 element - 1', [
+        ['1 combination - 1 element - 1', 
                 [
                     [-1, -1, -1, -1, -1, -1],
                     [-1, -1, -1, -1, -1, -1],
@@ -104,11 +103,10 @@ test('Can read input board', () => {
                     [-1, -1, -1, -1, -1, -1],
                     [-1, -1, -1, -1, -1, -1],
                 ]
-            ]
         ]
     ]);
   expect(extract_input_output_boards(na3_data.slice(2,4))).toStrictEqual([
-        ['1 combination - 1 element - 2', [
+        ['1 combination - 1 element - 2',
                 [
                     [-1, -1, -1, -1, -1, -1],
                     [-1, -1, -1, -1, -1, -1],
@@ -126,7 +124,6 @@ test('Can read input board', () => {
                     [-1, -1, -1, -1, -1, -1],
                     [-1, -1,  0, -1, -1, -1],
                 ]
-            ]
         ]
     ]);
 });
