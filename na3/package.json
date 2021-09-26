@@ -4,7 +4,10 @@
 		"devel": true,
 		"latedef": "nofunc",
 		"globals": {
-			"PIXI": true
+			"PIXI": true,
+			"test": true,
+			"expect": true,
+			"require": true
 		}
 	},
 	"scripts": {
