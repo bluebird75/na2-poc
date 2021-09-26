@@ -27,7 +27,7 @@ const ALL_ELT_NAMES = [
     'na3-assets/elt18.png',
 ];
 
-const NB_ELT = ALL_ELT_NAMES.length; // 11 elemnts
+const NB_ELT = ALL_ELT_NAMES.length; // 11 elements
 
 const STATE_LANDING     = 'STATE_LANDING';
 const STATE_NEW_ELEM    = 'STATE_NEW_ELEM';

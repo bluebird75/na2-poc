@@ -1,7 +1,4 @@
 'use strict';
-// let na3_data = require('./na3_test_data.js');
-
-
 /** Transform the input of a multi-line string containing the two boards
  *  in ascii to two sets of board as double-arrays.
  * 
@@ -12,17 +9,16 @@
  */
 function extract_input_output_boards(string_board)
 {
-    console.log(string_board);
     let boards_to_test = [];
     let idx = 0;
     while (idx < string_board.length) {
         let title = string_board[idx++];
         let two_boards_desc = string_board[idx++];
+        console.log(title, two_boards_desc);
         let two_boards = extract_two_boards_from_string(two_boards_desc);
         boards_to_test.push([title, two_boards[0], two_boards[1]]);
     }
 
-    console.log(boards_to_test);
     return boards_to_test;
 }
 
@@ -59,9 +55,7 @@ Example:
 function extract_two_boards_from_string(two_boards_desc)
 {
     let board1 = [], board2 = [];
-    console.log(two_boards_desc);
     let lines = two_boards_desc.split('\n');
-    console.log(lines);
     for (let i=0; i<lines.length; i++) {
         let l = lines[i].replace(' ', '');
 
@@ -70,9 +64,7 @@ function extract_two_boards_from_string(two_boards_desc)
             continue;
         }
 
-        console.log('l="' + l + '": ' + l.length.toString());
         let parts = l.split(/\s+/);
-        console.log('parts=', parts);
         let b1_line = parts[0];
         let b2_line = parts[1];
 
@@ -85,6 +77,85 @@ function extract_two_boards_from_string(two_boards_desc)
 
     return [board1, board2];
 }
+
+/** Return a board updated with one combination 
+ * 
+ * board: Array of lines, each line is an array of element number
+ * output: Array of lines, each line is an array of element number
+ * */
+function updated_board(input)
+{
+    let transmutations = calc_transmutations(input);
+    return apply_transmutations(input, transmutations);
+}
+
+/** Returns number ranging from start to stop-1 */
+function na3_range(start, stop)
+{
+    return Array.from(Array(stop-start).keys(), (i) => (i+start));
+}
+
+/** Analyse the board and returns the list of transmutation on this board
+ * 
+ * A transmutation is: [ old_elements, new_element ]
+ * - old_elements is a list of [row, col]
+ * - new_element  is [row, col, element]
+ */
+function calc_transmutations(input)
+{
+    let transmutations = [];
+
+    // examine each horizontal line. If it contains 3 or more same elements, generate a transmutation
+    for (let row=0; row<input.length; row++) {
+        let last_elt = -2;
+        let nb_same = 0;
+        let line = input[row];
+        let col;    // we want variable col to escape the loop
+        function trans_push_if_necessary() {
+            if (last_elt >= 0 && last_elt+1<ELT_TAB.length && nb_same+1 >= 3) {
+                transmutations.push([
+                    Array.from(na3_range(col-nb_same-1, col), (c) => [row, c]),
+                    [row, col-nb_same-1, last_elt+1]
+                ]);
+            }
+        }
+        for (col=0; col<line.length; col++) {
+            if (line[col] === last_elt) {
+                nb_same += 1;
+            } else {
+                trans_push_if_necessary();
+                nb_same = 0;
+            }
+            last_elt = line[col];
+        }
+        trans_push_if_necessary();
+    }
+
+    console.log('transmutations:', transmutations);
+    return transmutations;
+}
+
+
+/** Apply a given a list of transmutation to a board and return the updated board */
+function apply_transmutations(input, transmutations)
+{
+    console.log(input, transmutations);
+    let output = Array.from(input, (line) => line.slice());
+    transmutations.forEach((trans) => {
+        let old_elt = trans[0];
+        let new_elt = trans[1];
+        old_elt.forEach((pos) => { output[pos[0]][pos[1]] = -1; });
+        output[new_elt[0]][new_elt[1]] = new_elt[2];
+    });
+    return output;    
+}
+
+
+/***********************************************************************
+ * 
+ * This is all our test data to make sure we assemble elements correctly
+ * 
+ ***********************************************************************/
 
 let na3_data = [
 '1 combination - 1 element - 1', `
@@ -253,10 +324,11 @@ bbbbbb    c.....
 
 `];
 
-describe.each(extract_input_output_boards(na3_data.slice(0,4))
+
+describe.each(extract_input_output_boards(na3_data.slice(0,6))
 )('title: %s', (title, input, output) => {
         test('=>', () => {
-            expect(input).toStrictEqual(output);
+            expect(updated_board(input)).toStrictEqual(output);
         });
     }
 );
