@@ -5,7 +5,10 @@ let na3_data = require('./na3_test_data.js');
 /** Transform the input of a multi-line string containing the two boards
  *  in ascii to two sets of board as double-arrays.
  * 
- * Returns: [ [title, [board_input, board_expected]], ...]
+ * Returns: [ 
+ *      [title, board_input, board_expected], 
+ *      ...
+ * ]
  */
 function extract_input_output_boards(string_board)
 {
@@ -19,6 +22,7 @@ function extract_input_output_boards(string_board)
         boards_to_test.push([title, two_boards[0], two_boards[1]]);
     }
 
+    console.log(boards_to_test);
     return boards_to_test;
 }
 
@@ -82,48 +86,11 @@ function extract_two_boards_from_string(two_boards_desc)
     return [board1, board2];
 }
 
-    
-test('Can read input board', () => {
-  expect(extract_input_output_boards(na3_data.slice(0,2))).toStrictEqual([
-        ['1 combination - 1 element - 1', 
-                [
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                ],[
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                ]
-        ]
-    ]);
-  expect(extract_input_output_boards(na3_data.slice(2,4))).toStrictEqual([
-        ['1 combination - 1 element - 2',
-                [
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1,  0, -1, -1, -1],
-                ],[
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1, -1, -1, -1, -1],
-                    [-1, -1,  0, -1, -1, -1],
-                ]
-        ]
-    ]);
-});
+describe.each(extract_input_output_boards(na3_data.slice(0,4))
+)('title: %s', (title, input, output) => {
+        test('=>', () => {
+            expect(input).toStrictEqual(output);
+        });
+    }
+);
+
