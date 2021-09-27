@@ -213,7 +213,7 @@ aaa...    b.....
 ......    ......
 ......    ......
 ...aaa    ...b..
-..cccc    ..cccc
+..ccdd    ..ccdd
 
 
 
@@ -325,7 +325,7 @@ bbbbbb    c.....
 `];
 
 
-describe.each(extract_input_output_boards(na3_data.slice(0,6))
+describe.each(extract_input_output_boards(na3_data.slice(0,12))
 )('title: %s', (title, input, output) => {
         test('=>', () => {
             expect(updated_board(input)).toStrictEqual(output);
