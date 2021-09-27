@@ -89,11 +89,21 @@ function updated_board(input)
     return apply_transmutations(input, transmutations);
 }
 
-/** Returns number ranging from start to stop-1 */
-function na3_range(start, stop)
+/** In a list of [row, col], find the lowest, left-est position */
+function find_new_elt_position(cluster)
 {
-    return Array.from(Array(stop-start).keys(), (i) => (i+start));
+    let copy_cluster = cluster.slice();
+    copy_cluster.sort((a, b) => {
+        if (a[0] > b[0]) return -1;     // visually lowest board row first
+        if (a[0] < b[0]) return 1;      
+        // both rows are equals
+        if (a[1] < b[1]) return -1;     // left-est col
+        if (a[1] > b[1]) return 1;
+        return 0;
+    });
+    return copy_cluster[0];
 }
+
 
 /** Analyse the board and returns the list of transmutation on this board
  * 
@@ -105,33 +115,68 @@ function calc_transmutations(input)
 {
     let transmutations = [];
 
-    // examine each horizontal line. If it contains 3 or more same elements, generate a transmutation
-    for (let row=0; row<input.length; row++) {
-        let last_elt = -2;
-        let nb_same = 0;
-        let line = input[row];
-        let col;    // we want variable col to escape the loop
-        function trans_push_if_necessary() {
-            if (last_elt >= 0 && last_elt+1<ELT_TAB.length && nb_same+1 >= 3) {
-                transmutations.push([
-                    Array.from(na3_range(col-nb_same-1, col), (c) => [row, c]),
-                    [row, col-nb_same-1, last_elt+1]
-                ]);
+    // flood algorithm
+    let clusters = [];
+    let visited = [];
+
+    for( let row=0; row<input.length; row++) {
+        for (let col=0; col<input[row].length; col++) {
+            // find next cluster start, not visited
+            if (visited.includes([row, col].toString())) { continue; }
+
+            // we have found a non visited element
+            let elt = input[row][col];
+
+            // we build clusters only for non empty cells
+            if (elt === -1) { continue; }
+
+            // start our new cluster
+            let cluster_idx = clusters.length;
+            clusters.push([]);
+
+            // our exporation stack
+            let to_process = [ [row, col] ];
+
+            // explore
+            while (to_process.length) {
+                let pos = to_process.pop();
+                if (visited.includes(pos.toString())) { continue; }
+                visited.push(pos.toString());
+
+                let r = pos[0], c = pos[1];
+
+                // check if this is the same element
+                if (input[r][c] !== elt) { continue; }
+
+                // add to our cluster
+                clusters[cluster_idx].push(pos);
+
+                // add all neighbour to visit
+                if (r > 0)                  to_process.push([r-1, c]);
+                if (r+1 < input.length)     to_process.push([r+1, c]);
+                if (c > 0)                  to_process.push([r, c-1]);
+                if (c+1 < input[row].length) to_process.push([r, c+1]);
             }
         }
-        for (col=0; col<line.length; col++) {
-            if (line[col] === last_elt) {
-                nb_same += 1;
-            } else {
-                trans_push_if_necessary();
-                nb_same = 0;
-            }
-            last_elt = line[col];
-        }
-        trans_push_if_necessary();
     }
 
-    console.log('transmutations:', transmutations);
+    // find all clusters with more than 3 elements
+    clusters.forEach(cluster => {
+        if (cluster.length < 3) return;
+
+        let pos = cluster[0];
+        let elt = input[pos[0]][pos[1]];
+
+        if (elt < 0 || elt+1>=ELT_TAB.length) return;
+
+        let pos_new_elt = find_new_elt_position(cluster);
+
+        transmutations.push([
+            cluster, [pos_new_elt[0], pos_new_elt[1], elt+1]
+        ]);
+    });
+
+    console.log('generated transmutations:', transmutations);
     return transmutations;
 }
 
@@ -325,7 +370,7 @@ bbbbbb    c.....
 `];
 
 
-describe.each(extract_input_output_boards(na3_data.slice(0,12))
+describe.each(extract_input_output_boards(na3_data.slice(0,14))
 )('title: %s', (title, input, output) => {
         test('=>', () => {
             expect(updated_board(input)).toStrictEqual(output);
