@@ -14,7 +14,7 @@ function extract_input_output_boards(string_board)
     while (idx < string_board.length) {
         let title = string_board[idx++];
         let two_boards_desc = string_board[idx++];
-        console.log(title, two_boards_desc);
+        // console.log(title, two_boards_desc);
         let two_boards = extract_two_boards_from_string(two_boards_desc);
         boards_to_test.push([title, two_boards[0], two_boards[1]]);
     }
@@ -117,14 +117,14 @@ function calc_transmutations(input)
 
     // flood algorithm
     let clusters = [];
-    let visited = [];
+    let in_cluster = [];
 
     for( let row=0; row<input.length; row++) {
         for (let col=0; col<input[row].length; col++) {
             // find next cluster start, not visited
-            if (visited.includes([row, col].toString())) { continue; }
+            if (in_cluster.includes([row, col].toString())) { continue; }
 
-            // we have found a non visited element
+            // we have found an element not already in a cluster
             let elt = input[row][col];
 
             // we build clusters only for non empty cells
@@ -136,6 +136,7 @@ function calc_transmutations(input)
 
             // our exporation stack
             let to_process = [ [row, col] ];
+            let visited = [];
 
             // explore
             while (to_process.length) {
@@ -150,6 +151,7 @@ function calc_transmutations(input)
 
                 // add to our cluster
                 clusters[cluster_idx].push(pos);
+                in_cluster.push(pos.toString());
 
                 // add all neighbour to visit
                 if (r > 0)                  to_process.push([r-1, c]);
@@ -176,7 +178,7 @@ function calc_transmutations(input)
         ]);
     });
 
-    console.log('generated transmutations:', transmutations);
+    // console.log('generated transmutations:', transmutations);
     return transmutations;
 }
 
@@ -184,7 +186,7 @@ function calc_transmutations(input)
 /** Apply a given a list of transmutation to a board and return the updated board */
 function apply_transmutations(input, transmutations)
 {
-    console.log(input, transmutations);
+    // console.log(input, transmutations);
     let output = Array.from(input, (line) => line.slice());
     transmutations.forEach((trans) => {
         let old_elt = trans[0];
@@ -282,13 +284,13 @@ aa....    b.....
 ..aac.    ..b.c.
 
 
-`,'1 combination - 3 elements - height 1 - 3', `
+`,'1 combination - 3 elements - height 2 - 3', `
 ......    ......
 ......    ......
 ......    ......
 ......    ......
 ......    ......
-..aac.    ..c.c.
+..aac.    ....c.
 ..adc.    ..bdc.
 
 
@@ -298,8 +300,8 @@ aa....    b.....
 ......    ......
 ......    ......
 ......    ......
-..aac.    ..c.c.
-..adc.    ..bdc.
+..aac.    ....c.
+..dac.    ..dbc.
 
 `,'1 combination - 3 elements - height 2 - 5', `
 ......    ......
@@ -309,15 +311,6 @@ aa....    b.....
 ......    ......
 ..aca.    ..aca.
 ..adc.    ..adc.
-
-`,'1 combination - 3 elements - height 3 - 1', `
-......    ......
-......    ......
-......    ......
-......    ......
-a.....    ......
-a.....    ......
-a.....    b.....
 
 `,'1 combination - 3 elements - height 3 - 1', `
 ......    ......
@@ -370,7 +363,7 @@ bbbbbb    c.....
 `];
 
 
-describe.each(extract_input_output_boards(na3_data.slice(0,14))
+describe.each(extract_input_output_boards(na3_data.slice(0))
 )('title: %s', (title, input, output) => {
         test('=>', () => {
             expect(updated_board(input)).toStrictEqual(output);
