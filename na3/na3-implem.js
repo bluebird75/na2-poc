@@ -16,7 +16,7 @@ const DIR_RIGHT = 'DIR_RIGHT';
 const DIR_DOWN = 'DIR_DOWN';
 const DELTA_ALPHA = 0.02;
 
-
+const ELT_GEN_WEIGHT = [18, 18, 18, 18, 12, 8, 7, 5, 4, 1, 1];
 const ALL_ELT_NAMES = [
     'na3-assets/elt0.png',
     'na3-assets/elt1.png',
@@ -118,6 +118,9 @@ let game = {
 
     // our current element index
     elt: -1,
+
+    // current max element (inclusive), defaults to 2, meaning: green + yellow + red potions
+    cur_max_elt: 2,
 
     // set to: down, up, left, right when a key is pressed, nothing else
     keypressed: '',
@@ -303,11 +306,39 @@ function game_loop()
     }
 }
 
+/*******************************************************
+ * 
+ *                New element generation
+ * 
+ *******************************************************/
+
+/** Generate a new element according to the weight */
+function generate_random_elt(cur_max_elt, elt_gen_weight)
+{
+    let max_weigth = 0;
+    // note that cur_max_elt is inclusive
+    for (let i=0; i<=cur_max_elt; i++) {
+        max_weigth += elt_gen_weight[i];
+    }
+    let random_idx = random_nb(max_weigth);
+    let elt = 0;
+    while (random_idx > elt_gen_weight[elt] && elt < elt_gen_weight.length) {
+        random_idx -= elt_gen_weight[elt];
+        elt += 1;
+    }
+
+    if (elt == elt_gen_weight.length) {
+        // we went through all the array of elements and the index is still above
+        // problem !!!
+        throw new Error('Invalid random element: ' + random_idx.toString());
+    }
+    return elt;
+}
 
 // Generate a new element on the top row
 function gen_new_element()
 {
-    game.elt = random_nb(3);
+    game.elt = generate_random_elt(game.cur_max_elt, ELT_GEN_WEIGHT);
     game.sp = new PIXI.Sprite(assets.textures[game.elt]);
     assets.app.stage.addChild(game.sp);
 
@@ -521,6 +552,8 @@ function perform_alchemy()
         game.sprites[ [trans.new_elem_row, trans.new_elem_col] ] = trans.new_elem_sprite;
 
         game.transmutation_in_progress.push(trans);
+
+        game.cur_max_elt = na3_max(game.cur_max_elt, trans.new_elem_val);
     });
 
     game.board = na3_shared_utils.apply_transmutations(game.board, transmutations_desc);
