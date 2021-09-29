@@ -1,6 +1,6 @@
 'use strict';
 
-let shared_utils = require("./na3_shared_utils.js");
+const na3_shared_utils = require("./na3_shared_utils.js");
 
 
 
@@ -90,32 +90,91 @@ function extract_two_boards_from_string(two_boards_desc)
  * */
 function updated_board(input)
 {
-    let transmutations = shared_utils.calc_transmutations(input);
-    return apply_transmutations(input, transmutations);
+    let transmutations = na3_shared_utils.calc_transmutations(input, ELT_TAB.length);
+    return na3_shared_utils.apply_transmutations(input, transmutations);
 }
 
 test('find_new_elt_position', () => {
-    expect(shared_utils.find_new_elt_position([[0,0]])).toStrictEqual([0,0]);
-    expect(shared_utils.find_new_elt_position([[0,0], [0, 1]])).toStrictEqual([0,0]);
-    expect(shared_utils.find_new_elt_position([[0,0], [0, 1]])).toStrictEqual([0,0]);
-    expect(shared_utils.find_new_elt_position([[0,0], [0, 1], [1,0]])).toStrictEqual([1,0]);
-    expect(shared_utils.find_new_elt_position([[0,0], [0, 1], [1,1]])).toStrictEqual([1,1]);
-    expect(shared_utils.find_new_elt_position([[0,0], [1, 0], [1,1]])).toStrictEqual([1,0]);
+    expect(na3_shared_utils.find_new_elt_position([[0,0]])).toStrictEqual([0,0]);
+    expect(na3_shared_utils.find_new_elt_position([[0,0], [0, 1]])).toStrictEqual([0,0]);
+    expect(na3_shared_utils.find_new_elt_position([[0,0], [0, 1]])).toStrictEqual([0,0]);
+    expect(na3_shared_utils.find_new_elt_position([[0,0], [0, 1], [1,0]])).toStrictEqual([1,0]);
+    expect(na3_shared_utils.find_new_elt_position([[0,0], [0, 1], [1,1]])).toStrictEqual([1,1]);
+    expect(na3_shared_utils.find_new_elt_position([[0,0], [1, 0], [1,1]])).toStrictEqual([1,0]);
 });
 
-/** Apply a given a list of transmutation to a board and return the updated board */
-function apply_transmutations(input, transmutations)
-{
-    // console.log(input, transmutations);
-    let output = Array.from(input, (line) => line.slice());
-    transmutations.forEach((trans) => {
-        let old_elt = trans[0];
-        let new_elt = trans[1];
-        old_elt.forEach((pos) => { output[pos[0]][pos[1]] = -1; });
-        output[new_elt[0]][new_elt[1]] = new_elt[2];
-    });
-    return output;    
-}
+test('detect_falls', () => {
+    expect(na3_shared_utils.detect_falls([
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+    ])).toStrictEqual([]);
+
+    expect(na3_shared_utils.detect_falls([
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [ 0, -1, -1, -1, -1, -1],
+    ])).toStrictEqual([]);
+
+    expect(na3_shared_utils.detect_falls([
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [ 0, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+    ])).toStrictEqual([
+        [5, 0, 6]
+    ]);
+
+    expect(na3_shared_utils.detect_falls([
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [ 0, -1, -1, -1, -1, -1],
+        [ 0, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+    ])).toStrictEqual([
+        [5, 0, 6],
+        [4, 0, 5] 
+    ]);
+
+    expect(na3_shared_utils.detect_falls([
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1,  2, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1,  2, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1,  2, -1, -1, -1, -1],
+    ])).toStrictEqual([
+        [4, 1, 5],
+        [2, 1, 4]
+    ]);
+
+    expect(na3_shared_utils.detect_falls([
+        [-1,  0, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1],
+    ])).toStrictEqual([
+        [0, 1, 6],
+    ]);
+
+});
 
 
 /***********************************************************************
@@ -321,7 +380,7 @@ bb.ddd    c..e..
 
 
 describe.each(extract_input_output_boards(na3_data.slice(0))
-)('title: %s', (title, input, output) => {
+)('transmutations: %s', (title, input, output) => {
         test('=>', () => {
             expect(updated_board(input)).toStrictEqual(output);
         });

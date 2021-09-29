@@ -1,10 +1,9 @@
+'use strict';
+
 /** The implementation in this file is shared between backend and frontend
  * - backend: node, to run the unit-tests, to prevent cheating
  * - browser: to play
  */
-
- // The number of elements which can transform into superior elements
- const MAX_ELT = 11;
 
 /** In a list of [row, col], find the lowest, left-est position */
 function find_new_elt_position(cluster)
@@ -27,7 +26,7 @@ function find_new_elt_position(cluster)
  * - old_elements is a list of [row, col]
  * - new_element  is [row, col, element]
  */
-function calc_transmutations(input) {
+function calc_transmutations(input, nb_elt) {
     let transmutations = [];
 
     // flood algorithm
@@ -89,7 +88,7 @@ function calc_transmutations(input) {
         let pos = cluster[0];
         let elt = input[pos[0]][pos[1]];
 
-        if (elt < 0 || elt + 1 >= MAX_ELT)
+        if (elt < 0 || elt + 1 >= nb_elt)
             return;
 
         let pos_new_elt = find_new_elt_position(cluster);
@@ -103,5 +102,75 @@ function calc_transmutations(input) {
     return transmutations;
 }
 
-exports.calc_transmutations = calc_transmutations;
-exports.find_new_elt_position = find_new_elt_position;
+
+/** Apply a given a list of transmutation to a board and return the updated board */
+function apply_transmutations(input, transmutations)
+{
+    // console.log(input, transmutations);
+    let output = Array.from(input, (line) => line.slice());
+    transmutations.forEach((trans) => {
+        let old_elt = trans[0];
+        let new_elt = trans[1];
+        old_elt.forEach((pos) => { output[pos[0]][pos[1]] = -1; });
+        output[new_elt[0]][new_elt[1]] = new_elt[2];
+    });
+    return output;    
+}
+
+
+/** Analyse a board, detect holes and return which piece shall fall.
+ * 
+ * Return: list of [src_row, src_col, dest_row] 
+ */
+function detect_falls(board)
+{
+    let falls = [];
+    for (let col=0; col<board[0].length; col++) {
+        let col_holes = 0;
+        for (let row=board.length-1; row >= 0; row--) {
+            if (board[row][col] === -1) {
+                col_holes += 1;
+            } else {
+                if (col_holes > 0) {
+                    falls.push([row, col, row+col_holes]);
+                }
+            }
+        }
+    }
+    return falls;
+}
+
+/****************************************************
+ *   Universal Module Export
+ * - works on both nodejs and the browser
+ ****************************************************/
+
+/* jshint ignore: start */
+(function (root, factory) {
+    /* jshint -W117 */
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define([], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory();
+    } else {
+        // Browser globals (root is window)
+        root.na3_shared_utils = factory();
+  }
+}(typeof self !== 'undefined' ? self : this, function () {
+
+    // Just return a value to define the module export.
+    // This example returns an object, but the module
+    // can return a function as the exported value.
+    return {
+        'calc_transmutations': calc_transmutations,
+        'find_new_elt_position': find_new_elt_position,
+        'apply_transmutations': apply_transmutations,
+        'detect_falls': detect_falls
+    };
+
+}));
+/* jshint ignore: end */
