@@ -1,5 +1,7 @@
 'use strict';
 
+import na3_shared_utils from "./na3_shared_utils";
+
 const PLAY_WIDTH = 300;
 const PLAY_HEIGHT = 356;
 const SPT_WIDTH = 30;
@@ -11,6 +13,10 @@ const NB_COLS = 6;
 const DELTA_MOVE_X = 3;
 const DELTA_MOVE_Y = 5;
 const DEFAULT_COL = 2;
+const DIR_LEFT = 'DIR_LEFT';
+const DIR_RIGHT = 'DIR_RIGHT';
+const DIR_DOWN = 'DIR_DOWN';
+const DELTA_ALPHA = 0.01;
 
 
 const ALL_ELT_NAMES = [
@@ -35,7 +41,7 @@ const STATE_IDLE        = 'STATE_IDLE';
 const STATE_MOVING_LR   = 'STATE_MOVING_LR';
 const STATE_MOVING_DOWN = 'STATE_MOVING_DOWN';
 const STATE_ALCHEMY     = 'STATE_ALCHEMY';
-const STATE_ALCHEMY_MAGIC = 'STATE_ALCHEMY_MAGIC';
+const STATE_TRANSMUTATION = 'STATE_TRANSMUTATION';
 const STATE_ALCHEMY_FALL  = 'STATE_ALCHEMY_FALL';
 
 /***********************************
@@ -75,7 +81,7 @@ state:
     * no changes
         -> new element
 
-- alchemy magic
+- transmutation
     * fade out and fade in elements
         -> alchemy fall
 
@@ -111,6 +117,7 @@ let game = {
 
     // our current element as sprite
     sp: null, 
+
     // our current element index
     elt: -1,
 
@@ -124,10 +131,13 @@ let game = {
     move_in_progress: [],
 
     // list of all alchemic operations in progress
-    alchemy_in_progress: [],
+    transmutation_in_progress: [],
 
     // board[row][col] for the elements
     board: [],
+
+    // map of every sprite of the game
+    sprites: {},
 };
 
 
@@ -162,6 +172,25 @@ function na3_min(v1, v2)
 {
     if (v1 <= v2) return v1;
     return v2;
+}
+
+/** Return the y value for a sprite in a given row.
+ *  -1 means top row
+ *  0 - NB_ROWS: row in the board
+ */
+function sprite_y_from_row(row)
+{
+    if (row === -1) {
+        return TOP_ROW_Y;
+    }
+
+    return BOARD_Y + row * SPT_HEIGHT;
+}
+
+function sprite_x_from_col(col)
+{
+    return col * SPT_WIDTH;
+
 }
 
 /*********************************************************
@@ -206,10 +235,17 @@ export function na3_start() {
 /** Close the loop, unload all textures */
 export function na3_end() {
     console.log('The end already ?');
+    if (game.sp !== null) {
+        game.sp.destroy();
+    }
+    for (let sp in game.sprites) {
+        if (sp !== undefined) {
+            sp.destroy();
+        }
+    }
     assets.textures.foreach((t) => { t.destroy(); });
     assets.app.destroy();
     game = null;
-
 }
 
 
@@ -259,8 +295,8 @@ function game_loop()
             perform_alchemy();
             break;
 
-        case STATE_ALCHEMY_MAGIC:
-            perform_alchemy_magic();
+        case STATE_TRANSMUTATION:
+            perform_transmutation();
             break;
 
         case STATE_ALCHEMY_FALL:
@@ -283,13 +319,13 @@ function gen_new_element()
     game.col = DEFAULT_COL;
 
     // init sprite position
-    game.sp.x = game.col*SPT_WIDTH;
+    game.sp.x = sprite_x_from_col(game.col);
     game.sp.y = -SPT_HEIGHT;
 
     // Move(sprite, dir, dest_x, dest_y, done = null) {
     game.move_in_progress.push( new Move(
         game.sp,
-        'down',
+        DIR_DOWN,
         game.sp.x, TOP_ROW_Y
         )
     );
@@ -303,17 +339,18 @@ function gen_new_element()
  * 
  *********************************************************************/
 
-/** return the next row available to put an element
+/** return the next row available to put an element in a given column.
  * 
- * Uses game.board and game.col for the calculation.
+ * When there are 0 elements in the board, this is row 6.
+ * The last position of the column to put an element is row 0
  * 
- * -1 means no more rows in the board
+ * -1 means no more rows in this column.
  */
-function column_next_row()
+function column_next_row(board, col)
 {
     let next_row = -1;
     for (let row=NB_ROWS-1; row>=0; row--) {
-        if (game.board[row][game.col] === -1) {
+        if (board[row][col] === -1) {
             next_row = row;
             break;
         }
@@ -353,7 +390,7 @@ function handle_moving()
         let goal_reached = false;
 
         switch (move.dir) {
-            case 'down':
+            case DIR_DOWN:
                 if ((move.dest_y - move.sp.y) > 0) {
                     move.sp.y = na3_min(move.sp.y + DELTA_MOVE_Y, move.dest_y);
                     if ((move.dest_y - move.sp.y) === 0) {
@@ -363,7 +400,7 @@ function handle_moving()
                 }
                 break;
 
-            case 'left':
+            case DIR_LEFT:
                 if ((move.dest_x - move.sp.x) < 0) {
                     move.sp.x = na3_max(move.sp.x - DELTA_MOVE_X, move.dest_x);
                     if ((move.dest_x - move.sp.x) === 0) {
@@ -373,7 +410,7 @@ function handle_moving()
                 }
                 break;
 
-            case 'right':
+            case DIR_RIGHT:
                 if ((move.dest_x - move.sp.x) > 0) {
                     move.sp.x = na3_min(move.sp.x + DELTA_MOVE_X, move.dest_x);
                     if ((move.dest_x - move.sp.x) === 0) {
@@ -436,86 +473,111 @@ function handle_moving()
  * 
  *********************************************************************/
 
-/** An alchemic operation
+/** A transmutation
  * - new_elem_row: row of the new element generated
  * - new_elem_col: column of the new element generated
  * - new_elem_val: value of the new element generated
+ * - new_elem_sprite: sprite representing the new element
  * - old_elem_pos: list of (row,col) of old elements
+ * - old_elem_sprites: list of sprites representing the old elements
  */
-function AlchemicOperation(new_elem_row, new_elem_col, new_elem_val, old_elem_pos)
+function Transmutation(new_elem_row, new_elem_col, new_elem_val, old_elem_pos)
 {
     this.new_elem_row = new_elem_row;
     this.new_elem_col = new_elem_col;
     this.new_elem_val = new_elem_val;
+    this.new_elem_sprite = null;
+    this.new_elem_alpha = 0;
+
     this.old_elem_pos = old_elem_pos;
-}
-
-/** Calculates all alchmic operations to perform on the board
- * - board: in the form b[row][col]
- * - nb_elt: highest value of element. After that, no new generations
- * 
- * Returns: a list of alchemic operations to perform on the board
- */
-function find_alchemic_operations(board, nb_elt)
-{
-    let operations = [];
-
-    for (let row=NB_ROWS; row>=0; row--) {
-        let last_elt = null;
-        let nb_elt = 0;
-        for (let col=0; col<NB_COLS; col++) {
-            if (board[row][col] === last_elt) {
-                // same element again, interesting
-                nb_elt++;
-            } else {
-                // new element, maybe there is alchemy pending
-                if (nb_elt > 2) {
-                    operations.push( new AlchemicOperation(
-
-                    ));
-                }
-                // one new element
-                nb_elt = 1;
-            }
-            last_elt = board[row][col];
-        }
-    }
-
-    return operations;
+    this.old_elem_sprites = [];
 }
 
 
 function perform_alchemy()
 {
     // analyse board for alchemic operations
-    let operations = find_alchemic_operations(game.board, NB_ELT);
+    let transmutations_desc = na3_shared_utils.calc_transmutations(game.board, NB_ELT);
+
+    game.transmutation_in_progress = [];
 
     // if no operations, generate new element
-    if (operations.length === 0) {
+    if (transmutations_desc.length === 0) {
         enter_state(STATE_NEW_ELEM);
         return;
     }
 
-    // register all operations
-    game.alchemy_in_progress = operations;
+    transmutations_desc.forEach((trans_desc) => {
+        let trans = new Transmutation(
+            trans_desc[1][0],
+            trans_desc[1][1],
+            trans_desc[1][2],
+            trans_desc[0]
+        );
 
-    enter_state(STATE_ALCHEMY_MAGIC);
+        // remove the old sprites from the sprite map
+        trans.old_elem_pos.forEach((pos) => {
+            trans.old_elem_sprites.push(game.sprites[ pos ]);
+            delete game.sprites[ pos ];
+        });
+
+        // create the new sprite
+        trans.new_elem_sprite = new PIXI.Sprite(assets.textures[trans.new_elem_val]);
+        trans.new_elem_sprite.alpha = 0;
+        assets.app.stage.addChild(trans.new_elem_sprite);
+        trans.new_elem_sprite.y = sprite_y_from_row(trans.new_elem_row);
+        trans.new_elem_sprite.x = sprite_x_from_col(trans.new_elem_col);
+        game.sprites[ [trans.new_elem_row, trans.new_elem_col] ] = trans.new_elem_sprite;
+
+        game.transmutation_in_progress.push(trans);
+    });
+
+    game.board = na3_shared_utils.apply_transmutations(game.board, transmutations_desc);
+    enter_state(STATE_TRANSMUTATION);
 }
 
-function perform_alchemy_magic()
+function perform_transmutation()
 {
-    // for alchemic operations in progress
-    // fade out elements gone
-    // fade in new elements
-    // if process completed
-    // -> STATE_ALCHEMY_FALL
+    let trans_to_remove = [];
+    game.transmutation_in_progress.forEach((trans, i) => {
+
+        // transmutation is done ?
+        if (trans.new_elem_alpha === 1) {
+            for (let old_sp of trans.old_elem_sprites) {
+                old_sp.destroy();
+            }
+
+            trans.old_elem_sprites = [];
+            trans_to_remove.push(i);
+        } 
+        else {
+            // transmutation in progress
+            trans.new_elem_alpha = na3_min(trans.new_elem_alpha + DELTA_ALPHA, 1);
+            for (let old_sp of trans.old_elem_sprites) {
+                old_sp.alpha = 1 - trans.new_elem_alpha;
+            }
+            trans.new_elem_sprite.alpha = trans.new_elem_alpha;
+        }
+    });
+
+    if (trans_to_remove.length === game.transmutation_in_progress.length) {
+        // we are really done with transmutation
+        game.transmutation_in_progress = [];
+        start_alchemy_fall();
+    }
+}
+
+function start_alchemy_fall()
+{
+    enter_state(STATE_ALCHEMY_FALL);
+    // identify holes in the map
+    let falls = na3_shared_utils.detect_falls(game.board);
+
+    // register movement of falling pieces
 }
 
 function perform_alchemy_fall()
 {
-    // identify holes in the map
-    // deduce falling pieces
-    // register movement of falling pieces
     // at the end of the fall, code returns to state_ALcHEMy
 }
 
@@ -534,7 +596,7 @@ function na3_onkeydown(e)
     {
         case 'ArrowDown':
         case 'Down':
-            k = 'down';
+            k = DIR_DOWN;
             break;
         /*  Arrow up not handled right now
         case 'ArrowUp':
@@ -544,11 +606,11 @@ function na3_onkeydown(e)
         */
         case 'ArrowLeft':
         case 'Left':
-            k = 'left';
+            k = DIR_LEFT;
             break;
         case 'ArrowRight':
         case 'Right':
-            k = 'right';
+            k = DIR_RIGHT;
             break;
         default:
             // do nothing, let the keyboard event propagate
@@ -580,7 +642,7 @@ function handle_game_key()
         return;
     }
 
-    if (game.keypressed === 'down') {
+    if (game.keypressed === DIR_DOWN) {
         handle_arrow_down();
         return;
     }
@@ -592,8 +654,8 @@ function handle_game_key()
 function handle_arrow_left_right()
 {
     let dir_dict = {    // row, col
-        'left':    -1,
-        'right':    1,
+        DIR_LEFT:    -1,
+        DIR_RIGHT:    1,
     };
 
     let dir = game.keypressed;
@@ -630,7 +692,7 @@ function handle_arrow_down()
 {
     game.keypressed = '';
     let done = null;
-    let target_row = column_next_row();
+    let target_row = column_next_row(game.board, game.col);
     if (target_row == -1) {
         // we have lost !
         done = () => {
@@ -639,16 +701,20 @@ function handle_arrow_down()
         };
     } else {
         game.board[target_row][game.col] = game.elt;
+        game.sprites[ [target_row, game.col] ] = game.sp;
     }
 
 
     game.move_in_progress.push( new Move(
         game.sp, 
-        'down',
-        game.sp.x, BOARD_Y + SPT_WIDTH * target_row,
+        DIR_DOWN,
+        game.sp.x, sprite_y_from_row(target_row),
         done
         )
     );
+
+    // we n o longer need our main sprite
+    game.sp = null;
     
     enter_state(STATE_MOVING_DOWN);
 }
