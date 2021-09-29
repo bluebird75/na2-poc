@@ -70,8 +70,7 @@ function extract_two_boards_from_string(two_boards_desc)
         }
 
         let parts = l.split(/\s+/);
-        let b1_line = parts[0];
-        let b2_line = parts[1];
+        let [b1_line, b2_line] = parts;
 
         let b1_board_line = Array.from(b1_line, (c) => ELT_TAB.indexOf(c));
         let b2_board_line = Array.from(b2_line, (c) => ELT_TAB.indexOf(c));
@@ -379,11 +378,12 @@ bb.ddd    c..e..
 ];
 
 
-describe.each(extract_input_output_boards(na3_data.slice(0))
-)('transmutations: %s', (title, input, output) => {
-        test('=>', () => {
-            expect(updated_board(input)).toStrictEqual(output);
+describe('transmutations', () => {
+        extract_input_output_boards(na3_data.slice(0)).forEach((t) => {
+            let [title, input, output] = t;
+            test(title, () => {
+                expect(updated_board(input)).toStrictEqual(output);
+            });
         });
-    }
-);
+});
 

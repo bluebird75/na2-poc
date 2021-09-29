@@ -58,7 +58,7 @@ function calc_transmutations(input, nb_elt) {
                 if (visited.includes(pos.toString())) { continue; }
                 visited.push(pos.toString());
 
-                let r = pos[0], c = pos[1];
+                let [r, c] = pos;
 
                 // check if this is the same element
                 if (input[r][c] !== elt) { continue; }
@@ -109,8 +109,7 @@ function apply_transmutations(input, transmutations)
     // console.log(input, transmutations);
     let output = Array.from(input, (line) => line.slice());
     transmutations.forEach((trans) => {
-        let old_elt = trans[0];
-        let new_elt = trans[1];
+        let [old_elt, new_elt] = trans;
         old_elt.forEach((pos) => { output[pos[0]][pos[1]] = -1; });
         output[new_elt[0]][new_elt[1]] = new_elt[2];
     });

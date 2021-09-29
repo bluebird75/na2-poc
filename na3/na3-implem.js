@@ -1,7 +1,5 @@
 'use strict';
 
-import na3_shared_utils from "./na3_shared_utils";
-
 const PLAY_WIDTH = 300;
 const PLAY_HEIGHT = 356;
 const SPT_WIDTH = 30;
@@ -16,7 +14,7 @@ const DEFAULT_COL = 2;
 const DIR_LEFT = 'DIR_LEFT';
 const DIR_RIGHT = 'DIR_RIGHT';
 const DIR_DOWN = 'DIR_DOWN';
-const DELTA_ALPHA = 0.01;
+const DELTA_ALPHA = 0.02;
 
 
 const ALL_ELT_NAMES = [
@@ -288,6 +286,7 @@ function game_loop()
         case STATE_MOVING_LR:
         case STATE_MOVING_DOWN:
         case STATE_LANDING:
+        case STATE_ALCHEMY_FALL:
             handle_moving();
             return;
 
@@ -299,10 +298,6 @@ function game_loop()
             perform_transmutation();
             break;
 
-        case STATE_ALCHEMY_FALL:
-            perform_alchemy_fall();
-            break;
-
         default:
             console.error('default clause reached, unexpected!');
     }
@@ -312,7 +307,7 @@ function game_loop()
 // Generate a new element on the top row
 function gen_new_element()
 {
-    game.elt = random_nb(assets.textures.length);
+    game.elt = random_nb(3);
     game.sp = new PIXI.Sprite(assets.textures[game.elt]);
     assets.app.stage.addChild(game.sp);
 
@@ -425,8 +420,8 @@ function handle_moving()
         }
 
         if (goal_reached === false) {
-            // continue moving on next loop
-            return;
+            // continue moving other objects
+            continue;
         }
 
         if (move.done !== null) {
@@ -447,6 +442,7 @@ function handle_moving()
     if (game.move_in_progress.length === 0) {
         switch (game.state) {
             case STATE_MOVING_DOWN:
+            case STATE_ALCHEMY_FALL:
                 enter_state(STATE_ALCHEMY);
                 break;
 
@@ -455,13 +451,8 @@ function handle_moving()
                 enter_state(STATE_IDLE);
                 break;
 
-            case STATE_ALCHEMY_FALL:
-                enter_state(STATE_ALCHEMY);
-                break;
-
             default:
                 console.error('Should not be reached...');
-
         }
     }
 
@@ -572,13 +563,28 @@ function start_alchemy_fall()
     enter_state(STATE_ALCHEMY_FALL);
     // identify holes in the map
     let falls = na3_shared_utils.detect_falls(game.board);
+    falls.forEach((fall) => {
+        let [row, col, target_row] = fall;
+        let sp = game.sprites[ [row, col] ];
 
-    // register movement of falling pieces
-}
+        // register move
+        game.move_in_progress.push( new Move(
+            sp, 
+            DIR_DOWN,
+            sp.x, sprite_y_from_row(target_row)
+            )
+        );
 
-function perform_alchemy_fall()
-{
-    // at the end of the fall, code returns to state_ALcHEMy
+        // update our map of sprite positions
+        delete game.sprites[ [row,col] ];
+        game.sprites[ [target_row, col] ] = sp;
+
+        // update the board
+        // note: because falls are recorded from bottom to top
+        //       the overlapping of new positiosn is correctly handled
+        game.board[target_row][col] = game.board[row][col];
+        game.board[row][col] = -1;
+    });
 }
 
 
