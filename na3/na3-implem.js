@@ -186,10 +186,6 @@ function na3_min(v1, v2)
  */
 function sprite_y_from_row(row)
 {
-    if (row === -1) {
-        return TOP_ROW_Y;
-    }
-
     return BOARD_Y + row * SPT_HEIGHT;
 }
 
@@ -765,8 +761,5 @@ function handle_arrow_down()
         )
     );
 
-    // we n o longer need our main sprite
-    game.sprites.current = null;
-    
     enter_state(STATE_MOVING_DOWN);
 }
