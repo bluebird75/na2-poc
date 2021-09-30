@@ -6,6 +6,8 @@ const SPT_WIDTH = 30;
 const SPT_HEIGHT = 30;
 const TOP_ROW_Y = 120 - 2.5*SPT_HEIGHT;
 const BOARD_Y   = 118;
+const NEXT_ELT_Y = BOARD_Y + SPT_HEIGHT * 1.2;
+const NEXT_ELT_X = SPT_WIDTH * 7.5;
 const NB_ROWS = 7;
 const NB_COLS = 6;
 const DELTA_MOVE_X = 3;
@@ -113,11 +115,11 @@ let game = {
     // current position of our sprite in the top row
     col: 0, 
 
-    // our current element as sprite
-    sp: null, 
-
     // our current element index
     elt: -1,
+
+    // our next element index
+    next_elt: -1,
 
     // current max element (inclusive), defaults to 2, meaning: green + yellow + red potions
     cur_max_elt: 2,
@@ -138,6 +140,9 @@ let game = {
     board: [],
 
     // map of every sprite of the game
+    // sprites[ [1,2] ] -> sprite at row 1, column 2
+    // sprites[ 'current' ] -> sprite manipulated by the cursor
+    // sprites[ 'next' ] -> next sprite to appear
     sprites: {},
 };
 
@@ -228,6 +233,7 @@ export function na3_start() {
         game.board.push( [-1, -1, -1, -1, -1, -1] );
     }
 
+    generate_next_element();
     enter_state(STATE_NEW_ELEM);
 
     assets.app.ticker.add(game_loop);
@@ -236,11 +242,8 @@ export function na3_start() {
 /** Close the loop, unload all textures */
 export function na3_end() {
     console.log('The end already ?');
-    if (game.sp !== null) {
-        game.sp.destroy();
-    }
     for (let sp in game.sprites) {
-        if (sp !== undefined) {
+        if (sp !== undefined && sp !== null) {
             sp.destroy();
         }
     }
@@ -279,7 +282,7 @@ function game_loop()
     switch (game.state)
     {
         case STATE_NEW_ELEM:
-            gen_new_element();
+            generate_current_element();
             return;
 
         case STATE_IDLE:
@@ -335,24 +338,34 @@ function generate_random_elt(cur_max_elt, elt_gen_weight)
     return elt;
 }
 
-// Generate a new element on the top row
-function gen_new_element()
+// Generate next element sprite
+function generate_next_element()
 {
-    game.elt = generate_random_elt(game.cur_max_elt, ELT_GEN_WEIGHT);
-    game.sp = new PIXI.Sprite(assets.textures[game.elt]);
-    assets.app.stage.addChild(game.sp);
+    game.next_elt = generate_random_elt(game.cur_max_elt, ELT_GEN_WEIGHT);
+    game.sprites.next = new PIXI.Sprite(assets.textures[game.next_elt]);
+    assets.app.stage.addChild(game.sprites.next);
+    game.sprites.next.x = NEXT_ELT_X;
+    game.sprites.next.y = NEXT_ELT_Y;
+}
+
+// Generate a new element on the top row
+function generate_current_element()
+{
+    game.sprites.current = game.sprites.next;
+    game.elt = game.next_elt;
+    generate_next_element();
 
     game.col = DEFAULT_COL;
 
     // init sprite position
-    game.sp.x = sprite_x_from_col(game.col);
-    game.sp.y = -SPT_HEIGHT;
+    game.sprites.current.x = sprite_x_from_col(game.col);
+    game.sprites.current.y = -SPT_HEIGHT;
 
     // Move(sprite, dir, dest_x, dest_y, done = null) {
     game.move_in_progress.push( new Move(
-        game.sp,
+        game.sprites.current,
         DIR_DOWN,
-        game.sp.x, TOP_ROW_Y
+        game.sprites.current.x, TOP_ROW_Y
         )
     );
 
@@ -716,9 +729,9 @@ function handle_arrow_left_right()
     }
 
     game.move_in_progress.push( new Move(
-        game.sp, 
+        game.sprites.current, 
         dir,
-        game.sp.x + dir_col*SPT_WIDTH, game.sp.y // dest_x, dest_y
+        game.sprites.current.x + dir_col*SPT_WIDTH, game.sprites.current.y // dest_x, dest_y
         )
     );
     
@@ -740,20 +753,20 @@ function handle_arrow_down()
         };
     } else {
         game.board[target_row][game.col] = game.elt;
-        game.sprites[ [target_row, game.col] ] = game.sp;
+        game.sprites[ [target_row, game.col] ] = game.sprites.current;
     }
 
 
     game.move_in_progress.push( new Move(
-        game.sp, 
+        game.sprites.current, 
         DIR_DOWN,
-        game.sp.x, sprite_y_from_row(target_row),
+        game.sprites.current.x, sprite_y_from_row(target_row),
         done
         )
     );
 
     // we n o longer need our main sprite
-    game.sp = null;
+    game.sprites.current = null;
     
     enter_state(STATE_MOVING_DOWN);
 }
