@@ -17,6 +17,7 @@ const DEFAULT_COL = 2;
 const DIR_LEFT = 'DIR_LEFT';
 const DIR_RIGHT = 'DIR_RIGHT';
 const DIR_DOWN = 'DIR_DOWN';
+const DIR_UP = 'DIR_UP';
 const DELTA_ALPHA = 0.02;
 
 const ELT_GEN_WEIGHT = [18, 18, 18, 18, 12, 8, 7, 5, 4, 1, 1];
@@ -40,6 +41,7 @@ const STATE_LANDING     = 'STATE_LANDING';
 const STATE_NEW_ELEM    = 'STATE_NEW_ELEM';
 const STATE_IDLE        = 'STATE_IDLE';
 const STATE_MOVING_LR   = 'STATE_MOVING_LR';
+const STATE_ROTATING    = 'STATE_ROTATING';
 const STATE_MOVING_DOWN = 'STATE_MOVING_DOWN';
 const STATE_ALCHEMY     = 'STATE_ALCHEMY';
 const STATE_TRANSMUTATION = 'STATE_TRANSMUTATION';
@@ -66,6 +68,8 @@ state:
         -> moving_lr
     * if move element down
         -> moving_down
+    * if rotating
+        -> rotating
 
 - moving left/right
     * move element left/right
@@ -74,6 +78,10 @@ state:
 - moving down
     * move element to the bottom of the screen
         -> alchemy
+
+- rotating
+    * rotate the element to a new position
+        -> idle
 
 - alchemy
     * calculate elements to remove and to add
@@ -90,47 +98,20 @@ state:
     * move elements falling
         -> alchemy
 
-Game structures:
-----------------
-- board describing the current gems placed on the game
-- board pointing to equivalent list of sprites
-- top sprite to generate
-- general movement in progress
-- position of our sprite: 
-    . -1 is top row
-    . other values are in the board
-
-- movement in progress:
-    - list of [
-        - [sprite, dest_x, dest_y, direction, callback when destination is reached]
-    ]
-
-- Rotation of double elements:
-    - value 0: 
-        ..
-        12
-
-    - value 1
-        1.
-        2.
-
-    - value 2
-        21
-        ..
-
-    - value 3
-        .2
-        .1
-
-
 ************************************/
 
 let game = { 
     // current state of the game: STATE_xxx
     state: '',
 
-    // current position of our sprite pair in the top row
-    col: 0, 
+    // current base position of our sprite pair in the top row
+    base_col: 0, 
+
+    // where the sprites are actually located vs the base position    
+    row_delta1: 0,  // 0 or -1
+    col_delta1: 0,  // 0 or 1
+    row_delta2: 0,  // 0 or -1
+    col_delta2: 0,  // 0 or 1
 
     // our current element index pair
     elt1: -1,
@@ -149,7 +130,9 @@ let game = {
     // set to true when accepting key presses
     accept_key_press: false,
 
-    // list of all movements in progress
+    // list of all movements in progress:
+    // [sprite, dest_x, dest_y, direction, callback when destination is reached],
+    // ...
     move_in_progress: [],
 
     // list of all alchemic operations in progress
@@ -250,7 +233,7 @@ export function na3_start() {
         game.board.push( [-1, -1, -1, -1, -1, -1] );
     }
 
-    generate_current_element_pair();
+    generate_next_element_pair();
     enter_state(STATE_NEW_ELEM);
 
     assets.app.ticker.add(game_loop);
@@ -307,6 +290,7 @@ function game_loop()
             return;
 
         case STATE_MOVING_LR:
+        case STATE_ROTATING:
         case STATE_MOVING_DOWN:
         case STATE_LANDING:
         case STATE_ALCHEMY_FALL:
@@ -356,7 +340,7 @@ function generate_random_elt(cur_max_elt, elt_gen_weight)
 }
 
 // Generate next element sprite
-function generate_current_element_pair()
+function generate_next_element_pair()
 {
     game.next_elt1 = generate_random_elt(game.cur_max_elt, ELT_GEN_WEIGHT);
     game.next_elt2 = generate_random_elt(game.cur_max_elt, ELT_GEN_WEIGHT);
@@ -370,20 +354,24 @@ function generate_current_element_pair()
     game.sprites.next2.y = NEXT_ELT_Y;
 }
 
-// Generate a new element on the top row
+// Place a new element on the top row and generate next element
 function land_new_element_pair()
 {
     game.sprites.current1 = game.sprites.next1;
     game.sprites.current2 = game.sprites.next2;
     game.elt1 = game.next_elt1;
     game.elt2 = game.next_elt2;
-    generate_current_element_pair();
+    generate_next_element_pair();
 
-    game.col = DEFAULT_COL;
+    game.base_col = DEFAULT_COL;
+    game.col_delta1 = 0;
+    game.col_delta2 = 1;
+    game.row_delta1 = 0;
+    game.row_delta2 = 0;
 
     // init sprite position
-    game.sprites.current1.x = sprite_x_from_col(game.col);
-    game.sprites.current2.x = sprite_x_from_col(game.col+1);
+    game.sprites.current1.x = sprite_x_from_col(game.base_col + game.col_delta1);
+    game.sprites.current2.x = sprite_x_from_col(game.base_col + game.col_delta2);
     game.sprites.current1.y = -SPT_HEIGHT;
     game.sprites.current2.y = -SPT_HEIGHT;
 
@@ -471,6 +459,16 @@ function handle_moving()
                 }
                 break;
 
+            case DIR_UP:
+                if ((move.dest_y - move.sp.y) < 0) {
+                    move.sp.y = na3_max(move.sp.y - DELTA_MOVE_Y, move.dest_y);
+                    if ((move.dest_y - move.sp.y) === 0) {
+                        // we have reach our goal on the x axis
+                        goal_reached = true;
+                    }
+                }
+                break;
+
             case DIR_LEFT:
                 if ((move.dest_x - move.sp.x) < 0) {
                     move.sp.x = na3_max(move.sp.x - DELTA_MOVE_X, move.dest_x);
@@ -524,6 +522,7 @@ function handle_moving()
 
             case STATE_MOVING_LR:
             case STATE_LANDING:
+            case STATE_ROTATING:
                 enter_state(STATE_IDLE);
                 break;
 
@@ -682,12 +681,10 @@ function na3_onkeydown(e)
         case 'Down':
             k = DIR_DOWN;
             break;
-        /*  Arrow up not handled right now
         case 'ArrowUp':
         case 'Up':
-            k = 'up';
+            k = DIR_UP;
             break;
-        */
         case 'ArrowLeft':
         case 'Left':
             k = DIR_LEFT;
@@ -731,6 +728,11 @@ function handle_game_key()
         return;
     }
 
+    if (game.keypressed === DIR_UP) {
+        handle_arrow_up();
+        return;
+    }
+
     handle_arrow_left_right();
 }
 
@@ -753,8 +755,8 @@ function handle_arrow_left_right()
     game.keypressed = '';
 
     // check if move is possible
-    if ( ((game.col + dir_col + 1) >= NB_COLS) ||
-         ((game.col + dir_col) < 0) 
+    if ( ((game.base_col + dir_col + 1) >= NB_COLS) ||
+         ((game.base_col + dir_col) < 0) 
          ) {
         // ignore the move
         return;
@@ -773,7 +775,7 @@ function handle_arrow_left_right()
         )
     );
     
-    game.col += dir_col;
+    game.base_col += dir_col;
     enter_state(STATE_MOVING_LR);
 }
 
@@ -782,8 +784,9 @@ function handle_arrow_down()
 {
     game.keypressed = '';
     let done = null;
-    let target_row1 = column_next_row(game.board, game.col);
-    let target_row2 = column_next_row(game.board, game.col+1);
+    let col1 = game.base_col + game.col_delta1, col2 = game.base_col + game.col_delta2;
+    let target_row1 = column_next_row(game.board, col1);
+    let target_row2 = column_next_row(game.board, col2);
     if (target_row1 == -1 || target_row2 == -1) {
         // we have lost !
         done = () => {
@@ -791,10 +794,10 @@ function handle_arrow_down()
             na3_end();
         };
     } else {
-        game.board[target_row1][game.col] = game.elt1;
-        game.board[target_row2][game.col+1] = game.elt2;
-        game.sprites[ [target_row1, game.col] ] = game.sprites.current1;
-        game.sprites[ [target_row2, game.col+1] ] = game.sprites.current2;
+        game.board[target_row1][col1] = game.elt1;
+        game.board[target_row2][col2] = game.elt2;
+        game.sprites[ [target_row1, col1] ] = game.sprites.current1;
+        game.sprites[ [target_row2, col2] ] = game.sprites.current2;
     }
 
 
@@ -814,4 +817,84 @@ function handle_arrow_down()
     );
 
     enter_state(STATE_MOVING_DOWN);
+}
+
+/** Rotate the top row element pair.
+ * 
+ * Input:
+ * - row_delta: 0 or -1
+ * - col_delta: 0 or 1
+ * 
+ * Returns a list of :
+ * - direction for moving sprite: DIR_LEFT, DIR_RIGHT, DIR_UP, DIR_DOWN
+ * - new_row_delta: 0 or -1 
+ * - new_col_delta: 0 or 1 
+ */
+function rotate_elt(row_delta, col_delta)
+{
+    let new_row, new_col, dir;
+
+    switch([row_delta, col_delta].toString()) {
+
+        case [0, 0].toString():
+            new_row = -1;
+            new_col = 0;
+            dir = DIR_UP;
+            break;
+
+        case [-1, 0].toString():
+            new_row = -1;
+            new_col = 1;
+            dir = DIR_RIGHT;
+            break;
+
+        case [-1, 1].toString():
+            new_row = 0;
+            new_col = 1;
+            dir = DIR_DOWN;
+            break;
+
+        case [0, 1].toString():
+            new_row = 0;
+            new_col = 0;
+            dir = DIR_LEFT;
+            break;
+
+        default:
+            throw new Error('Invalid rotation input: ' + [row_delta, col_delta].toString());
+    }
+
+    return [dir, new_row, new_col];
+}
+
+
+function handle_arrow_up()
+{
+    game.keypressed = '';
+
+    let dir1, new_row_delta1, new_col_delta1,  dir2, new_row_delta2, new_col_delta2;
+
+    [dir1, new_row_delta1, new_col_delta1] = rotate_elt(game.row_delta1, game.col_delta1);
+    [dir2, new_row_delta2, new_col_delta2] = rotate_elt(game.row_delta2, game.col_delta2);
+
+    game.move_in_progress.push( new Move(
+        game.sprites.current1, 
+        dir1,
+        game.sprites.current1.x +  (new_col_delta1 - game.col_delta1)*SPT_WIDTH, 
+        game.sprites.current1.y +  (new_row_delta1 - game.row_delta1)*SPT_HEIGHT 
+        )
+    );
+    game.move_in_progress.push( new Move(
+        game.sprites.current2, 
+        dir2,
+        game.sprites.current2.x +  (new_col_delta2 - game.col_delta2)*SPT_WIDTH, 
+        game.sprites.current2.y +  (new_row_delta2 - game.row_delta2)*SPT_HEIGHT 
+        )
+    );
+
+    // update game information
+    [game.row_delta1, game.col_delta1] = [new_row_delta1, new_col_delta1];
+    [game.row_delta2, game.col_delta2] = [new_row_delta2, new_col_delta2];
+
+    enter_state(STATE_ROTATING);
 }
