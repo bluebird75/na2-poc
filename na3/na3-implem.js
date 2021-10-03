@@ -130,9 +130,11 @@ let game = {
     // set to true when accepting key presses
     accept_key_press: false,
 
-    // list of all movements in progress:
-    // [sprite, dest_x, dest_y, direction, callback when destination is reached],
-    // ...
+    // list of group of moves:
+    // [ 
+    //   [move1, move2]
+    //   ...
+    // ]
     move_in_progress: [],
 
     // list of all alchemic operations in progress
@@ -376,18 +378,18 @@ function land_new_element_pair()
     game.sprites.current2.y = -SPT_HEIGHT;
 
     // Move(sprite, dir, dest_x, dest_y, done = null) {
-    game.move_in_progress.push( new Move(
-        game.sprites.current1,
-        DIR_DOWN,
-        game.sprites.current1.x, TOP_ROW_Y
+    game.move_in_progress.push( [
+        new Move(
+            game.sprites.current1,
+            DIR_DOWN,
+            game.sprites.current1.x, TOP_ROW_Y
+        ),
+        new Move(
+            game.sprites.current2,
+            DIR_DOWN,
+            game.sprites.current2.x, TOP_ROW_Y
         )
-    );
-    game.move_in_progress.push( new Move(
-        game.sprites.current2,
-        DIR_DOWN,
-        game.sprites.current2.x, TOP_ROW_Y
-        )
-    );
+    ]);
 
     enter_state(STATE_LANDING);
 }
@@ -441,75 +443,82 @@ function Move(sprite, dir, dest_x, dest_y, done = null) {
 
 function handle_moving()
 {
-    let move_to_remove = [];
+    let move_group_to_remove = [];
 
     for (let i=0; i<game.move_in_progress.length; i++) {
-        let move = game.move_in_progress[i];
+        let move_group = game.move_in_progress[i];
+        let group_goal_reached = 0;
 
-        let goal_reached = false;
+        for (let j=0; j<move_group.length; j++) {
+            let move = move_group[j];
 
-        switch (move.dir) {
-            case DIR_DOWN:
-                if ((move.dest_y - move.sp.y) > 0) {
-                    move.sp.y = na3_min(move.sp.y + DELTA_MOVE_Y, move.dest_y);
-                    if ((move.dest_y - move.sp.y) === 0) {
-                        // we have reach our goal on the x axis
-                        goal_reached = true;
+            let goal_reached = false;
+
+            switch (move.dir) {
+                case DIR_DOWN:
+                    if ((move.dest_y - move.sp.y) >= 0) {
+                        move.sp.y = na3_min(move.sp.y + DELTA_MOVE_Y, move.dest_y);
+                        if ((move.dest_y - move.sp.y) === 0) {
+                            // we have reach our goal on the x axis
+                            goal_reached = true;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case DIR_UP:
-                if ((move.dest_y - move.sp.y) < 0) {
-                    move.sp.y = na3_max(move.sp.y - DELTA_MOVE_Y, move.dest_y);
-                    if ((move.dest_y - move.sp.y) === 0) {
-                        // we have reach our goal on the x axis
-                        goal_reached = true;
+                case DIR_UP:
+                    if ((move.dest_y - move.sp.y) <= 0) {
+                        move.sp.y = na3_max(move.sp.y - DELTA_MOVE_Y, move.dest_y);
+                        if ((move.dest_y - move.sp.y) === 0) {
+                            // we have reach our goal on the x axis
+                            goal_reached = true;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case DIR_LEFT:
-                if ((move.dest_x - move.sp.x) < 0) {
-                    move.sp.x = na3_max(move.sp.x - DELTA_MOVE_X, move.dest_x);
-                    if ((move.dest_x - move.sp.x) === 0) {
-                        // we have reach our goal on the x axis
-                        goal_reached = true;
+                case DIR_LEFT:
+                    if ((move.dest_x - move.sp.x) <= 0) {
+                        move.sp.x = na3_max(move.sp.x - DELTA_MOVE_X, move.dest_x);
+                        if ((move.dest_x - move.sp.x) === 0) {
+                            // we have reach our goal on the x axis
+                            goal_reached = true;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            case DIR_RIGHT:
-                if ((move.dest_x - move.sp.x) > 0) {
-                    move.sp.x = na3_min(move.sp.x + DELTA_MOVE_X, move.dest_x);
-                    if ((move.dest_x - move.sp.x) === 0) {
-                        // we have reach our goal on the x axis
-                        goal_reached = true;
+                case DIR_RIGHT:
+                    if ((move.dest_x - move.sp.x) >= 0) {
+                        move.sp.x = na3_min(move.sp.x + DELTA_MOVE_X, move.dest_x);
+                        if ((move.dest_x - move.sp.x) === 0) {
+                            // we have reach our goal on the x axis
+                            goal_reached = true;
+                        }
                     }
-                }
-                break;
+                    break;
 
-            default:
-                console.error('Unexpected state: ', move.dir);
+                default:
+                    console.error('Unexpected state: ', move.dir);
+            }
+
+            if (goal_reached) {
+                group_goal_reached += 1;
+            }
         }
 
-        if (goal_reached === false) {
-            // continue moving other objects
-            continue;
-        }
+        // check all the objects of the group have reached their destination
+        if (group_goal_reached === move_group.length) {
+            if (move_group.length > 1 && move_group[0].done !== null) {
+                move_group[0].done();
+            }
 
-        if (move.done !== null) {
-            move.done();
+            // we have reached our destination for the group, register this move group for deletion
+            move_group_to_remove.push(i);
         }
-
-        // we have reached our destination, register this move for deletion
-        move_to_remove.push(i);
     }
 
     // we must remove the indices in backward order, to avoid them
     // changing in the middle
-    for (let i=move_to_remove.length-1; i>=0 ;i--) {
-        game.move_in_progress.splice(move_to_remove[i], 1);
+    for (let i=move_group_to_remove.length-1; i>=0 ;i--) {
+        game.move_in_progress.splice(move_group_to_remove[i], 1);
     }
 
     // if all moves are completed, we can begin our next step
@@ -645,12 +654,13 @@ function start_alchemy_fall()
         let sp = game.sprites[ [row, col] ];
 
         // register move
-        game.move_in_progress.push( new Move(
-            sp, 
-            DIR_DOWN,
-            sp.x, sprite_y_from_row(target_row)
+        game.move_in_progress.push( [
+            new Move(
+                sp, 
+                DIR_DOWN,
+                sp.x, sprite_y_from_row(target_row)
             )
-        );
+        ]);
 
         // update our map of sprite positions
         delete game.sprites[ [row,col] ];
@@ -764,18 +774,20 @@ function handle_arrow_left_right()
         return;
     }
 
-    game.move_in_progress.push( new Move(
-        game.sprites.current1, 
-        dir,
-        game.sprites.current1.x + dir_col*SPT_WIDTH, game.sprites.current1.y // dest_x, dest_y
+    game.move_in_progress.push( [
+        new Move(
+            game.sprites.current1, 
+            dir,
+            game.sprites.current1.x + dir_col*SPT_WIDTH, 
+            game.sprites.current1.y // dest_x, dest_y
+        ),
+        new Move(
+            game.sprites.current2, 
+            dir,
+            game.sprites.current2.x + dir_col*SPT_WIDTH, 
+            game.sprites.current2.y // dest_x, dest_y
         )
-    );
-    game.move_in_progress.push( new Move(
-        game.sprites.current2, 
-        dir,
-        game.sprites.current2.x + dir_col*SPT_WIDTH, game.sprites.current2.y // dest_x, dest_y
-        )
-    );
+    ]);
     
     game.base_col += dir_col;
     enter_state(STATE_MOVING_LR);
@@ -813,20 +825,22 @@ function handle_arrow_down()
     }
 
 
-    game.move_in_progress.push( new Move(
-        game.sprites.current1, 
-        DIR_DOWN,
-        game.sprites.current1.x, sprite_y_from_row(target_row1),
-        done
+    game.move_in_progress.push( [
+        new Move(
+            game.sprites.current1, 
+            DIR_DOWN,
+            game.sprites.current1.x, 
+            sprite_y_from_row(target_row1),
+            done
+        ),
+        new Move(
+            game.sprites.current2, 
+            DIR_DOWN,
+            game.sprites.current2.x, 
+            sprite_y_from_row(target_row2),
+            done
         )
-    );
-    game.move_in_progress.push( new Move(
-        game.sprites.current2, 
-        DIR_DOWN,
-        game.sprites.current2.x, sprite_y_from_row(target_row2),
-        done
-        )
-    );
+    ]);
 
     enter_state(STATE_MOVING_DOWN);
 }
@@ -889,20 +903,20 @@ function handle_arrow_up()
     [dir1, new_row_delta1, new_col_delta1] = rotate_elt(game.row_delta1, game.col_delta1);
     [dir2, new_row_delta2, new_col_delta2] = rotate_elt(game.row_delta2, game.col_delta2);
 
-    game.move_in_progress.push( new Move(
-        game.sprites.current1, 
-        dir1,
-        game.sprites.current1.x +  (new_col_delta1 - game.col_delta1)*SPT_WIDTH, 
-        game.sprites.current1.y +  (new_row_delta1 - game.row_delta1)*SPT_HEIGHT 
+    game.move_in_progress.push( [
+        new Move(
+            game.sprites.current1, 
+            dir1,
+            game.sprites.current1.x +  (new_col_delta1 - game.col_delta1)*SPT_WIDTH, 
+            game.sprites.current1.y +  (new_row_delta1 - game.row_delta1)*SPT_HEIGHT 
+        ),
+        new Move(
+            game.sprites.current2, 
+            dir2,
+            game.sprites.current2.x +  (new_col_delta2 - game.col_delta2)*SPT_WIDTH, 
+            game.sprites.current2.y +  (new_row_delta2 - game.row_delta2)*SPT_HEIGHT 
         )
-    );
-    game.move_in_progress.push( new Move(
-        game.sprites.current2, 
-        dir2,
-        game.sprites.current2.x +  (new_col_delta2 - game.col_delta2)*SPT_WIDTH, 
-        game.sprites.current2.y +  (new_row_delta2 - game.row_delta2)*SPT_HEIGHT 
-        )
-    );
+    ]);
 
     // update game information
     [game.row_delta1, game.col_delta1] = [new_row_delta1, new_col_delta1];
