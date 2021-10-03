@@ -755,9 +755,11 @@ function handle_arrow_left_right()
     game.keypressed = '';
 
     // check if move is possible
-    if ( ((game.base_col + dir_col + 1) >= NB_COLS) ||
-         ((game.base_col + dir_col) < 0) 
-         ) {
+    if ( (game.base_col + dir_col + 1 >= NB_COLS) || 
+         (game.base_col + dir_col < -1) ||
+         ((game.base_col + dir_col === -1) && 
+          (game.col_delta1 != 1 || 
+           game.col_delta2 != 1))) {
         // ignore the move
         return;
     }
