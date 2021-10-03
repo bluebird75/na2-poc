@@ -789,6 +789,16 @@ function handle_arrow_down()
     let col1 = game.base_col + game.col_delta1, col2 = game.base_col + game.col_delta2;
     let target_row1 = column_next_row(game.board, col1);
     let target_row2 = column_next_row(game.board, col2);
+
+    // one element above the other
+    if (col1 === col2) {
+        if (game.row_delta2 > game.row_delta1) {
+            target_row1 -= 1;
+        } else {
+            target_row2 -= 1;
+        }
+    }
+
     if (target_row1 == -1 || target_row2 == -1) {
         // we have lost !
         done = () => {
