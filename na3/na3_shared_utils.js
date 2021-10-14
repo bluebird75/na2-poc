@@ -5,13 +5,16 @@
  * - browser: to play
  */
 
-/** In a list of [row, col], find the lowest, left-est position */
+/** In a list of [row, col], find the lowest, left-est position.
+ * 
+ * Used to find the new element position in a transmutation
+ */
 function find_new_elt_position(cluster)
 {
     let copy_cluster = cluster.slice();
     copy_cluster.sort((a, b) => {
-        if (a[0] > b[0]) return -1;     // visually lowest board row first
-        if (a[0] < b[0]) return 1;      
+        if (a[0] > b[0]) return 1;     // visually lowest board row first
+        if (a[0] < b[0]) return -1;      
         // both rows are equals
         if (a[1] < b[1]) return -1;     // left-est col
         if (a[1] > b[1]) return 1;
@@ -126,12 +129,12 @@ function detect_falls(board)
     let falls = [];
     for (let col=0; col<board[0].length; col++) {
         let col_holes = 0;
-        for (let row=board.length-1; row >= 0; row--) {
+        for (let row=0; row<board.length; row++) {
             if (board[row][col] === -1) {
                 col_holes += 1;
             } else {
                 if (col_holes > 0) {
-                    falls.push([row, col, row+col_holes]);
+                    falls.push([row, col, row-col_holes]);
                 }
             }
         }

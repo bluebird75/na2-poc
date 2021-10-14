@@ -10,6 +10,7 @@ const NEXT_ELT_Y = BOARD_Y + SPT_HEIGHT * 1.2;
 const NEXT_ELT_X1 = SPT_WIDTH * 7;
 const NEXT_ELT_X2 = SPT_WIDTH * 8;
 const NB_ROWS = 7;
+const TOP_ROW = NB_ROWS-1;
 const NB_COLS = 6;
 const DELTA_MOVE_X = 3;
 const DELTA_MOVE_Y = 5;
@@ -88,6 +89,7 @@ state:
     * if new elements
         -> transmutation
     * no changes
+        -> check if player lost
         -> new element
 
 - transmutation
@@ -108,9 +110,9 @@ let game = {
     base_col: 0, 
 
     // where the sprites are actually located vs the base position    
-    row_delta1: 0,  // 0 or -1
+    row_delta1: 0,  // 0 or 1
     col_delta1: 0,  // 0 or 1
-    row_delta2: 0,  // 0 or -1
+    row_delta2: 0,  // 0 or 1
     col_delta2: 0,  // 0 or 1
 
     // our current element index pair
@@ -141,6 +143,10 @@ let game = {
     transmutation_in_progress: [],
 
     // board[row][col] for the elements
+    // board[0] is the row of the bottom of the screen
+    // board[TOP_ROW] is the upper valid row of the screen
+    // board[TOP_ROW+1] and board[TOP_ROW+2] are extra row, for allowing transmutations
+    //      when placing an item above the maximum
     board: [],
 
     // map of every sprite of the game
@@ -187,12 +193,11 @@ function na3_min(v1, v2)
 }
 
 /** Return the y value for a sprite in a given row.
- *  0 - NB_ROWS: row in the board
- *  -1 means row above the board, when losing
+ *  0 - TOP_ROW+2: row in the board
  */
 function sprite_y_from_row(row)
 {
-    return BOARD_Y + row * SPT_HEIGHT;
+    return BOARD_Y + (TOP_ROW - row) * SPT_HEIGHT;
 }
 
 function sprite_x_from_col(col)
@@ -231,7 +236,7 @@ export function na3_start() {
         assets.textures.push( PIXI.Texture.from(e) );
     });
 
-    for (let i=0; i<NB_ROWS; i++) {
+    for (let i=0; i<NB_ROWS+2; i++) {
         game.board.push( [-1, -1, -1, -1, -1, -1] );
     }
 
@@ -356,7 +361,7 @@ function generate_next_element_pair()
     game.sprites.next2.y = NEXT_ELT_Y;
 }
 
-// Place a new element on the top row and generate next element
+// Place a new element on the landing row and generate next element
 function land_new_element_pair()
 {
     game.sprites.current1 = game.sprites.next1;
@@ -402,21 +407,19 @@ function land_new_element_pair()
 
 /** return the next row available to put an element in a given column.
  * 
- * When there are 0 elements in the board, this is row 6.
- * The last position of the column to put an element is row 0
+ * When there are 0 elements in the board, this is row 0.
+ * The last position of the column to put an element is row TOP_ROW+2
+ * Returning -1 means there is no room left in the column at all
  * 
- * -1 means no more rows in this column.
  */
 function column_next_row(board, col)
 {
-    let next_row = -1;
-    for (let row=NB_ROWS-1; row>=0; row--) {
+    for (let row=0; row<TOP_ROW+3; row++) {
         if (board[row][col] === -1) {
-            next_row = row;
-            break;
+            return row;
         }
     }
-    return next_row;
+    return -1;
 }
 
 
@@ -804,19 +807,18 @@ function handle_arrow_down()
 
     // one element above the other
     if (col1 === col2) {
+        // both elemnts are on the same column, so target_row is identical
+        // this needs to be adjusted
         if (game.row_delta2 > game.row_delta1) {
-            target_row1 -= 1;
+            target_row2 += 1;
         } else {
-            target_row2 -= 1;
+            target_row1 += 1;
         }
     }
 
     if (target_row1 == -1 || target_row2 == -1) {
-        // we have lost !
-        done = () => {
-            alert('you lose!');
-            na3_end();
-        };
+        na3_end();
+        throw new Error(`Invalid row destionation: ${target_row1} and ${target_row2}`);
     } else {
         game.board[target_row1][col1] = game.elt1;
         game.board[target_row2][col2] = game.elt2;
@@ -848,12 +850,12 @@ function handle_arrow_down()
 /** Rotate the top row element pair.
  * 
  * Input:
- * - row_delta: 0 or -1
+ * - row_delta: 0 or 1
  * - col_delta: 0 or 1
  * 
  * Returns a list of :
  * - direction for moving sprite: DIR_LEFT, DIR_RIGHT, DIR_UP, DIR_DOWN
- * - new_row_delta: 0 or -1 
+ * - new_row_delta: 0 or 1 
  * - new_col_delta: 0 or 1 
  */
 function rotate_elt(row_delta, col_delta)
@@ -863,18 +865,18 @@ function rotate_elt(row_delta, col_delta)
     switch([row_delta, col_delta].toString()) {
 
         case [0, 0].toString():
-            new_row = -1;
+            new_row = 1;
             new_col = 0;
             dir = DIR_UP;
             break;
 
-        case [-1, 0].toString():
-            new_row = -1;
+        case [1, 0].toString():
+            new_row = 1;
             new_col = 1;
             dir = DIR_RIGHT;
             break;
 
-        case [-1, 1].toString():
+        case [1, 1].toString():
             new_row = 0;
             new_col = 1;
             dir = DIR_DOWN;
@@ -908,13 +910,13 @@ function handle_arrow_up()
             game.sprites.current1, 
             dir1,
             game.sprites.current1.x +  (new_col_delta1 - game.col_delta1)*SPT_WIDTH, 
-            game.sprites.current1.y +  (new_row_delta1 - game.row_delta1)*SPT_HEIGHT 
+            game.sprites.current1.y -  (new_row_delta1 - game.row_delta1)*SPT_HEIGHT 
         ),
         new Move(
             game.sprites.current2, 
             dir2,
             game.sprites.current2.x +  (new_col_delta2 - game.col_delta2)*SPT_WIDTH, 
-            game.sprites.current2.y +  (new_row_delta2 - game.row_delta2)*SPT_HEIGHT 
+            game.sprites.current2.y -  (new_row_delta2 - game.row_delta2)*SPT_HEIGHT 
         )
     ]);
 
