@@ -846,45 +846,40 @@ function handle_arrow_down()
  * - col_delta: 0 or 1
  * 
  * Returns a list of :
- * - direction for moving sprite: DIR_LEFT, DIR_RIGHT, DIR_UP, DIR_DOWN
  * - new_row_delta: 0 or 1 
  * - new_col_delta: 0 or 1 
  */
 function rotate_elt(row_delta, col_delta)
 {
-    let new_row, new_col, dir;
+    let new_row, new_col;
 
     switch([row_delta, col_delta].toString()) {
 
         case [0, 0].toString():
             new_row = 1;
             new_col = 0;
-            dir = DIR_UP;
             break;
 
         case [1, 0].toString():
             new_row = 1;
             new_col = 1;
-            dir = DIR_RIGHT;
             break;
 
         case [1, 1].toString():
             new_row = 0;
             new_col = 1;
-            dir = DIR_DOWN;
             break;
 
         case [0, 1].toString():
             new_row = 0;
             new_col = 0;
-            dir = DIR_LEFT;
             break;
 
         default:
             throw new Error('Invalid rotation input: ' + [row_delta, col_delta].toString());
     }
 
-    return [dir, new_row, new_col];
+    return [new_row, new_col];
 }
 
 
@@ -892,43 +887,41 @@ function handle_arrow_up()
 {
     game.keypressed = '';
 
-    let dir1, new_row_delta1, new_col_delta1,  dir2, new_row_delta2, new_col_delta2;
+    let new_row_delta1, new_col_delta1, new_row_delta2, new_col_delta2;
 
-    [dir1, new_row_delta1, new_col_delta1] = rotate_elt(game.row_delta1, game.col_delta1);
-    [dir2, new_row_delta2, new_col_delta2] = rotate_elt(game.row_delta2, game.col_delta2);
+    [new_row_delta1, new_col_delta1] = rotate_elt(game.row_delta1, game.col_delta1);
+    [new_row_delta2, new_col_delta2] = rotate_elt(game.row_delta2, game.col_delta2);
 
-    /*
-    let old_game_base_col = game.base_col;
+    let delta_base_col = 0;
     if (game.base_col === -1) {
         // if we went too far on the left, we need to move the base to
-        // dispaly the sprites within the board
-        game.base_col = 0;
+        // display the sprites within the board
+        delta_base_col = 1;
     }  
 
-    if (game.base_col === NB_COLS) {
+    if (game.base_col === NB_COLS-1) {
         // if we went too far on the right, we need to move the base to
         // dispaly the sprites within the board
-        game.base_col = NB_COLS-1;
+        delta_base_col = -1;
     }  
-    let delta_base_col = game.base_col - old_game_base_col;
-    **/
 
     game.move_in_progress.push( [
         new Move(
             game.sprites.current1, 
-            game.sprites.current1.x +  (new_col_delta1 - game.col_delta1)*SPT_WIDTH, 
-            game.sprites.current1.y -  (new_row_delta1 - game.row_delta1)*SPT_HEIGHT 
+            game.sprites.current1.x + (new_col_delta1 - game.col_delta1 + delta_base_col)*SPT_WIDTH, 
+            game.sprites.current1.y - (new_row_delta1 - game.row_delta1)*SPT_HEIGHT 
         ),
         new Move(
             game.sprites.current2, 
-            game.sprites.current2.x +  (new_col_delta2 - game.col_delta2)*SPT_WIDTH, 
-            game.sprites.current2.y -  (new_row_delta2 - game.row_delta2)*SPT_HEIGHT 
+            game.sprites.current2.x + (new_col_delta2 - game.col_delta2 + delta_base_col)*SPT_WIDTH, 
+            game.sprites.current2.y - (new_row_delta2 - game.row_delta2)*SPT_HEIGHT 
         )
     ]);
 
     // update game information
-    [game.row_delta1, game.col_delta1] = [new_row_delta1, new_col_delta1 + delta_base_col];
-    [game.row_delta2, game.col_delta2] = [new_row_delta2, new_col_delta2 + delta_base_col];
+    [game.row_delta1, game.col_delta1] = [new_row_delta1, new_col_delta1];
+    [game.row_delta2, game.col_delta2] = [new_row_delta2, new_col_delta2];
+    game.base_col += delta_base_col;
 
     enter_state(STATE_ROTATING);
 }
