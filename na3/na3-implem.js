@@ -302,7 +302,7 @@ function game_loop()
         case STATE_MOVING_DOWN:
         case STATE_LANDING:
         case STATE_ALCHEMY_FALL:
-            handle_moving_new();
+            handle_moving();
             return;
 
         case STATE_ALCHEMY:
@@ -385,12 +385,12 @@ function land_new_element_pair()
 
     // Move(sprite, dir, dest_x, dest_y, done = null) {
     game.move_in_progress.push( [
-        new MoveNew(
+        new Move(
             game.sprites.current1,
             game.sprites.current1.x, 
             TOP_ROW_Y
         ),
-        new MoveNew(
+        new Move(
             game.sprites.current2,
             game.sprites.current2.x, 
             TOP_ROW_Y
@@ -434,12 +434,17 @@ function column_next_row(board, col)
  * sprite: the sprite object to move
  * dest_x, dest_y: coordinates of the destination
  */
+function Move(sprite, dest_x, dest_y) {
+    this.sp = sprite;
+    this.pos_it = generate_translation_move(sprite.x, sprite.y, dest_x, dest_y);
+}
+
 
 /** Generator for moving from (x,y) to (dest_x, dest_y).
  * 
  * On each iteration, returns a (x,y) pair adjusted by a delta of (DELTA_X, DELTA_Y)
  */
-function* gen_translation_move(x, y, dest_x, dest_y)
+function* generate_translation_move(x, y, dest_x, dest_y)
 {
     let dir_x = x < dest_x ? 1 : -1;
     let dir_y = y < dest_y ? 1 : -1;
@@ -460,12 +465,7 @@ function* gen_translation_move(x, y, dest_x, dest_y)
     return;
 }
 
-function MoveNew(sprite, dest_x, dest_y) {
-    this.sp = sprite;
-    this.pos_it = gen_translation_move(sprite.x, sprite.y, dest_x, dest_y);
-}
-
-function handle_moving_new()
+function handle_moving()
 {
     let move_group_to_remove = [];
 
@@ -476,7 +476,6 @@ function handle_moving_new()
         for (let j=0; j<move_group.length; j++) {
             let move = move_group[j];
 
-            let goal_reached = false;
             let next_pos_it = move.pos_it.next();
             if (next_pos_it.done) {
                 group_goal_reached += 1;
@@ -488,10 +487,6 @@ function handle_moving_new()
 
         // check all the objects of the group have reached their destination
         if (group_goal_reached === move_group.length) {
-            if (move_group.length > 1 && move_group[0].done !== null && move_group[0].done !== undefined) {
-                move_group[0].done();
-            }
-
             // we have reached our destination for the group, register this move group for deletion
             move_group_to_remove.push(i);
         }
@@ -656,7 +651,7 @@ function start_alchemy_fall()
 
         // register move
         game.move_in_progress.push( [
-            new MoveNew(
+            new Move(
                 sp, 
                 sp.x, 
                 sprite_y_from_row(target_row)
@@ -782,12 +777,12 @@ function handle_arrow_left_right()
      * This generates a move by DELTA_X, DELTA_Y on each iteration until the destination is reached.
      */
     game.move_in_progress.push( [
-        new MoveNew(
+        new Move(
             game.sprites.current1, 
             game.sprites.current1.x + dir_col*SPT_WIDTH, 
             game.sprites.current1.y
         ),
-        new MoveNew(
+        new Move(
             game.sprites.current2, 
             game.sprites.current2.x + dir_col*SPT_WIDTH, 
             game.sprites.current2.y
@@ -829,12 +824,12 @@ function handle_arrow_down()
 
 
     game.move_in_progress.push( [
-        new MoveNew(
+        new Move(
             game.sprites.current1, 
             game.sprites.current1.x, 
             sprite_y_from_row(target_row1)
         ),
-        new MoveNew(
+        new Move(
             game.sprites.current2, 
             game.sprites.current2.x, 
             sprite_y_from_row(target_row2)
@@ -919,12 +914,12 @@ function handle_arrow_up()
     **/
 
     game.move_in_progress.push( [
-        new MoveNew(
+        new Move(
             game.sprites.current1, 
             game.sprites.current1.x +  (new_col_delta1 - game.col_delta1)*SPT_WIDTH, 
             game.sprites.current1.y -  (new_row_delta1 - game.row_delta1)*SPT_HEIGHT 
         ),
-        new MoveNew(
+        new Move(
             game.sprites.current2, 
             game.sprites.current2.x +  (new_col_delta2 - game.col_delta2)*SPT_WIDTH, 
             game.sprites.current2.y -  (new_row_delta2 - game.row_delta2)*SPT_HEIGHT 
