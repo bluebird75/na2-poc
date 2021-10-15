@@ -547,9 +547,34 @@ function handle_moving()
     }
 }
 
-function MoveNew(sprite, pos_it) {
+/** Generator for moving from (x,y) to (dest_x, dest_y).
+ * 
+ * On each iteration, returns a (x,y) pair adjusted by a delta of (DELTA_X, DELTA_Y)
+ */
+function* gen_translation_move(x, y, dest_x, dest_y)
+{
+    let dir_x = x < dest_x ? 1 : -1;
+    let dir_y = y < dest_y ? 1 : -1;
+
+    while (x !== dest_x || y !== dest_y) {
+        // We use the dir value to handle in one block the case where dest_x > x and dest_x < x
+        if (x*dir_x < dest_x*dir_x) {
+            x += DELTA_MOVE_X*dir_x;
+            x = dir_x*na3_min(dir_x*x, dir_x*dest_x);
+        }
+
+        if (y*dir_y < dest_y*dir_y) {
+            y += DELTA_MOVE_Y*dir_y;
+            y = dir_y*na3_min(dir_y*y, dir_y*dest_y);
+        }
+        yield [x, y];
+    }
+    return;
+}
+
+function MoveNew(sprite, dest_x, dest_y) {
     this.sp = sprite;
-    this.pos_it = pos_it;
+    this.pos_it = gen_translation_move(sprite.x, sprite.y, dest_x, dest_y);
 }
 
 function handle_moving_new()
@@ -868,45 +893,16 @@ function handle_arrow_left_right()
      * 
      * This generates a move by DELTA_X, DELTA_Y on each iteration until the destination is reached.
      */
-    function* gen_translation_move(x, y, dest_x, dest_y)
-    {
-        let dir_x = x < dest_x ? 1 : -1;
-        let dir_y = y < dest_y ? 1 : -1;
-
-        while (x !== dest_x || y !== dest_y) {
-            // We use the dir value to handle in one block the case where dest_x > x and dest_x < x
-            if (x*dir_x < dest_x*dir_x) {
-                x += DELTA_MOVE_X*dir_x;
-                x = dir_x*na3_min(dir_x*x, dir_x*dest_x);
-            }
-
-            if (y*dir_y < dest_y*dir_y) {
-                y += DELTA_MOVE_Y*dir_y;
-                y = dir_y*na3_min(dir_y*y, dir_y*dest_y);
-            }
-            yield [x, y];
-        }
-        return;
-    }
-
     game.move_in_progress.push( [
         new MoveNew(
             game.sprites.current1, 
-            gen_translation_move(
-                game.sprites.current1.x,
-                game.sprites.current1.y,
-                game.sprites.current1.x + dir_col*SPT_WIDTH, 
-                game.sprites.current1.y
-            )
+            game.sprites.current1.x + dir_col*SPT_WIDTH, 
+            game.sprites.current1.y
         ),
         new MoveNew(
             game.sprites.current2, 
-            gen_translation_move(
-                game.sprites.current2.x,
-                game.sprites.current2.y,
-                game.sprites.current2.x + dir_col*SPT_WIDTH, 
-                game.sprites.current2.y
-            )
+            game.sprites.current2.x + dir_col*SPT_WIDTH, 
+            game.sprites.current2.y
         )
     ] );
     
