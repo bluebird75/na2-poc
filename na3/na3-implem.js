@@ -298,13 +298,11 @@ function game_loop()
             return;
 
         case STATE_MOVING_LR:
-            handle_moving_new();
-            return;
         case STATE_ROTATING:
         case STATE_MOVING_DOWN:
         case STATE_LANDING:
         case STATE_ALCHEMY_FALL:
-            handle_moving();
+            handle_moving_new();
             return;
 
         case STATE_ALCHEMY:
@@ -387,15 +385,15 @@ function land_new_element_pair()
 
     // Move(sprite, dir, dest_x, dest_y, done = null) {
     game.move_in_progress.push( [
-        new Move(
+        new MoveNew(
             game.sprites.current1,
-            DIR_DOWN,
-            game.sprites.current1.x, TOP_ROW_Y
+            game.sprites.current1.x, 
+            TOP_ROW_Y
         ),
-        new Move(
+        new MoveNew(
             game.sprites.current2,
-            DIR_DOWN,
-            game.sprites.current2.x, TOP_ROW_Y
+            game.sprites.current2.x, 
+            TOP_ROW_Y
         )
     ]);
 
@@ -434,118 +432,8 @@ function column_next_row(board, col)
 
 /** Create a new move:
  * sprite: the sprite object to move
- * dir: 'down', 'left', 'right'
  * dest_x, dest_y: coordinates of the destination
- * done: function to call when the move is finished
  */
-function Move(sprite, dir, dest_x, dest_y, done = null) {
-    this.sp = sprite;
-    this.dir = dir;
-    this.dest_x = dest_x;
-    this.dest_y = dest_y;
-    this.done = done;
-}
-
-
-function handle_moving()
-{
-    let move_group_to_remove = [];
-
-    for (let i=0; i<game.move_in_progress.length; i++) {
-        let move_group = game.move_in_progress[i];
-        let group_goal_reached = 0;
-
-        for (let j=0; j<move_group.length; j++) {
-            let move = move_group[j];
-
-            let goal_reached = false;
-
-            switch (move.dir) {
-                case DIR_DOWN:
-                    if ((move.dest_y - move.sp.y) >= 0) {
-                        move.sp.y = na3_min(move.sp.y + DELTA_MOVE_Y, move.dest_y);
-                        if ((move.dest_y - move.sp.y) === 0) {
-                            // we have reach our goal on the x axis
-                            goal_reached = true;
-                        }
-                    }
-                    break;
-
-                case DIR_UP:
-                    if ((move.dest_y - move.sp.y) <= 0) {
-                        move.sp.y = na3_max(move.sp.y - DELTA_MOVE_Y, move.dest_y);
-                        if ((move.dest_y - move.sp.y) === 0) {
-                            // we have reach our goal on the x axis
-                            goal_reached = true;
-                        }
-                    }
-                    break;
-
-                case DIR_LEFT:
-                    if ((move.dest_x - move.sp.x) <= 0) {
-                        move.sp.x = na3_max(move.sp.x - DELTA_MOVE_X, move.dest_x);
-                        if ((move.dest_x - move.sp.x) === 0) {
-                            // we have reach our goal on the x axis
-                            goal_reached = true;
-                        }
-                    }
-                    break;
-
-                case DIR_RIGHT:
-                    if ((move.dest_x - move.sp.x) >= 0) {
-                        move.sp.x = na3_min(move.sp.x + DELTA_MOVE_X, move.dest_x);
-                        if ((move.dest_x - move.sp.x) === 0) {
-                            // we have reach our goal on the x axis
-                            goal_reached = true;
-                        }
-                    }
-                    break;
-
-                default:
-                    console.error('Unexpected state: ', move.dir);
-            }
-
-            if (goal_reached) {
-                group_goal_reached += 1;
-            }
-        }
-
-        // check all the objects of the group have reached their destination
-        if (group_goal_reached === move_group.length) {
-            if (move_group.length > 1 && move_group[0].done !== null) {
-                move_group[0].done();
-            }
-
-            // we have reached our destination for the group, register this move group for deletion
-            move_group_to_remove.push(i);
-        }
-    }
-
-    // we must remove the indices in backward order, to avoid them
-    // changing in the middle
-    for (let i=move_group_to_remove.length-1; i>=0 ;i--) {
-        game.move_in_progress.splice(move_group_to_remove[i], 1);
-    }
-
-    // if all moves are completed, we can begin our next step
-    if (game.move_in_progress.length === 0) {
-        switch (game.state) {
-            case STATE_MOVING_DOWN:
-            case STATE_ALCHEMY_FALL:
-                enter_state(STATE_ALCHEMY);
-                break;
-
-            case STATE_MOVING_LR:
-            case STATE_LANDING:
-            case STATE_ROTATING:
-                enter_state(STATE_IDLE);
-                break;
-
-            default:
-                console.error('Should not be reached...');
-        }
-    }
-}
 
 /** Generator for moving from (x,y) to (dest_x, dest_y).
  * 
@@ -768,10 +656,10 @@ function start_alchemy_fall()
 
         // register move
         game.move_in_progress.push( [
-            new Move(
+            new MoveNew(
                 sp, 
-                DIR_DOWN,
-                sp.x, sprite_y_from_row(target_row)
+                sp.x, 
+                sprite_y_from_row(target_row)
             )
         ]);
 
@@ -914,7 +802,6 @@ function handle_arrow_left_right()
 function handle_arrow_down()
 {
     game.keypressed = '';
-    let done = null;
     let col1 = game.base_col + game.col_delta1, col2 = game.base_col + game.col_delta2;
     let target_row1 = column_next_row(game.board, col1);
     let target_row2 = column_next_row(game.board, col2);
@@ -942,19 +829,15 @@ function handle_arrow_down()
 
 
     game.move_in_progress.push( [
-        new Move(
+        new MoveNew(
             game.sprites.current1, 
-            DIR_DOWN,
             game.sprites.current1.x, 
-            sprite_y_from_row(target_row1),
-            done
+            sprite_y_from_row(target_row1)
         ),
-        new Move(
+        new MoveNew(
             game.sprites.current2, 
-            DIR_DOWN,
             game.sprites.current2.x, 
-            sprite_y_from_row(target_row2),
-            done
+            sprite_y_from_row(target_row2)
         )
     ]);
 
@@ -1036,15 +919,13 @@ function handle_arrow_up()
     **/
 
     game.move_in_progress.push( [
-        new Move(
+        new MoveNew(
             game.sprites.current1, 
-            dir1,
             game.sprites.current1.x +  (new_col_delta1 - game.col_delta1)*SPT_WIDTH, 
             game.sprites.current1.y -  (new_row_delta1 - game.row_delta1)*SPT_HEIGHT 
         ),
-        new Move(
+        new MoveNew(
             game.sprites.current2, 
-            dir2,
             game.sprites.current2.x +  (new_col_delta2 - game.col_delta2)*SPT_WIDTH, 
             game.sprites.current2.y -  (new_row_delta2 - game.row_delta2)*SPT_HEIGHT 
         )
