@@ -298,6 +298,8 @@ function game_loop()
             return;
 
         case STATE_MOVING_LR:
+            handle_moving_new();
+            return;
         case STATE_ROTATING:
         case STATE_MOVING_DOWN:
         case STATE_LANDING:
@@ -543,8 +545,72 @@ function handle_moving()
                 console.error('Should not be reached...');
         }
     }
+}
+
+function MoveNew(sprite, pos_it) {
+    this.sp = sprite;
+    this.pos_it = pos_it;
+}
+
+function handle_moving_new()
+{
+    let move_group_to_remove = [];
+
+    for (let i=0; i<game.move_in_progress.length; i++) {
+        let move_group = game.move_in_progress[i];
+        let group_goal_reached = 0;
+
+        for (let j=0; j<move_group.length; j++) {
+            let move = move_group[j];
+
+            let goal_reached = false;
+            let next_pos_it = move.pos_it.next();
+            if (next_pos_it.done) {
+                group_goal_reached += 1;
+            } else {
+                // unpack x, y from the iterator
+                [move.sp.x, move.sp.y] = next_pos_it.value;
+            }
+        }
+
+        // check all the objects of the group have reached their destination
+        if (group_goal_reached === move_group.length) {
+            if (move_group.length > 1 && move_group[0].done !== null && move_group[0].done !== undefined) {
+                move_group[0].done();
+            }
+
+            // we have reached our destination for the group, register this move group for deletion
+            move_group_to_remove.push(i);
+        }
+    }
+
+    // we must remove the indices in backward order, to avoid them
+    // changing in the middle
+    for (let i=move_group_to_remove.length-1; i>=0 ;i--) {
+        game.move_in_progress.splice(move_group_to_remove[i], 1);
+    }
+
+    // if all moves are completed, we can begin our next step
+    if (game.move_in_progress.length === 0) {
+        switch (game.state) {
+            case STATE_MOVING_DOWN:
+            case STATE_ALCHEMY_FALL:
+                enter_state(STATE_ALCHEMY);
+                break;
+
+            case STATE_MOVING_LR:
+            case STATE_LANDING:
+            case STATE_ROTATING:
+                enter_state(STATE_IDLE);
+                break;
+
+            default:
+                console.error('Should not be reached...');
+        }
+    }
 
 }
+
 
 /*********************************************************************
  * 
@@ -776,7 +842,6 @@ function handle_arrow_left_right()
         DIR_RIGHT:    1,
     };
 
-    let dir = game.keypressed;
     let dir_col = dir_dict[game.keypressed];
     if (dir_col === undefined) {
         console.error('Unknown key pressed: ', game.keypressed);
@@ -787,29 +852,63 @@ function handle_arrow_left_right()
     game.keypressed = '';
 
     // check if move is possible
-    if ( (game.base_col + dir_col + 1 >= NB_COLS) || 
-         (game.base_col + dir_col < -1) ||
-         ((game.base_col + dir_col === -1) && 
-          (game.col_delta1 != 1 || 
-           game.col_delta2 != 1))) {
+    let new_col1 = game.base_col + game.col_delta1 + dir_col;
+    let new_col2 = game.base_col + game.col_delta2 + dir_col;
+
+    if ( (new_col1 >= NB_COLS) 
+         || (new_col2 >= NB_COLS)
+         || (new_col1 < 0)
+         || (new_col2 < 0)
+        ) {
         // ignore the move
         return;
     }
 
+    /** Generator for a translation of the sprite from coordinates (x,y) to (dest_x, dest_y).
+     * 
+     * This generates a move by DELTA_X, DELTA_Y on each iteration until the destination is reached.
+     */
+    function* gen_translation_move(x, y, dest_x, dest_y)
+    {
+        let dir_x = x < dest_x ? 1 : -1;
+        let dir_y = y < dest_y ? 1 : -1;
+
+        while (x !== dest_x || y !== dest_y) {
+            // We use the dir value to handle in one block the case where dest_x > x and dest_x < x
+            if (x*dir_x < dest_x*dir_x) {
+                x += DELTA_MOVE_X*dir_x;
+                x = dir_x*na3_min(dir_x*x, dir_x*dest_x);
+            }
+
+            if (y*dir_y < dest_y*dir_y) {
+                y += DELTA_MOVE_Y*dir_y;
+                y = dir_y*na3_min(dir_y*y, dir_y*dest_y);
+            }
+            yield [x, y];
+        }
+        return;
+    }
+
     game.move_in_progress.push( [
-        new Move(
+        new MoveNew(
             game.sprites.current1, 
-            dir,
-            game.sprites.current1.x + dir_col*SPT_WIDTH, 
-            game.sprites.current1.y // dest_x, dest_y
+            gen_translation_move(
+                game.sprites.current1.x,
+                game.sprites.current1.y,
+                game.sprites.current1.x + dir_col*SPT_WIDTH, 
+                game.sprites.current1.y
+            )
         ),
-        new Move(
+        new MoveNew(
             game.sprites.current2, 
-            dir,
-            game.sprites.current2.x + dir_col*SPT_WIDTH, 
-            game.sprites.current2.y // dest_x, dest_y
+            gen_translation_move(
+                game.sprites.current2.x,
+                game.sprites.current2.y,
+                game.sprites.current2.x + dir_col*SPT_WIDTH, 
+                game.sprites.current2.y
+            )
         )
-    ]);
+    ] );
     
     game.base_col += dir_col;
     enter_state(STATE_MOVING_LR);
@@ -924,6 +1023,22 @@ function handle_arrow_up()
     [dir1, new_row_delta1, new_col_delta1] = rotate_elt(game.row_delta1, game.col_delta1);
     [dir2, new_row_delta2, new_col_delta2] = rotate_elt(game.row_delta2, game.col_delta2);
 
+    /*
+    let old_game_base_col = game.base_col;
+    if (game.base_col === -1) {
+        // if we went too far on the left, we need to move the base to
+        // dispaly the sprites within the board
+        game.base_col = 0;
+    }  
+
+    if (game.base_col === NB_COLS) {
+        // if we went too far on the right, we need to move the base to
+        // dispaly the sprites within the board
+        game.base_col = NB_COLS-1;
+    }  
+    let delta_base_col = game.base_col - old_game_base_col;
+    **/
+
     game.move_in_progress.push( [
         new Move(
             game.sprites.current1, 
@@ -940,8 +1055,8 @@ function handle_arrow_up()
     ]);
 
     // update game information
-    [game.row_delta1, game.col_delta1] = [new_row_delta1, new_col_delta1];
-    [game.row_delta2, game.col_delta2] = [new_row_delta2, new_col_delta2];
+    [game.row_delta1, game.col_delta1] = [new_row_delta1, new_col_delta1 + delta_base_col];
+    [game.row_delta2, game.col_delta2] = [new_row_delta2, new_col_delta2 + delta_base_col];
 
     enter_state(STATE_ROTATING);
 }
