@@ -249,7 +249,8 @@ export function na3_start() {
 /** Close the loop, unload all textures */
 export function na3_end() {
     console.log('The end already ?');
-    for (let sp in game.sprites) {
+    for (let k in game.sprites) {
+        let sp = game.sprites[k];
         if (sp !== undefined && sp !== null) {
             sp.destroy();
         }
@@ -571,6 +572,16 @@ function Transmutation(new_elem_row, new_elem_col, new_elem_val, old_elem_pos)
     this.old_elem_sprites = [];
 }
 
+// return true if the array contains any other value than value itself
+function contains_other_than(array, value)
+{
+    for (let v of array) {
+        if (v !== value) {
+            return true;
+        }
+    }
+    return false;
+}
 
 function perform_alchemy()
 {
@@ -581,6 +592,14 @@ function perform_alchemy()
 
     // if no operations, generate new element
     if (transmutations_desc.length === 0) {
+        // all transumtations done, check if lost ?
+        if (contains_other_than(game.board[TOP_ROW+2], -1)
+            || contains_other_than(game.board[TOP_ROW+1], -1)) {
+            alert('You lost!');
+            na3_end();
+            return;
+        }
+
         enter_state(STATE_NEW_ELEM);
         return;
     }
