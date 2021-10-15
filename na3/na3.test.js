@@ -78,7 +78,8 @@ function extract_two_boards_from_string(two_boards_desc)
         board1.push(b1_board_line);
         board2.push(b2_board_line);
     }
-
+    board1.reverse();
+    board2.reverse();
     return [board1, board2];
 }
 
@@ -97,9 +98,9 @@ test('find_new_elt_position', () => {
     expect(na3_shared_utils.find_new_elt_position([[0,0]])).toStrictEqual([0,0]);
     expect(na3_shared_utils.find_new_elt_position([[0,0], [0, 1]])).toStrictEqual([0,0]);
     expect(na3_shared_utils.find_new_elt_position([[0,0], [0, 1]])).toStrictEqual([0,0]);
-    expect(na3_shared_utils.find_new_elt_position([[0,0], [0, 1], [1,0]])).toStrictEqual([1,0]);
-    expect(na3_shared_utils.find_new_elt_position([[0,0], [0, 1], [1,1]])).toStrictEqual([1,1]);
-    expect(na3_shared_utils.find_new_elt_position([[0,0], [1, 0], [1,1]])).toStrictEqual([1,0]);
+    expect(na3_shared_utils.find_new_elt_position([[1,0], [1, 1], [0,0]])).toStrictEqual([0,0]);
+    expect(na3_shared_utils.find_new_elt_position([[1,0], [1, 1], [0,1]])).toStrictEqual([0,1]);
+    expect(na3_shared_utils.find_new_elt_position([[1,0], [0, 0], [0,1]])).toStrictEqual([0,0]);
 });
 
 test('detect_falls', () => {
@@ -111,7 +112,7 @@ test('detect_falls', () => {
         [-1, -1, -1, -1, -1, -1],
         [-1, -1, -1, -1, -1, -1],
         [-1, -1, -1, -1, -1, -1],
-    ])).toStrictEqual([]);
+    ].reverse())).toStrictEqual([]);
 
     expect(na3_shared_utils.detect_falls([
         [-1, -1, -1, -1, -1, -1],
@@ -121,7 +122,7 @@ test('detect_falls', () => {
         [-1, -1, -1, -1, -1, -1],
         [-1, -1, -1, -1, -1, -1],
         [ 0, -1, -1, -1, -1, -1],
-    ])).toStrictEqual([]);
+    ].reverse())).toStrictEqual([]);
 
     expect(na3_shared_utils.detect_falls([
         [-1, -1, -1, -1, -1, -1],
@@ -131,8 +132,8 @@ test('detect_falls', () => {
         [-1, -1, -1, -1, -1, -1],
         [ 0, -1, -1, -1, -1, -1],
         [-1, -1, -1, -1, -1, -1],
-    ])).toStrictEqual([
-        [5, 0, 6]
+    ].reverse())).toStrictEqual([
+        [1, 0, 0]
     ]);
 
     expect(na3_shared_utils.detect_falls([
@@ -143,9 +144,9 @@ test('detect_falls', () => {
         [ 0, -1, -1, -1, -1, -1],
         [ 0, -1, -1, -1, -1, -1],
         [-1, -1, -1, -1, -1, -1],
-    ])).toStrictEqual([
-        [5, 0, 6],
-        [4, 0, 5] 
+    ].reverse())).toStrictEqual([
+        [1, 0, 0],
+        [2, 0, 1] 
     ]);
 
     expect(na3_shared_utils.detect_falls([
@@ -156,9 +157,9 @@ test('detect_falls', () => {
         [-1,  2, -1, -1, -1, -1],
         [-1, -1, -1, -1, -1, -1],
         [-1,  2, -1, -1, -1, -1],
-    ])).toStrictEqual([
-        [4, 1, 5],
-        [2, 1, 4]
+    ].reverse())).toStrictEqual([
+        [2, 1, 1],
+        [4, 1, 2]
     ]);
 
     expect(na3_shared_utils.detect_falls([
@@ -169,8 +170,8 @@ test('detect_falls', () => {
         [-1, -1, -1, -1, -1, -1],
         [-1, -1, -1, -1, -1, -1],
         [-1, -1, -1, -1, -1, -1],
-    ])).toStrictEqual([
-        [0, 1, 6],
+    ].reverse())).toStrictEqual([
+        [6, 1, 0],
     ]);
 
 });
