@@ -127,7 +127,7 @@ let game = {
     cur_max_elt: 2,
 
     // set to: down, up, left, right when a key is pressed, nothing else
-    keypressed: '',
+    keypressed: [],
 
     // set to true when accepting key presses
     accept_key_press: false,
@@ -275,9 +275,13 @@ function enter_state(state)
 
     switch (state) {
         case STATE_IDLE: 
+        case STATE_LANDING:
+        case STATE_MOVING_LR:
+        case STATE_ROTATING:
             game.accept_key_press = true;
             break;
         default:
+            game.keypressed = [];
             game.accept_key_press = false;
             break;
     }
@@ -732,8 +736,8 @@ function na3_onkeydown(e)
         return;
     }
 
-    if (game.keypressed === '' && game.accept_key_press) {
-        game.keypressed = k;
+    if (game.accept_key_press) {
+        game.keypressed.push(k);
         console.log('Registering keypress: ' + k);
     }
 }
@@ -742,40 +746,49 @@ function na3_onkeydown(e)
 /** Called during state idle to handle the key pressed by the user: left, right, down */
 function handle_game_key()
 {
-    if (game.keypressed === '') {
+    if (game.keypressed.length === 0) {
+        return;
+    }
+
+    let k = game.keypressed.pop();
+
+    if (k === '') {
         // nothing to do if nothing happens
         return;
     }
 
-    if (game.keypressed === DIR_DOWN) {
+    if (k === DIR_DOWN) {
         handle_arrow_down();
         return;
     }
 
-    if (game.keypressed === DIR_UP) {
+    if (k === DIR_UP) {
         handle_arrow_up();
         return;
     }
 
-    handle_arrow_left_right();
+    if (k === DIR_LEFT || k === DIR_RIGHT) {
+        handle_arrow_left_right(k);
+        return;
+    }
+
+    throw new Error(`Invalid key pressed: ${k}`);
+
 }
 
 
-function handle_arrow_left_right()
+function handle_arrow_left_right(k)
 {
     let dir_dict = {    // row, col
         DIR_LEFT:    -1,
         DIR_RIGHT:    1,
     };
 
-    let dir_col = dir_dict[game.keypressed];
+    let dir_col = dir_dict[k];
     if (dir_col === undefined) {
-        console.error('Unknown key pressed: ', game.keypressed);
+        console.error('Unknown key pressed: ', k);
 
     }
-
-    // erase the key pressed now, to avoid re-entering here
-    game.keypressed = '';
 
     // check if move is possible
     let new_col1 = game.base_col + game.col_delta1 + dir_col;
@@ -814,7 +827,6 @@ function handle_arrow_left_right()
 
 function handle_arrow_down()
 {
-    game.keypressed = '';
     let col1 = game.base_col + game.col_delta1, col2 = game.base_col + game.col_delta2;
     let target_row1 = column_next_row(game.board, col1);
     let target_row2 = column_next_row(game.board, col2);
@@ -903,8 +915,6 @@ function rotate_elt(row_delta, col_delta)
 
 function handle_arrow_up()
 {
-    game.keypressed = '';
-
     let new_row_delta1, new_col_delta1, new_row_delta2, new_col_delta2;
 
     [new_row_delta1, new_col_delta1] = rotate_elt(game.row_delta1, game.col_delta1);
