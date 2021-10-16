@@ -602,7 +602,11 @@ function perform_alchemy()
 
         game.transmutation_in_progress.push(trans);
 
-        game.cur_max_elt = na3_max(game.cur_max_elt, trans.new_elem_val);
+        let new_max_elt =  na3_max(game.cur_max_elt, trans.new_elem_val);
+        if (new_max_elt > game.cur_max_elt) {
+            new_element_discovered(new_max_elt);
+        }
+        game.cur_max_elt = new_max_elt;
     });
 
     game.board = na3_shared_utils.apply_transmutations(game.board, transmutations_desc);
@@ -639,6 +643,20 @@ function perform_transmutation()
         start_alchemy_fall();
     }
 }
+
+// Update the HTML to display the new element in the transmutation chain
+function new_element_discovered(new_max_elt)
+{
+    let elt_id_target = `#ch_${new_max_elt}`;
+    let html_elt = document.querySelector(elt_id_target);
+    if (html_elt === null) {
+        console.error('Could not find new element:' + elt_id_target);
+        return;
+    }
+
+    html_elt.src = ALL_ELT_NAMES[new_max_elt];
+}
+
 
 function start_alchemy_fall()
 {
