@@ -1,5 +1,3 @@
-'use strict';
-
 /** The implementation in this file is shared between backend and frontend
  * - backend: node, to run the unit-tests, to prevent cheating
  * - browser: to play
@@ -9,7 +7,7 @@
  * 
  * Used to find the new element position in a transmutation
  */
-function find_new_elt_position(cluster)
+function find_new_elt_position(cluster: [number, number][]): [number, number]
 {
     let copy_cluster = cluster.slice();
     copy_cluster.sort((a, b) => {
@@ -29,12 +27,13 @@ function find_new_elt_position(cluster)
  * - old_elements is a list of [row, col]
  * - new_element  is [row, col, element]
  */
-function calc_transmutations(input, nb_elt) {
-    let transmutations = [];
+function calc_transmutations(input: number[][], nb_elt: number): [[number, number][],[number, number, number]][]
+{
+    let transmutations: [[number, number][],[number, number, number]][] = [];
 
     // flood algorithm
-    let clusters = [];
-    let in_cluster = [];
+    let clusters: [number, number][][] = [];
+    let in_cluster: string[]  = [];
 
     for (let row = 0; row < input.length; row++) {
         for (let col = 0; col < input[row].length; col++) {
@@ -52,8 +51,8 @@ function calc_transmutations(input, nb_elt) {
             clusters.push([]);
 
             // our exporation stack
-            let to_process = [[row, col]];
-            let visited = [];
+            let to_process: [number, number][] = [[row, col]];
+            let visited: string[] = [];
 
             // explore
             while (to_process.length) {
@@ -107,7 +106,7 @@ function calc_transmutations(input, nb_elt) {
 
 
 /** Apply a given a list of transmutation to a board and return the updated board */
-function apply_transmutations(input, transmutations)
+function apply_transmutations(input: number[][], transmutations: []): number[][]
 {
     // console.log(input, transmutations);
     let output = Array.from(input, (line) => line.slice());

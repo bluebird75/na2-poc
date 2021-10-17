@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": true
+  },
+  "files": [
+    "na3-implem.ts",
+    "na3_shared_utils.ts",
+    "na3.test.ts"
+  ]
+}
