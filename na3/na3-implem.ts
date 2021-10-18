@@ -1,4 +1,4 @@
-import * as PIXi from './pixi.js';
+import * as PIXI from 'pixi.js';
 
 const PLAY_WIDTH = 300;
 const PLAY_HEIGHT = 356;
@@ -108,8 +108,8 @@ state:
 
 ************************************/
 
-let game = { 
-    // current state of the game: STATE_xxx
+class Game = { 
+    // current state of the Game: STATE_xxx
     state: GameStates.STATE_UNITIALIZED,
 
     // current base position of our sprite pair in the top row
@@ -161,7 +161,7 @@ let game = {
     // sprites[ 'current2' ] -> sprite manipulated by the cursor
     // sprites[ 'next1' ] -> next sprite to appear
     // sprites[ 'next2' ] -> next sprite to appear
-    sprites: {},
+    sprites: < Map<string, PIXI.Sprite> > new Map(),
 };
 
 
@@ -225,6 +225,9 @@ export function na3_start(): void {
     // our main drawing area
     assets.app = new PIXI.Application({ width: PLAY_WIDTH, height: PLAY_HEIGHT });
     let placeholder = document.getElementById("na3-implem-host");
+    if (placeholder === null) {
+        throw new Error('Could not locate PIXI placeholder');
+    }
     placeholder.appendChild(assets.app.view);
     placeholder.setAttribute('tabindex', '0');
     placeholder.onkeydown = (e) => na3_onkeydown(e);
@@ -243,7 +246,7 @@ export function na3_start(): void {
     });
 
     for (let i=0; i<NB_ROWS+2; i++) {
-        game.board.push( [-1, -1, -1, -1, -1, -1] );
+        Game.board.push( [-1, -1, -1, -1, -1, -1] );
     }
 
     generate_next_element_pair();
@@ -255,15 +258,15 @@ export function na3_start(): void {
 /** Close the loop, unload all textures */
 export function na3_end() {
     console.log('The end already ?');
-    for (let k in game.sprites) {
-        let sp = game.sprites[k];
+    for (let k of Game.sprites) {
+        let sp = Game.sprites.get(k);
         if (sp !== undefined && sp !== null) {
             sp.destroy();
         }
     }
     assets.textures.forEach((t) => { t.destroy(); });
     assets.app.destroy();
-    game = null;
+    Game = null;
 }
 
 
@@ -277,18 +280,18 @@ export function na3_end() {
 function enter_state(state: GameStates): void
 {
     console.log('Entering state ', state);
-    game.state = state;
+    Game.state = state;
 
     switch (state) {
         case GameStates.STATE_IDLE: 
         case GameStates.STATE_LANDING:
         case GameStates.STATE_MOVING_LR:
         case GameStates.STATE_ROTATING:
-            game.accept_key_press = true;
+            Game.accept_key_press = true;
             break;
         default:
-            game.keypressed = [];
-            game.accept_key_press = false;
+            Game.keypressed = [];
+            Game.accept_key_press = false;
             break;
     }
 }
@@ -297,7 +300,7 @@ function enter_state(state: GameStates): void
 function game_loop(): void
 {
 
-    switch (game.state)
+    switch (Game.state)
     {
         case GameStates.STATE_NEW_ELEM:
             land_new_element_pair();
@@ -360,49 +363,49 @@ function generate_random_elt(cur_max_elt: number, elt_gen_weight: number[]): num
 // Generate next element sprite
 function generate_next_element_pair(): void
 {
-    game.next_elt1 = generate_random_elt(game.cur_max_elt, ELT_GEN_WEIGHT);
-    game.next_elt2 = generate_random_elt(game.cur_max_elt, ELT_GEN_WEIGHT);
-    game.sprites.next1 = new PIXI.Sprite(assets.textures[game.next_elt1]);
-    game.sprites.next2 = new PIXI.Sprite(assets.textures[game.next_elt2]);
-    assets.app.stage.addChild(game.sprites.next1);
-    assets.app.stage.addChild(game.sprites.next2);
-    game.sprites.next1.x = NEXT_ELT_X1;
-    game.sprites.next2.x = NEXT_ELT_X2;
-    game.sprites.next1.y = NEXT_ELT_Y;
-    game.sprites.next2.y = NEXT_ELT_Y;
+    Game.next_elt1 = generate_random_elt(Game.cur_max_elt, ELT_GEN_WEIGHT);
+    Game.next_elt2 = generate_random_elt(Game.cur_max_elt, ELT_GEN_WEIGHT);
+    Game.sprites.next1 = new PIXI.Sprite(assets.textures[Game.next_elt1]);
+    Game.sprites.next2 = new PIXI.Sprite(assets.textures[Game.next_elt2]);
+    assets.app.stage.addChild(Game.sprites.next1);
+    assets.app.stage.addChild(Game.sprites.next2);
+    Game.sprites.next1.x = NEXT_ELT_X1;
+    Game.sprites.next2.x = NEXT_ELT_X2;
+    Game.sprites.next1.y = NEXT_ELT_Y;
+    Game.sprites.next2.y = NEXT_ELT_Y;
 }
 
 // Place a new element on the landing row and generate next element
 function land_new_element_pair()
 {
-    game.sprites.current1 = game.sprites.next1;
-    game.sprites.current2 = game.sprites.next2;
-    game.elt1 = game.next_elt1;
-    game.elt2 = game.next_elt2;
+    Game.sprites.current1 = Game.sprites.next1;
+    Game.sprites.current2 = Game.sprites.next2;
+    Game.elt1 = Game.next_elt1;
+    Game.elt2 = Game.next_elt2;
     generate_next_element_pair();
 
-    game.base_col = DEFAULT_COL;
-    game.col_delta1 = 0;
-    game.col_delta2 = 1;
-    game.row_delta1 = 0;
-    game.row_delta2 = 0;
+    Game.base_col = DEFAULT_COL;
+    Game.col_delta1 = 0;
+    Game.col_delta2 = 1;
+    Game.row_delta1 = 0;
+    Game.row_delta2 = 0;
 
     // init sprite position
-    game.sprites.current1.x = sprite_x_from_col(game.base_col + game.col_delta1);
-    game.sprites.current2.x = sprite_x_from_col(game.base_col + game.col_delta2);
-    game.sprites.current1.y = -SPT_HEIGHT;
-    game.sprites.current2.y = -SPT_HEIGHT;
+    Game.sprites.current1.x = sprite_x_from_col(Game.base_col + Game.col_delta1);
+    Game.sprites.current2.x = sprite_x_from_col(Game.base_col + Game.col_delta2);
+    Game.sprites.current1.y = -SPT_HEIGHT;
+    Game.sprites.current2.y = -SPT_HEIGHT;
 
     // Move(sprite, dir, dest_x, dest_y, done = null) {
-    game.move_in_progress.push( [
+    Game.move_in_progress.push( [
         new Move(
-            game.sprites.current1,
-            game.sprites.current1.x, 
+            Game.sprites.current1,
+            Game.sprites.current1.x, 
             TOP_ROW_Y
         ),
         new Move(
-            game.sprites.current2,
-            game.sprites.current2.x, 
+            Game.sprites.current2,
+            Game.sprites.current2.x, 
             TOP_ROW_Y
         )
     ]);
@@ -484,8 +487,8 @@ function handle_moving(): void
 {
     let move_group_to_remove: number[] = [];
 
-    for (let i=0; i<game.move_in_progress.length; i++) {
-        let move_group = game.move_in_progress[i];
+    for (let i=0; i<Game.move_in_progress.length; i++) {
+        let move_group = Game.move_in_progress[i];
         let group_goal_reached = 0;
 
         for (let j=0; j<move_group.length; j++) {
@@ -510,12 +513,12 @@ function handle_moving(): void
     // we must remove the indices in backward order, to avoid them
     // changing in the middle
     for (let i=move_group_to_remove.length-1; i>=0 ;i--) {
-        game.move_in_progress.splice(move_group_to_remove[i], 1);
+        Game.move_in_progress.splice(move_group_to_remove[i], 1);
     }
 
     // if all moves are completed, we can begin our next step
-    if (game.move_in_progress.length === 0) {
-        switch (game.state) {
+    if (Game.move_in_progress.length === 0) {
+        switch (Game.state) {
             case GameStates.STATE_MOVING_DOWN:
             case GameStates.STATE_ALCHEMY_FALL:
                 enter_state(GameStates.STATE_ALCHEMY);
@@ -584,15 +587,15 @@ function contains_other_than(array: number[], value: number): boolean
 function perform_alchemy(): void
 {
     // analyse board for alchemic operations
-    let transmutations_desc = na3_shared_utils.calc_transmutations(game.board, NB_ELT);
+    let transmutations_desc = na3_shared_utils.calc_transmutations(Game.board, NB_ELT);
 
-    game.transmutation_in_progress: Transmutation[] = [];
+    Game.transmutation_in_progress: Transmutation[] = [];
 
     // if no operations, generate new element
     if (transmutations_desc.length === 0) {
         // all transumtations done, check if lost ?
-        if (contains_other_than(game.board[TOP_ROW+2], -1)
-            || contains_other_than(game.board[TOP_ROW+1], -1)) {
+        if (contains_other_than(Game.board[TOP_ROW+2], -1)
+            || contains_other_than(Game.board[TOP_ROW+1], -1)) {
             alert('You lost!');
             na3_end();
             return;
@@ -612,8 +615,8 @@ function perform_alchemy(): void
 
         // remove the old sprites from the sprite map
         trans.old_elem_pos.forEach((pos) => {
-            trans.old_elem_sprites.push(game.sprites[ pos ]);
-            delete game.sprites[ pos ];
+            trans.old_elem_sprites.push(Game.sprites[ pos ]);
+            delete Game.sprites[ pos ];
         });
 
         // create the new sprite
@@ -622,25 +625,25 @@ function perform_alchemy(): void
         assets.app.stage.addChild(trans.new_elem_sprite);
         trans.new_elem_sprite.y = sprite_y_from_row(trans.new_elem_row);
         trans.new_elem_sprite.x = sprite_x_from_col(trans.new_elem_col);
-        game.sprites[ [trans.new_elem_row, trans.new_elem_col] ] = trans.new_elem_sprite;
+        Game.sprites[ [trans.new_elem_row, trans.new_elem_col] ] = trans.new_elem_sprite;
 
-        game.transmutation_in_progress.push(trans);
+        Game.transmutation_in_progress.push(trans);
 
-        let new_max_elt =  na3_max(game.cur_max_elt, trans.new_elem_val);
-        if (new_max_elt > game.cur_max_elt) {
+        let new_max_elt =  na3_max(Game.cur_max_elt, trans.new_elem_val);
+        if (new_max_elt > Game.cur_max_elt) {
             new_element_discovered(new_max_elt);
         }
-        game.cur_max_elt = new_max_elt;
+        Game.cur_max_elt = new_max_elt;
     });
 
-    game.board = na3_shared_utils.apply_transmutations(game.board, transmutations_desc);
+    Game.board = na3_shared_utils.apply_transmutations(Game.board, transmutations_desc);
     enter_state(GameStates.STATE_TRANSMUTATION);
 }
 
 function perform_transmutation(): void
 {
     let trans_to_remove = [];
-    game.transmutation_in_progress.forEach((trans, i) => {
+    Game.transmutation_in_progress.forEach((trans, i) => {
 
         // transmutation is done ?
         if (trans.new_elem_alpha === 1) {
@@ -661,9 +664,9 @@ function perform_transmutation(): void
         }
     });
 
-    if (trans_to_remove.length === game.transmutation_in_progress.length) {
+    if (trans_to_remove.length === Game.transmutation_in_progress.length) {
         // we are really done with transmutation
-        game.transmutation_in_progress = [];
+        Game.transmutation_in_progress = [];
         start_alchemy_fall();
     }
 }
@@ -686,13 +689,13 @@ function start_alchemy_fall()
 {
     enter_state(GameStates.STATE_ALCHEMY_FALL);
     // identify holes in the map
-    let falls: [number, number, number][] = na3_shared_utils.detect_falls(game.board);
+    let falls: [number, number, number][] = na3_shared_utils.detect_falls(Game.board);
     falls.forEach((fall) => {
         let [row, col, target_row] = fall;
-        let sp = game.sprites[ [row, col] ];
+        let sp = Game.sprites[ [row, col] ];
 
         // register move
-        game.move_in_progress.push( [
+        Game.move_in_progress.push( [
             new Move(
                 sp, 
                 sp.x, 
@@ -701,14 +704,14 @@ function start_alchemy_fall()
         ]);
 
         // update our map of sprite positions
-        delete game.sprites[ [row,col] ];
-        game.sprites[ [target_row, col] ] = sp;
+        delete Game.sprites[ [row,col] ];
+        Game.sprites[ [target_row, col] ] = sp;
 
         // update the board
         // note: because falls are recorded from bottom to top
         //       the overlapping of new positiosn is correctly handled
-        game.board[target_row][col] = game.board[row][col];
-        game.board[row][col] = -1;
+        Game.board[target_row][col] = Game.board[row][col];
+        Game.board[row][col] = -1;
     });
 }
 
@@ -756,8 +759,8 @@ function na3_onkeydown(e: KeyboardEvent): void
         return;
     }
 
-    if (game.accept_key_press) {
-        game.keypressed.push(k);
+    if (Game.accept_key_press) {
+        Game.keypressed.push(k);
         console.log('Registering keypress: ' + k);
     }
 }
@@ -766,11 +769,11 @@ function na3_onkeydown(e: KeyboardEvent): void
 /** Called during state idle to handle the key pressed by the user: left, right, down */
 function handle_game_key(): void
 {
-    if (game.keypressed.length === 0) {
+    if (Game.keypressed.length === 0) {
         return;
     }
 
-    let k = game.keypressed.pop();
+    let k = Game.keypressed.pop();
 
     switch(k) {
         case Direction.DOWN:
@@ -802,8 +805,8 @@ function handle_arrow_left_right(k: Direction): void
     }
 
     // check if move is possible
-    let new_col1 = game.base_col + game.col_delta1 + dir_col;
-    let new_col2 = game.base_col + game.col_delta2 + dir_col;
+    let new_col1 = Game.base_col + Game.col_delta1 + dir_col;
+    let new_col2 = Game.base_col + Game.col_delta2 + dir_col;
 
     if ( (new_col1 >= NB_COLS) 
          || (new_col2 >= NB_COLS)
@@ -814,35 +817,35 @@ function handle_arrow_left_right(k: Direction): void
         return;
     }
 
-    game.move_in_progress.push( [
+    Game.move_in_progress.push( [
         new Move(
-            game.sprites.current1, 
-            game.sprites.current1.x + dir_col*SPT_WIDTH, 
-            game.sprites.current1.y
+            Game.sprites.current1, 
+            Game.sprites.current1.x + dir_col*SPT_WIDTH, 
+            Game.sprites.current1.y
         ),
         new Move(
-            game.sprites.current2, 
-            game.sprites.current2.x + dir_col*SPT_WIDTH, 
-            game.sprites.current2.y
+            Game.sprites.current2, 
+            Game.sprites.current2.x + dir_col*SPT_WIDTH, 
+            Game.sprites.current2.y
         )
     ] );
     
-    game.base_col += dir_col;
+    Game.base_col += dir_col;
     enter_state(GameStates.STATE_MOVING_LR);
 }
 
 
 function handle_arrow_down(): void
 {
-    let col1 = game.base_col + game.col_delta1, col2 = game.base_col + game.col_delta2;
-    let target_row1 = column_next_row(game.board, col1);
-    let target_row2 = column_next_row(game.board, col2);
+    let col1 = Game.base_col + Game.col_delta1, col2 = Game.base_col + Game.col_delta2;
+    let target_row1 = column_next_row(Game.board, col1);
+    let target_row2 = column_next_row(Game.board, col2);
 
     // one element above the other
     if (col1 === col2) {
         // both elemnts are on the same column, so target_row is identical
         // this needs to be adjusted
-        if (game.row_delta2 > game.row_delta1) {
+        if (Game.row_delta2 > Game.row_delta1) {
             target_row2 += 1;
         } else {
             target_row1 += 1;
@@ -853,22 +856,22 @@ function handle_arrow_down(): void
         na3_end();
         throw new Error(`Invalid row destionation: ${target_row1} and ${target_row2}`);
     } else {
-        game.board[target_row1][col1] = game.elt1;
-        game.board[target_row2][col2] = game.elt2;
-        game.sprites[ [target_row1, col1] ] = game.sprites.current1;
-        game.sprites[ [target_row2, col2] ] = game.sprites.current2;
+        Game.board[target_row1][col1] = Game.elt1;
+        Game.board[target_row2][col2] = Game.elt2;
+        Game.sprites[ [target_row1, col1] ] = Game.sprites.current1;
+        Game.sprites[ [target_row2, col2] ] = Game.sprites.current2;
     }
 
 
-    game.move_in_progress.push( [
+    Game.move_in_progress.push( [
         new Move(
-            game.sprites.current1, 
-            game.sprites.current1.x, 
+            Game.sprites.current1, 
+            Game.sprites.current1.x, 
             sprite_y_from_row(target_row1)
         ),
         new Move(
-            game.sprites.current2, 
-            game.sprites.current2.x, 
+            Game.sprites.current2, 
+            Game.sprites.current2.x, 
             sprite_y_from_row(target_row2)
         )
     ]);
@@ -924,39 +927,39 @@ function handle_arrow_up(): void
 {
     let new_row_delta1: 0 | 1, new_col_delta1: 0 | 1, new_row_delta2: 0 | 1, new_col_delta2: 0 | 1;
 
-    [new_row_delta1, new_col_delta1] = rotate_elt(game.row_delta1, game.col_delta1);
-    [new_row_delta2, new_col_delta2] = rotate_elt(game.row_delta2, game.col_delta2);
+    [new_row_delta1, new_col_delta1] = rotate_elt(Game.row_delta1, Game.col_delta1);
+    [new_row_delta2, new_col_delta2] = rotate_elt(Game.row_delta2, Game.col_delta2);
 
     let delta_base_col = 0;
-    if (game.base_col === -1) {
+    if (Game.base_col === -1) {
         // if we went too far on the left, we need to move the base to
         // display the sprites within the board
         delta_base_col = 1;
     }  
 
-    if (game.base_col === NB_COLS-1) {
+    if (Game.base_col === NB_COLS-1) {
         // if we went too far on the right, we need to move the base to
         // dispaly the sprites within the board
         delta_base_col = -1;
     }  
 
-    game.move_in_progress.push( [
+    Game.move_in_progress.push( [
         new Move(
-            game.sprites.current1, 
-            game.sprites.current1.x + (new_col_delta1 - game.col_delta1 + delta_base_col)*SPT_WIDTH, 
-            game.sprites.current1.y - (new_row_delta1 - game.row_delta1)*SPT_HEIGHT 
+            Game.sprites.current1, 
+            Game.sprites.current1.x + (new_col_delta1 - Game.col_delta1 + delta_base_col)*SPT_WIDTH, 
+            Game.sprites.current1.y - (new_row_delta1 - Game.row_delta1)*SPT_HEIGHT 
         ),
         new Move(
-            game.sprites.current2, 
-            game.sprites.current2.x + (new_col_delta2 - game.col_delta2 + delta_base_col)*SPT_WIDTH, 
-            game.sprites.current2.y - (new_row_delta2 - game.row_delta2)*SPT_HEIGHT 
+            Game.sprites.current2, 
+            Game.sprites.current2.x + (new_col_delta2 - Game.col_delta2 + delta_base_col)*SPT_WIDTH, 
+            Game.sprites.current2.y - (new_row_delta2 - Game.row_delta2)*SPT_HEIGHT 
         )
     ]);
 
-    // update game information
-    [game.row_delta1, game.col_delta1] = [new_row_delta1, new_col_delta1];
-    [game.row_delta2, game.col_delta2] = [new_row_delta2, new_col_delta2];
-    game.base_col += delta_base_col;
+    // update Game information
+    [Game.row_delta1, Game.col_delta1] = [new_row_delta1, new_col_delta1];
+    [Game.row_delta2, Game.col_delta2] = [new_row_delta2, new_col_delta2];
+    Game.base_col += delta_base_col;
 
     enter_state(GameStates.STATE_ROTATING);
 }
