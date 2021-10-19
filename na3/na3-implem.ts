@@ -1,5 +1,5 @@
-import * as PIXI from 'pixi.js';
-import * as na3 from './na3_shared_utils'
+import * as PIXI from './pixi.mjs';
+import * as na3 from './na3_shared_utils.js'
 
 const PLAY_WIDTH = 300;
 const PLAY_HEIGHT = 356;

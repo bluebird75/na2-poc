@@ -2,8 +2,17 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "ES6",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "esModuleInterop" : true,
+
+    // Loaders needs this to use the more strict mini-signal types
+    "paths": {
+      "mini-signals": [
+        "node_modules/resource-loader/typings/mini-signals.d.ts"
+      ]
+    },
+    "baseUrl": "./",
+
 
     "noImplicitAny": true,
     "removeComments": false,
@@ -11,7 +20,10 @@
     "preserveConstEnums": true,
     "strictNullChecks": false,
     "strict": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "types" : [
+      "jest"
+    ]
   },
   "files": [
     "na3-implem.ts",

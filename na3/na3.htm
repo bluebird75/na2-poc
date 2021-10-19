@@ -1,11 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html style="" class=" tid_js tid_no-touch tid_draganddrop tid_websockets"><head>
-    <script defer src="pixi.js"></script>
-    <script defer src="na3_shared_utils.js" type-"module"></script>
+    <script defer src="pixi.mjs" type="module"></script>
+    <script defer src="na3_shared_utils.js" type="module"></script>
     <script defer src="na3-implem.js" type="module"></script>
 	<script type="module">
 		import * as na3 from './na3-implem.js';
 		window.onload = na3.na3_start;
+		window.na3 = na3;
 	</script>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="chrome=1">

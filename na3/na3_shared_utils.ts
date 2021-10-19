@@ -43,7 +43,7 @@ export function calc_transmutations(input: Board, nb_elt: number): Transmutation
     for (let row = 0; row < input.length; row++) {
         for (let col = 0; col < input[row].length; col++) {
             // find next cluster start, not visited
-            if (in_cluster.includes([row, col].toString())) { continue; }
+            if (in_cluster.indexOf([row, col].toString()) !== -1) { continue; }
 
             // we have found an element not already in a cluster
             let elt = input[row][col];
@@ -67,7 +67,7 @@ export function calc_transmutations(input: Board, nb_elt: number): Transmutation
                     throw new Error('Should not happen!');
                 }
 
-                if (visited.includes(pos.toString())) { continue; }
+                if (visited.indexOf(pos.toString()) !== -1) { continue; }
                 visited.push(pos.toString());
 
                 let [r, c] = pos;
