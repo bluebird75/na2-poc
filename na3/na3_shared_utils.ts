@@ -3,11 +3,14 @@
  * - browser: to play
  */
 
+export type RowCol = [number, number];
+export type Board = number[][];
+
 /** In a list of [row, col], find the lowest, left-est position.
  * 
  * Used to find the new element position in a transmutation
  */
-function find_new_elt_position(cluster: [number, number][]): [number, number]
+export function find_new_elt_position(cluster: RowCol[]): RowCol
 {
     let copy_cluster = cluster.slice();
     copy_cluster.sort((a, b) => {
@@ -25,14 +28,16 @@ function find_new_elt_position(cluster: [number, number][]): [number, number]
  *
  * A transmutation is: [ old_elements, new_element ]
  * - old_elements is a list of [row, col]
- * - new_element  is [row, col, element]
+ * - new_element  is [row, col, element_value]
  */
-function calc_transmutations(input: number[][], nb_elt: number): [[number, number][],[number, number, number]][]
+export type TransmutationDesc = [RowCol[], [number, number, number]];
+
+export function calc_transmutations(input: Board, nb_elt: number): TransmutationDesc[]
 {
-    let transmutations: [[number, number][],[number, number, number]][] = [];
+    let transmutations: TransmutationDesc[] = [];
 
     // flood algorithm
-    let clusters: [number, number][][] = [];
+    let clusters: RowCol[][] = [];
     let in_cluster: string[]  = [];
 
     for (let row = 0; row < input.length; row++) {
@@ -51,12 +56,17 @@ function calc_transmutations(input: number[][], nb_elt: number): [[number, numbe
             clusters.push([]);
 
             // our exporation stack
-            let to_process: [number, number][] = [[row, col]];
+            let to_process: RowCol[] = [[row, col]];
             let visited: string[] = [];
 
             // explore
             while (to_process.length) {
-                let pos = to_process.pop();
+                let pos: RowCol | undefined = to_process.pop();
+                if (pos === undefined) {
+                    // should not happen because length would be 0
+                    throw new Error('Should not happen!');
+                }
+
                 if (visited.includes(pos.toString())) { continue; }
                 visited.push(pos.toString());
 
@@ -106,7 +116,7 @@ function calc_transmutations(input: number[][], nb_elt: number): [[number, numbe
 
 
 /** Apply a given a list of transmutation to a board and return the updated board */
-function apply_transmutations(input: number[][], transmutations: []): number[][]
+export function apply_transmutations(input: Board, transmutations: TransmutationDesc[]): Board
 {
     // console.log(input, transmutations);
     let output = Array.from(input, (line) => line.slice());
@@ -123,9 +133,9 @@ function apply_transmutations(input: number[][], transmutations: []): number[][]
  * 
  * Return: list of [src_row, src_col, dest_row] 
  */
-function detect_falls(board)
+export function detect_falls(board: Board): [number, number, number][]
 {
-    let falls = [];
+    let falls: [number, number, number][] = [];
     for (let col=0; col<board[0].length; col++) {
         let col_holes = 0;
         for (let row=0; row<board.length; row++) {
@@ -140,38 +150,3 @@ function detect_falls(board)
     }
     return falls;
 }
-
-/****************************************************
- *   Universal Module Export
- * - works on both nodejs and the browser
- ****************************************************/
-
-/* jshint ignore: start */
-(function (root, factory) {
-    /* jshint -W117 */
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define([], factory);
-    } else if (typeof module === 'object' && module.exports) {
-        // Node. Does not work with strict CommonJS, but
-        // only CommonJS-like environments that support module.exports,
-        // like Node.
-        module.exports = factory();
-    } else {
-        // Browser globals (root is window)
-        root.na3_shared_utils = factory();
-  }
-}(typeof self !== 'undefined' ? self : this, function () {
-
-    // Just return a value to define the module export.
-    // This example returns an object, but the module
-    // can return a function as the exported value.
-    return {
-        'calc_transmutations': calc_transmutations,
-        'find_new_elt_position': find_new_elt_position,
-        'apply_transmutations': apply_transmutations,
-        'detect_falls': detect_falls
-    };
-
-}));
-/* jshint ignore: end */
